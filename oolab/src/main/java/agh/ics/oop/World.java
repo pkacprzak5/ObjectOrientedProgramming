@@ -35,9 +35,8 @@ public class World {
                 case RIGHT -> "skręca w prawo";
                 case FORWARD -> "idzie do przodu";
                 case BACKWARD -> "idzie do tyłu";
-                default -> null;
             };
-            System.out.println("Zwierzak" + message);
+            System.out.println("Zwierzak " + message);
         }
 
 
