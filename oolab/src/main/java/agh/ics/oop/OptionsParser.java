@@ -12,13 +12,12 @@ public class OptionsParser {
         int idx = 0;
         for(String arg : args) {
             switch (arg) {
-                case "f" -> directions[idx] = MoveDirection.FORWARD;
-                case "b" -> directions[idx] = MoveDirection.BACKWARD;
-                case "r" -> directions[idx] = MoveDirection.RIGHT;
-                case "l" -> directions[idx] = MoveDirection.LEFT;
+                case "f" -> directions[idx++] = MoveDirection.FORWARD;
+                case "b" -> directions[idx++] = MoveDirection.BACKWARD;
+                case "r" -> directions[idx++] = MoveDirection.RIGHT;
+                case "l" -> directions[idx++] = MoveDirection.LEFT;
                 default -> {}
             }
-            idx++;
         }
         return Arrays.copyOfRange(directions, 0, idx);
     }
