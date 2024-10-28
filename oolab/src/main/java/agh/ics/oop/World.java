@@ -1,22 +1,27 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
 public class World {
     public static void main(String[] args) {
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
+        Animal animal = new Animal();
+        System.out.println(animal);
 
-        MapDirection mapDirection = MapDirection.EAST;
-        System.out.println(mapDirection);
-        System.out.println(mapDirection.next());
-        System.out.println(mapDirection.previous());
-        System.out.println(mapDirection.toUnitVector());
+
+//        Vector2d position1 = new Vector2d(1,2);
+//        System.out.println(position1);
+//        Vector2d position2 = new Vector2d(-2,1);
+//        System.out.println(position2);
+//        System.out.println(position1.add(position2));
+//
+//        MapDirection mapDirection = MapDirection.EAST;
+//        System.out.println(mapDirection);
+//        System.out.println(mapDirection.next());
+//        System.out.println(mapDirection.previous());
+//        System.out.println(mapDirection.toUnitVector());
 
 //        System.out.println("system wystartował");
 ////        run(args);
