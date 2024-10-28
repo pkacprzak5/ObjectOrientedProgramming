@@ -3,6 +3,8 @@ package agh.ics.oop;
 import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptionsParserTest {
@@ -11,7 +13,7 @@ class OptionsParserTest {
         String[] args = new String[]{"f"};
         MoveDirection[] moveDirection = {MoveDirection.FORWARD};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -19,7 +21,7 @@ class OptionsParserTest {
         String[] args = new String[]{"b"};
         MoveDirection[] moveDirection = {MoveDirection.BACKWARD};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -27,7 +29,7 @@ class OptionsParserTest {
         String[] args = new String[]{"l"};
         MoveDirection[] moveDirection = {MoveDirection.LEFT};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -35,7 +37,7 @@ class OptionsParserTest {
         String[] args = new String[]{"r"};
         MoveDirection[] moveDirection = {MoveDirection.RIGHT};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -50,7 +52,7 @@ class OptionsParserTest {
                 MoveDirection.RIGHT
         };
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -58,7 +60,7 @@ class OptionsParserTest {
         String[] args = new String[]{"w"};
         MoveDirection[] moveDirection = {};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -66,7 +68,7 @@ class OptionsParserTest {
         String[] args = new String[]{"w", "w", "str", "test"};
         MoveDirection[] moveDirection = {};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -79,6 +81,6 @@ class OptionsParserTest {
                 MoveDirection.RIGHT
         };
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args));
+        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
 }

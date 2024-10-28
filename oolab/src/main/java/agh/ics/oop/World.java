@@ -5,10 +5,12 @@ import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
+import java.util.List;
+
 public class World {
     public static void main(String[] args) {
-        Animal animal = new Animal();
-        System.out.println(animal);
+//        Animal animal = new Animal();
+//        System.out.println(animal);
 
 
 //        Vector2d position1 = new Vector2d(1,2);
@@ -24,11 +26,11 @@ public class World {
 //        System.out.println(mapDirection.toUnitVector());
 
 //        System.out.println("system wystartował");
-////        run(args);
+//        run(args);
 //        run(OptionsParser.DirectionParser(args));
 //        System.out.println("system zakończył działanie");
     }
-    public static void run(/*String[] args*/MoveDirection[] directions) {
+    public static void run(/*String[] args*/List<MoveDirection> directions) {
         System.out.println("Start");
 //        for(int i = 0; i < args.length-1; i++) {
 //            System.out.print(args[i] + ", ");
