@@ -5,13 +5,14 @@ import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Simulation {
-    private List<Animal> animals = new ArrayList<>();
-    private List<MoveDirection> moveDirections = new ArrayList<>();
+    private LinkedList<Animal> animals = new LinkedList<>(); //ze względu na częste dodawanie do listy
+    private List<MoveDirection> moveDirections = new ArrayList<>(); //tutaj jedynie przechowujemy informacje
 
-    public List<Animal> getAnimals() {
+    public LinkedList<Animal> getAnimals() {
         return animals;
     }
 
