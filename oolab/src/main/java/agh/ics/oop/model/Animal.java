@@ -4,6 +4,14 @@ public class Animal {
     private MapDirection direction;
     private Vector2d position;
 
+    public Vector2d getPosition() {
+        return position;
+    }
+
+    public MapDirection getDirection() {
+        return direction;
+    }
+
     public Animal() {
         direction = MapDirection.NORTH;
         position = new Vector2d(2, 2);
