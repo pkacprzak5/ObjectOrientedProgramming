@@ -3,16 +3,18 @@ package agh.ics.oop;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.WorldMap;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Simulation {
-    private LinkedList<Animal> animals = new LinkedList<>(); //ze względu na częste dodawanie do listy
+    private ArrayList<Animal> animals = new ArrayList<>(); //ze względu częsty dostęp do elementów lsity
     private List<MoveDirection> moveDirections = new ArrayList<>(); //tutaj jedynie przechowujemy informacje
+    private WorldMap worldMap;
 
-    public LinkedList<Animal> getAnimals() {
+    public ArrayList<Animal> getAnimals() {
         return animals;
     }
 
@@ -20,9 +22,12 @@ public class Simulation {
         return moveDirections;
     }
 
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves) {
+    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap worldMap) {
+        this.worldMap = worldMap;
         for(Vector2d position : positions) {
-            animals.add(new Animal(position));
+            if(worldMap.place(new Animal(position))){
+                animals.add(new Animal(position));
+            }
         }
         moveDirections = moves;
     }
@@ -31,8 +36,8 @@ public class Simulation {
         int idx = 0;
         while(idx < moveDirections.size()) {
             for(int i = 0; i < animals.size(); i++) {
-                animals.get(i).move(moveDirections.get(idx));
-                System.out.println("Zwierzę " + i + ": " + animals.get(i));
+                worldMap.move(animals.get(i), moveDirections.get(idx));
+                System.out.println(worldMap);
                 idx++;
                 if(idx == moveDirections.size()) {
                     break;
