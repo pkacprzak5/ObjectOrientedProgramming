@@ -7,9 +7,17 @@ import java.util.List;
 public class World {
     public static void main(String[] args) {
         List<MoveDirection> directions = OptionsParser.DirectionParser(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        RectangularMap worldMap = new RectangularMap(5, 5);
-        Simulation simulation = new Simulation(positions, directions, worldMap);
+//        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+//        RectangularMap worldMap = new RectangularMap(5, 5);
+//        Simulation simulation = new Simulation(positions, directions, worldMap);
+//        simulation.run();
+
+        List<String> napisy = List.of(new String[]{"Ala", "ma", "sowoniedźwiedzia"});
+        TextMap map = new TextMap();
+        for(String element : napisy) {
+            map.place(element);
+        }
+        Simulation<String, Integer> simulation = new Simulation<>(napisy, directions, map);
         simulation.run();
 
 //        Animal animal = new Animal();

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Simulation {
-    private ArrayList<Animal> animals = new ArrayList<>(); //ze względu częsty dostęp do elementów lsity
-    private List<MoveDirection> moveDirections = new ArrayList<>(); //tutaj jedynie przechowujemy informacje
-    private WorldMap worldMap;
+public class Simulation<T, P> {
+    private List<T> animals; //ze względu częsty dostęp do elementów lsity
+    private List<MoveDirection> moveDirections; //tutaj jedynie przechowujemy informacje
+    private WorldMap<T, P> worldMap;
 
-    public ArrayList<Animal> getAnimals() {
+    public List<T> getAnimals() {
         return animals;
     }
 
@@ -22,11 +22,9 @@ public class Simulation {
         return moveDirections;
     }
 
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap worldMap) {
-        for(Vector2d position : positions) {
-            animals.add(new Animal(position));
-        }
-        moveDirections = moves;
+    public Simulation(List<T> animals, List<MoveDirection> moves, WorldMap<T, P> worldMap) {
+        this.animals = animals;
+        this.moveDirections = moves;
         this.worldMap = worldMap;
     }
 
