@@ -24,22 +24,29 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Pozycja: " + position.toString() + ", kierunek: " + direction.toString();
+        return switch (direction) {
+            case EAST -> "E";
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case WEST -> "W";
+        };
     }
 
     public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveValidator validator, MoveDirection direction) {
+        Vector2d newPosition = this.position;
         switch (direction) {
             case RIGHT -> this.direction = this.direction.next();
             case LEFT -> this.direction = this.direction.previous();
-            case FORWARD -> this.position = this.position.add(this.direction.toUnitVector());
-            case BACKWARD -> this.position = this.position.subtract(this.direction.toUnitVector());
+            case FORWARD -> newPosition = this.position.add(this.direction.toUnitVector());
+            case BACKWARD -> newPosition = this.position.subtract(this.direction.toUnitVector());
         }
-        this.position = this.position.upperRight(new Vector2d(0, 0));
-        this.position = this.position.lowerLeft(new Vector2d(4, 4));
+        if(validator.canMoveTo(newPosition)) {
+            this.position = newPosition;
+        }
     }
 
 }
