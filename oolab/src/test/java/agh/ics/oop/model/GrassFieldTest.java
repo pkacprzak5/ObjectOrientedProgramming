@@ -64,7 +64,7 @@ class GrassFieldTest {
 
     @Test
     public void occupation(){
-        GrassField map = new GrassField(grassNumber);
+        GrassField map = new GrassField(0);
         for (Animal animal : animals) {
             map.place(animal);
         }
