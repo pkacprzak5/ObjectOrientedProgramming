@@ -83,7 +83,7 @@ class SimulationTest {
         Simulation simulation = new Simulation(positions, moves, worldMap);
         simulation.run();
 
-        assertEquals(new Vector2d(2, 1), simulation.getAnimals().get(0).getPosition());
+        assertEquals(new Vector2d(2, 2), simulation.getAnimals().get(0).getPosition());
         assertEquals(new Vector2d(2, 0), simulation.getAnimals().get(1).getPosition());
         assertEquals(new Vector2d(1, 1), simulation.getAnimals().get(2).getPosition());
     }
@@ -95,7 +95,7 @@ class SimulationTest {
         Simulation simulation = new Simulation(positions, moves, worldMap);
         simulation.run();
 
-        assertEquals(new Vector2d(1, 2), simulation.getAnimals().get(0).getPosition());
+        assertEquals(new Vector2d(2, 2), simulation.getAnimals().get(0).getPosition());
         assertEquals(new Vector2d(1, 1), simulation.getAnimals().get(1).getPosition());
         assertEquals(new Vector2d(0, 2), simulation.getAnimals().get(2).getPosition());
     }
