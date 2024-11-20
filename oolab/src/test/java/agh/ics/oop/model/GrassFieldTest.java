@@ -18,12 +18,12 @@ class GrassFieldTest {
             new Animal(new Vector2d(2, 2))};
 
     @Test
-    public void placement(){
+    public void placement() throws IncorrectPositionException {
         GrassField map = new GrassField(grassNumber);
 
 
         for (Animal animal : animals) {
-            assertTrue(map.place(animal));
+            map.place(animal);
         }
         assertEquals(map.objectAt(new Vector2d(2, 2)), animals[0]);
         assertEquals(map.objectAt(new Vector2d(3, 4)), animals[1]);
@@ -34,18 +34,18 @@ class GrassFieldTest {
     }
 
     @Test
-    public void wrongPlacement(){
+    public void wrongPlacement() throws IncorrectPositionException {
         GrassField map = new GrassField(grassNumber);
         map.place(new Animal(new Vector2d(2, 2)));
 
         for (Animal animal : animals2) {
-            assertFalse(map.place(animal));
+            assertThrows(IncorrectPositionException.class, () -> map.place(animal));
         }
     }
 
     @Test
-    public void isObjectAt(){
-        GrassField map = new GrassField(grassNumber);
+    public void isObjectAt() throws IncorrectPositionException {
+        GrassField map = new GrassField(0);
 
         for (Animal animal : animals) {
             map.place(animal);
@@ -63,7 +63,7 @@ class GrassFieldTest {
     }
 
     @Test
-    public void occupation(){
+    public void occupation() throws IncorrectPositionException {
         GrassField map = new GrassField(0);
         for (Animal animal : animals) {
             map.place(animal);
@@ -82,7 +82,7 @@ class GrassFieldTest {
     }
 
     @Test
-    public void validation(){
+    public void validation() throws IncorrectPositionException {
         GrassField map = new GrassField(grassNumber);
         for(Animal animal : animals){
             map.place(animal);
@@ -101,7 +101,7 @@ class GrassFieldTest {
     }
 
     @Test
-    public void movement(){
+    public void movement() throws IncorrectPositionException {
         GrassField map = new GrassField(grassNumber);
 
         for (Animal animal : animals) {

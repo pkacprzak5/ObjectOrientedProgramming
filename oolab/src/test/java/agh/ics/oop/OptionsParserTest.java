@@ -58,17 +58,15 @@ class OptionsParserTest {
     @Test
     void handleInvalidValue() {
         String[] args = new String[]{"w"};
-        MoveDirection[] moveDirection = {};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
     void handleInvalidValues() {
         String[] args = new String[]{"w", "w", "str", "test"};
-        MoveDirection[] moveDirection = {};
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.DirectionParser(args).toArray());
     }
 
     @Test
@@ -81,6 +79,6 @@ class OptionsParserTest {
                 MoveDirection.RIGHT
         };
 
-        assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
+        assertThrows(IllegalArgumentException.class, () -> OptionsParser.DirectionParser(args).toArray());
     }
 }
