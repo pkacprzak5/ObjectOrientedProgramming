@@ -41,7 +41,6 @@ public class GrassField extends AbstractWorldMap{
         return super.objectAt(position) != null ? super.objectAt(position) : grasses.get(position);
     }
 
-    @Override
     public Vector2d getLowerLeft() {
         Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
         for (WorldElement element : getElements()) {
@@ -50,7 +49,6 @@ public class GrassField extends AbstractWorldMap{
         return lowerLeft;
     }
 
-    @Override
     public Vector2d getUpperRight() {
         Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
         for(WorldElement element : getElements()){
@@ -64,5 +62,10 @@ public class GrassField extends AbstractWorldMap{
         List<WorldElement> elements = super.getElements();
         elements.addAll(grasses.values());
         return elements;
+    }
+
+    @Override
+    public Boundary getCurrentBounds() {
+        return new Boundary(getLowerLeft(), getUpperRight());
     }
 }

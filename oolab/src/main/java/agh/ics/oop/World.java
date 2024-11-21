@@ -9,6 +9,8 @@ public class World {
         GrassField worldMap = new GrassField(10);
 //        RectangularMap worldMap = new RectangularMap(5, 5);
 
+        ConsoleMapDisplay observer = new ConsoleMapDisplay();
+        worldMap.addObserver(observer);
         try {
             List<MoveDirection> directions = OptionsParser.DirectionParser(args);
             List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));

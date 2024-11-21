@@ -15,18 +15,12 @@ public class RectangularMap extends AbstractWorldMap{
     }
 
     @Override
-    public Vector2d getLowerLeft() {
-        return lowerLeft;
-    }
-
-    @Override
-    public Vector2d getUpperRight() {
-        return upperRight;
+    public Boundary getCurrentBounds() {
+        return new Boundary(lowerLeft, upperRight);
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
         return super.canMoveTo(position) && position.follows(lowerLeft) && position.precedes(upperRight);
     }
-
 }

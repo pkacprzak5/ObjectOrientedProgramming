@@ -22,9 +22,6 @@ public class Simulation {
     public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap worldMap) {
         this.worldMap = worldMap;
         for(Vector2d position : positions) {
-//            if(worldMap.place(new Animal(position))){
-//                animals.add(new Animal(position));
-//            }
             try{
                 worldMap.place(new Animal(position));
                 animals.add(new Animal(position));
@@ -40,7 +37,7 @@ public class Simulation {
         while(idx < moveDirections.size()) {
             for(int i = 0; i < animals.size(); i++) {
                 worldMap.move(animals.get(i), moveDirections.get(idx));
-                System.out.println(worldMap);
+//                System.out.println(worldMap);
                 idx++;
                 if(idx == moveDirections.size()) {
                     break;
