@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
     private ArrayList<Animal> animals = new ArrayList<>(); //ze względu częsty dostęp do elementów lsity
     private List<MoveDirection> moveDirections = new ArrayList<>(); //tutaj jedynie przechowujemy informacje
     private WorldMap worldMap;
