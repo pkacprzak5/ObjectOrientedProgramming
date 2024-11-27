@@ -22,12 +22,12 @@ class RectangularMapTest {
             new Animal(new Vector2d(2, 2))};
 
     @Test
-    public void placement(){
+    public void placement() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
 
 
         for (Animal animal : animals) {
-            assertTrue(map.place(animal));
+            map.place(animal);
         }
         assertEquals(map.objectAt(new Vector2d(2, 2)), animals[0]);
         assertEquals(map.objectAt(new Vector2d(3, 4)), animals[1]);
@@ -38,17 +38,17 @@ class RectangularMapTest {
     }
 
     @Test
-    public void wrongPlacement(){
+    public void wrongPlacement() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
         map.place(new Animal(new Vector2d(2, 2)));
 
         for (Animal animal : animals2) {
-            assertFalse(map.place(animal));
+            assertThrows(IncorrectPositionException.class, () -> map.place(animal));
         }
     }
 
     @Test
-    public void isObjectAt(){
+    public void isObjectAt() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
 
         for (Animal animal : animals) {
@@ -67,7 +67,7 @@ class RectangularMapTest {
     }
 
     @Test
-    public void occupation(){
+    public void occupation() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
         for (Animal animal : animals) {
             map.place(animal);
@@ -86,7 +86,7 @@ class RectangularMapTest {
     }
 
     @Test
-    public void validation(){
+    public void validation() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
         for(Animal animal : animals){
             map.place(animal);
@@ -111,7 +111,7 @@ class RectangularMapTest {
     }
 
     @Test
-    public void movement(){
+    public void movement() throws IncorrectPositionException {
         RectangularMap map = new RectangularMap(width, height);
 
         for (Animal animal : animals) {
