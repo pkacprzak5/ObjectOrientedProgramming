@@ -2,14 +2,12 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.MapVisualizer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected MapVisualizer mapVisualizer;
     protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected UUID id;
 
     List<MapChangeListener> observers = new ArrayList<>();
 
@@ -29,6 +27,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public AbstractWorldMap() {
         this.mapVisualizer = new MapVisualizer(this);
+        id = UUID.randomUUID();
     }
 
     public abstract Boundary getCurrentBounds();
@@ -84,5 +83,9 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public List<WorldElement> getElements(){
         return new ArrayList<>(animals.values());
+    }
+
+    public UUID getId(){
+        return id;
     }
 }
