@@ -37,7 +37,11 @@ public class Simulation implements Runnable {
         while(idx < moveDirections.size()) {
             for(int i = 0; i < animals.size(); i++) {
                 worldMap.move(animals.get(i), moveDirections.get(idx));
-//                System.out.println(worldMap);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 idx++;
                 if(idx == moveDirections.size()) {
                     break;

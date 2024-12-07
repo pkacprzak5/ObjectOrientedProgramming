@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import javafx.application.Application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ public class World {
     private static final int minimum = 5;
     private static final int maximum = 25;
     public static void main(String[] args) {
+
         ConsoleMapDisplay observer = new ConsoleMapDisplay();
         List<AbstractWorldMap> worldMaps = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
