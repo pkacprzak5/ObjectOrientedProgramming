@@ -11,11 +11,11 @@
             minHeight="550.0" minWidth="850.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter">
     <center>
-        <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
-    </center>
-    <bottom>
         <VBox spacing="10" alignment="CENTER">
+            <TextField fx:id="moveListTextField" promptText="Enter move list"/>
             <Label fx:id="moveDescriptionLabel" text="Move description will be displayed here" textAlignment="CENTER"/>
+            <!--            <Button text="Start" onAction="#onSimulationStartClicked"/>-->
+            <Button text="Start" onAction="#newWindow"/>
         </VBox>
-    </bottom>
+    </center>
 </BorderPane>

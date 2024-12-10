@@ -1,8 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.GrassField;
 import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.presenter.SimulationPresenter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,19 +8,31 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+
 
 public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("startwindow.fxml"));
         BorderPane viewRoot = loader.load();
         SimulationPresenter presenter = loader.getController();
 
         configureStage(primaryStage, viewRoot);
         primaryStage.show();
+    }
+
+    public void createNewSimulation(Stage stage, List<MoveDirection> directions) throws IOException {
+        FXMLLoader newLoader = new FXMLLoader();
+        newLoader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+        BorderPane viewRoot = newLoader.load();
+        SimulationPresenter presenter = newLoader.getController();
+        presenter.runNewSimulation(directions);
+
+        configureStage(stage, viewRoot);
+        stage.show();
     }
 
     private void configureStage(Stage primaryStage, BorderPane viewRoot) {
