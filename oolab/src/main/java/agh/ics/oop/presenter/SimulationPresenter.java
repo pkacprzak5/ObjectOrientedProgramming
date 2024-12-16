@@ -1,6 +1,7 @@
 package agh.ics.oop.presenter;
 
 import agh.ics.oop.Simulation;
+import agh.ics.oop.SimulationApp;
 import agh.ics.oop.SimulationEngine;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
@@ -12,8 +13,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import agh.ics.oop.OptionsParser;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -129,6 +130,30 @@ public class SimulationPresenter implements MapChangeListener {
         new Thread(() -> {
             engine.runSync();
         }).start();
+    }
 
+    public void runNewSimulation(List<MoveDirection> directions){
+        GrassField worldMap = new GrassField(10);
+        this.worldMap = worldMap;
+        worldMap.addObserver(this);
+        List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 3));
+        moveDescriptionLabel.setText("Simulation started with moves: " + directions);
+        Simulation simulation = new Simulation(positions, directions, worldMap);
+        SimulationEngine engine = new SimulationEngine(List.of(simulation));
+        new Thread(() -> {
+            engine.runSync();
+        }).start();
+    }
+
+    @FXML
+    private void newWindow() {
+        SimulationApp simulationApp = new SimulationApp();
+        try {
+            String moveList = moveListTextField.getText();
+            List<MoveDirection> directions = OptionsParser.DirectionParser(moveList.split(" "));
+            simulationApp.createNewSimulation(new Stage(), directions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
