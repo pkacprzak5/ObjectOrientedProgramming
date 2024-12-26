@@ -4,7 +4,7 @@ public class Animal implements WorldElement {
     private MapDirection direction;       // Aktualny kierunek zwierzęcia
     private Vector2d position;            // Aktualna pozycja zwierzęcia
     private final AnimalInformation info; // Informacje o zwierzęciu (zawierające geny)
-    private int currentGeneIndex = 0;     // Indeks aktualnie używanego genu
+    private int currentGeneIndex = 0;   // Indeks aktualnie używanego genu
 
     @Override
     public Vector2d getPosition() {
@@ -40,10 +40,14 @@ public class Animal implements WorldElement {
     }
 
     public void move() {
-        int[] genotype = info.genotype();
-        int gene = genotype[currentGeneIndex];
+        int gene = info.getGenotype().get(currentGeneIndex);
         direction = direction.next(gene);
         position = position.add(direction.toUnitVector());
-        currentGeneIndex = (currentGeneIndex + 1) % genotype.length;
+        // validation of new position to be done
+        currentGeneIndex = (currentGeneIndex + 1) % info.getGenotype().size();
+    }
+
+    public AnimalInformation getInfo() {
+        return info;
     }
 }

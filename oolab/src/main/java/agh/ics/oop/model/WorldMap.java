@@ -3,12 +3,7 @@ package agh.ics.oop.model;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * The interface responsible for interacting with the map of the world.
- * Assumes that Vector2d and MoveDirection classes are defined.
- *
- * @author apohllo, idzik
- */
+
 public interface WorldMap {
 
     /**
@@ -40,9 +35,10 @@ public interface WorldMap {
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
+    
+    
     WorldElement objectAt(Vector2d position);
 
     List<WorldElement> getElements();
 
-    public UUID getId();
 }
