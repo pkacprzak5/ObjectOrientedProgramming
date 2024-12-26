@@ -102,4 +102,8 @@ public class AnimalInformation {
     public void addChild(Animal animal){
         this.children.add(animal);
     }
+
+    public void setGenotype(ArrayList<Integer> genotype) {
+        this.genotype = genotype;
+    }
 }
