@@ -9,6 +9,13 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected Map<Vector2d, Grass> grass = new HashMap<>();
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 
     @Override
     public boolean isOccupied(Vector2d position) {

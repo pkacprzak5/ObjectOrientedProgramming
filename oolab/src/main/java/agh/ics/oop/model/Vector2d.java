@@ -47,6 +47,10 @@ public class Vector2d {
         return new Vector2d(Math.min(x, vector.getX()), Math.min(y, vector.getY()));
     }
 
+    public Vector2d modulo(int width) {
+        return new Vector2d(x % width, y);
+    }
+
     public Vector2d opposite() {
         return new Vector2d(-x, -y);
     }

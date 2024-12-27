@@ -39,11 +39,14 @@ public class Animal implements WorldElement {
         return this.position.equals(position);
     }
 
-    public void move() {
+    public void move(AbstractRectangularMap map) {
         int gene = info.getGenotype().get(currentGeneIndex);
         direction = direction.next(gene);
-        position = position.add(direction.toUnitVector());
-        // validation of new position to be done
+        position = position.add(direction.toUnitVector()).modulo(map.getWidth());
+        if(position.getY() >= map.getHeight() || position.getY() < 0) {
+            direction = direction.next(4);
+            position = position.add(direction.toUnitVector()).modulo(map.getWidth());
+        }
         currentGeneIndex = (currentGeneIndex + 1) % info.getGenotype().size();
     }
 
