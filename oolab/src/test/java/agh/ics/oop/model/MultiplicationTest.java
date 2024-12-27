@@ -2,6 +2,9 @@ package agh.ics.oop.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MultiplicationTest {
@@ -19,7 +22,8 @@ class MultiplicationTest {
 
         AnimalInformation info1 = new AnimalInformation(1, 30, 5); // 30 energy, genotype size 5
         AnimalInformation info2 = new AnimalInformation(1, 40, 5); // 40 energy, genotype size 5
-
+        info1.setGenotype(new ArrayList<>(List.of(0, 1, 2, 3, 4)));
+        info1.setGenotype(new ArrayList<>(List.of(4, 3, 2, 1, 0)));
         Animal parent1 = new Animal(new Vector2d(1, 1), info1);
         Animal parent2 = new Animal(new Vector2d(1, 1), info2);
 
