@@ -11,13 +11,7 @@ public interface WorldMap {
      *
      * @param animal The animal to place on the map.
      */
-    void place(Animal animal) throws IncorrectPositionException;
-
-    /**
-     * Moves an animal (if it is present on the map) according to specified direction.
-     * If the move is not possible, this method has no effect.
-     */
-    void move(Animal animal);
+    void place(Animal animal);
 
     /**
      * Return true if given position on the map is occupied. Should not be
@@ -37,8 +31,8 @@ public interface WorldMap {
      */
     
     
-    WorldElement objectAt(Vector2d position);
-
-    List<WorldElement> getElements();
+//    WorldElement objectAt(Vector2d position);
+//
+//    List<WorldElement> getElements();
 
 }
