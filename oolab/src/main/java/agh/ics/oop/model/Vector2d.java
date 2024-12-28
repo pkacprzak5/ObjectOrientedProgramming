@@ -48,7 +48,7 @@ public class Vector2d {
     }
 
     public Vector2d modulo(int width) {
-        return new Vector2d(x % width, y);
+        return new Vector2d((x + width) % width, y);
     }
 
     public Vector2d opposite() {

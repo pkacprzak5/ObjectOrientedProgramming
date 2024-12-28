@@ -89,4 +89,10 @@ class Vector2dTest {
         Vector2d vector2 = new Vector2d(3, 4);
         assertEquals(vector1.hashCode(), vector2.hashCode());
     }
+    @Test
+    void testModulo(){
+        Vector2d vector1 = new Vector2d(-1, 4);
+        Vector2d vector2 = new Vector2d(4, 4);
+        assertEquals(vector2,vector1.modulo(5));
+    }
 }
