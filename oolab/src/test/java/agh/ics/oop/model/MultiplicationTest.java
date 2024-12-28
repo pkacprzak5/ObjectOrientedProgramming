@@ -61,9 +61,9 @@ class MultiplicationTest {
         Animal parent2 = new Animal(new Vector2d(2, 2), info2);
 
         // Create a Multiplication instance with child energy
-        Multiplication multiplication = new Multiplication(10);
+        Multiplication multiplication = new Multiplication(20);
 
         // Test that an exception is thrown due to insufficient energy in one of the parents
-        assertThrows(IllegalArgumentException.class, () -> multiplication.multiply(parent1, parent2));
+        assertNull(multiplication.multiply(parent1, parent2));
     }
 }
