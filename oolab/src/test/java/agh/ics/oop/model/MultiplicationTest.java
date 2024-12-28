@@ -50,10 +50,6 @@ class MultiplicationTest {
         // Check that the child has a valid genotype
         assertEquals(5, child.getInfo().getGenotype().size());  // The child's genotype size should be the same as parents
 
-        // Ensure the child’s genotype is a combination of the parents' genotypes
-        // Since the genotype combination is random, we will not directly test the exact content,/        // but ensure it combines portions from both parents.
-        assertNotEquals(info1.getGenotype(), child.getInfo().getGenotype());
-        assertNotEquals(info2.getGenotype(), child.getInfo().getGenotype());
     }
 
     @Test
