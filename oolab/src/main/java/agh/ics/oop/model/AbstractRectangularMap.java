@@ -9,11 +9,14 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected Map<Vector2d, Grass> grass = new HashMap<>();
     protected AnimalComparator animalComparator = new AnimalComparator();
     protected Multiplication multiplication;
+    protected GrassGenerator grassGenerator;
 
-    public AbstractRectangularMap(int width, int height, int energyForMultiplication) {
+    public AbstractRectangularMap(int width, int height, int energyForMultiplication, GrassGenerator grassGenerator) {
         this.width = width;
         this.height = height;
         this.multiplication = new Multiplication(energyForMultiplication);
+        this.grassGenerator = grassGenerator;
+        grass = grassGenerator.startGenerate();
     }
 
     @Override
@@ -65,6 +68,15 @@ public abstract class AbstractRectangularMap implements WorldMap{
 
             for(Animal animal : newAnimals){
                 this.place(animal);
+            }
+        }
+    }
+
+    public void growGrass(){
+        Map<Vector2d, Grass> newGrass = grassGenerator.dailyGenerate();
+        for(Map.Entry<Vector2d, Grass> entry : newGrass.entrySet()){
+            if (!grass.containsKey(entry.getKey())) {
+                grass.put(entry.getKey(), entry.getValue());
             }
         }
     }

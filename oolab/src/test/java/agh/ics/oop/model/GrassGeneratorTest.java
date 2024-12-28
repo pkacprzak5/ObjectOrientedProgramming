@@ -18,7 +18,7 @@ class GrassGeneratorTest {
         GrassGenerator grassGenerator = new GrassGenerator(width, height, startAmount, dailyAmount, energyGiven);
 
         // Generate initial grass
-        Map<Vector2d, Grass> grassMap = grassGenerator.StartGenerate();
+        Map<Vector2d, Grass> grassMap = grassGenerator.startGenerate();
 
         // Assert correct number of grass
         assertEquals(startAmount, grassMap.size(), "Initial amount of grass does not match");
@@ -37,11 +37,11 @@ class GrassGeneratorTest {
         GrassGenerator grassGenerator = new GrassGenerator(width, height, startAmount, dailyAmount, energyGiven);
 
         // Generate initial grass
-        Map<Vector2d, Grass> initialGrass = grassGenerator.StartGenerate();
+        Map<Vector2d, Grass> initialGrass = grassGenerator.startGenerate();
         int initialCount = initialGrass.size();
 
         // Generate daily grass
-        Map<Vector2d, Grass> dailyGrass = grassGenerator.DaylyGenerate();
+        Map<Vector2d, Grass> dailyGrass = grassGenerator.dailyGenerate();
 
         // Assert correct number of daily grass added
         assertEquals(dailyAmount, dailyGrass.size(), "Daily amount of grass does not match");
@@ -62,7 +62,7 @@ class GrassGeneratorTest {
         GrassGenerator grassGenerator = new GrassGenerator(width, height, startAmount, dailyAmount, energyGiven);
 
         // Generate grass
-        Map<Vector2d, Grass> grassMap = grassGenerator.StartGenerate();
+        Map<Vector2d, Grass> grassMap = grassGenerator.startGenerate();
 
         // Calculate equator bounds
         int equatorHeightStart = (int) (height / 2 - (height * 0.2) / 2);
