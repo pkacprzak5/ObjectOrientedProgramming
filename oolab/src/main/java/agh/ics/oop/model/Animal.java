@@ -50,6 +50,10 @@ public class Animal implements WorldElement {
         currentGeneIndex = (currentGeneIndex + 1) % info.getGenotype().size();
     }
 
+    public void eat(int energy){
+        info.addEnergy(energy);
+    }
+
     public AnimalInformation getInfo() {
         return info;
     }

@@ -17,7 +17,8 @@ public class Multiplication {
 
     public Animal multiply(Animal a, Animal b) {
         if(this.childEnergy > a.getInfo().getEnergy() || this.childEnergy > b.getInfo().getEnergy()) {
-            throw new IllegalArgumentException("One of animals has not enough energy");
+//            throw new IllegalArgumentException("One of animals has not enough energy");
+            return null;
         }
         int proportion = (a.getInfo().getEnergy() / (b.getInfo().getEnergy() + a.getInfo().getEnergy()))
                 * a.getInfo().getGenotype().size();
