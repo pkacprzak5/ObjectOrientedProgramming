@@ -1,8 +1,8 @@
 package agh.ics.oop.model;
 
-import java.util.List;
-import java.util.PriorityQueue;
-
 public class RectangularMap extends AbstractRectangularMap {
 
+    public RectangularMap(int width, int height, int energyForMultiplication) {
+        super(width, height, energyForMultiplication);
+    }
 }
