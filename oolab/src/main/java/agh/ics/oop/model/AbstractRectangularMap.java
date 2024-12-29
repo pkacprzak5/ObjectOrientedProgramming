@@ -11,10 +11,10 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected Multiplication multiplication;
     protected GrassGenerator grassGenerator;
 
-    public AbstractRectangularMap(int width, int height, int energyForMultiplication, GrassGenerator grassGenerator) {
+    public AbstractRectangularMap(int width, int height, Multiplication multiplication, GrassGenerator grassGenerator) {
         this.width = width;
         this.height = height;
-        this.multiplication = new Multiplication(energyForMultiplication);
+        this.multiplication = multiplication;
         this.grassGenerator = grassGenerator;
         grass = grassGenerator.startGenerate();
     }
