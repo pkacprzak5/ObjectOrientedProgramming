@@ -3,20 +3,24 @@ package agh.ics.oop.model;
 import java.util.*;
 
 public abstract class AbstractRectangularMap implements WorldMap{
-    protected int width;
-    protected int height;
+    protected final int width;
+    protected final int height;
+    protected final int energyToMove;
+    protected int currentTime;
     protected Map<Vector2d, PriorityQueue<Animal>> animals = new HashMap<>();
     protected Map<Vector2d, Grass> grass = new HashMap<>();
     protected AnimalComparator animalComparator = new AnimalComparator();
     protected Multiplication multiplication;
     protected GrassGenerator grassGenerator;
 
-    public AbstractRectangularMap(int width, int height, Multiplication multiplication, GrassGenerator grassGenerator) {
+    public AbstractRectangularMap(int width, int height, int energyToMove, Multiplication multiplication, GrassGenerator grassGenerator) {
         this.width = width;
         this.height = height;
+        this.energyToMove = energyToMove;
         this.multiplication = multiplication;
         this.grassGenerator = grassGenerator;
         grass = grassGenerator.startGenerate();
+        currentTime = 0;
     }
 
     @Override
@@ -79,6 +83,31 @@ public abstract class AbstractRectangularMap implements WorldMap{
                 grass.put(entry.getKey(), entry.getValue());
             }
         }
+    }
+
+    public void cleanDeadAnimals(){
+        for(Map.Entry<Vector2d, PriorityQueue<Animal>> entry : animals.entrySet()){
+            PriorityQueue<Animal> newAnimals = new PriorityQueue<>(animalComparator);
+            while (!entry.getValue().isEmpty()) {
+                Animal animal = entry.getValue().poll();
+                if(!animal.isDead(this)){
+                    newAnimals.add(animal);
+                }
+            }
+            entry.setValue(newAnimals);
+        }
+    }
+
+    public int getCurrentTime() {
+        return currentTime;
+    }
+
+    public void increaseCurrentTime() {
+        this.currentTime += 1;
+    }
+
+    public int getEnergyToMove() {
+        return energyToMove;
     }
 
     public int getWidth() {

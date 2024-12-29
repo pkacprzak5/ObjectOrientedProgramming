@@ -91,6 +91,10 @@ public class AnimalInformation {
         this.energy += energy;
     }
 
+    public void decreaseEnergy(int energy){
+        this.energy -= energy;
+    }
+
     public void increaseGrassEaten() {
         this.grassEaten += 1;
     }

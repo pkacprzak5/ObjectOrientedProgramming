@@ -48,10 +48,21 @@ public class Animal implements WorldElement {
             position = position.add(direction.toUnitVector()).modulo(map.getWidth());
         }
         currentGeneIndex = (currentGeneIndex + 1) % info.getGenotype().size();
+
+        info.decreaseEnergy(map.getEnergyToMove());
+    }
+
+    public boolean isDead(AbstractRectangularMap map) {
+        if (info.getEnergy() <= 0){
+            info.setTimeOfDeath(map.getCurrentTime());
+            return true;
+        }
+        return false;
     }
 
     public void eat(int energy){
         info.addEnergy(energy);
+        info.increaseGrassEaten();
     }
 
     public AnimalInformation getInfo() {
