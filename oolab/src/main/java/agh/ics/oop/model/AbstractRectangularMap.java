@@ -47,7 +47,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
             if(grass.containsKey(entry.getKey())){
                 Animal current = entry.getValue().poll();
                 assert current != null;
-                current.eat(grass.get(entry.getKey()).getEnergyToGive());
+                current.eat(grass.get(entry.getKey()));
                 grass.remove(entry.getKey());
                 this.place(current);
             }
@@ -83,6 +83,10 @@ public abstract class AbstractRectangularMap implements WorldMap{
                 grass.put(entry.getKey(), entry.getValue());
             }
         }
+    }
+
+    public void initializeGrass(Map<Vector2d, Grass> grass){
+        this.grass = grass;
     }
 
     public void cleanDeadAnimals(){

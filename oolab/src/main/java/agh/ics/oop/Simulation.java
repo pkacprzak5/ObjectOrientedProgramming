@@ -1,27 +1,43 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.*;
+
+import java.util.List;
+
 public class Simulation {
-    private final int width;
-    private final int height;
-    private final int grassNumber;
-    private final int energyFromGrass;
     private final int animalsNumber;
     private final int animalStartEnergy;
-    private final int energyToMultiply;
-    private final int minimumGenomeMutation;
-    private final int maximumGenomeMutation;
     private final int genomeLength;
+    private final GrassGenerator grassGenerator;
+    private final AbstractRectangularMap worldMap;
 
-    public Simulation(int width, int height, int grassNumber, int energyFromGrass, int animalsNumber, int animalStartEnergy, int energyToMultiply, int minimumGenomeMutation, int maximumGenomeMutation, int genomeLength) {
-        this.width = width;
-        this.height = height;
-        this.grassNumber = grassNumber;
-        this.energyFromGrass = energyFromGrass;
+
+    public Simulation(int animalsNumber, int animalStartEnergy, int genomeLength, GrassGenerator grassGenerator, AbstractRectangularMap worldMap) {
         this.animalsNumber = animalsNumber;
         this.animalStartEnergy = animalStartEnergy;
-        this.energyToMultiply = energyToMultiply;
-        this.minimumGenomeMutation = minimumGenomeMutation;
-        this.maximumGenomeMutation = maximumGenomeMutation;
         this.genomeLength = genomeLength;
+        this.grassGenerator = grassGenerator;
+        this.worldMap = worldMap;
+        setupWorldMap();
+    }
+
+    private void setupWorldMap() {
+        worldMap.initializeGrass(grassGenerator.startGenerate());
+        AnimalGenerator generator = new AnimalGenerator(animalsNumber);
+        List<Animal> animals = generator.generateAnimals(worldMap, animalStartEnergy, genomeLength);
+        for (Animal animal : animals) {
+            worldMap.place(animal);
+        }
+    }
+
+    public void run(){
+        while(true){
+            worldMap.increaseCurrentTime();
+            worldMap.cleanDeadAnimals();
+            worldMap.moveAnimals();
+            worldMap.feedAnimals();
+            worldMap.multiplyAnimals();
+            worldMap.growGrass();
+        }
     }
 }

@@ -60,8 +60,8 @@ public class Animal implements WorldElement {
         return false;
     }
 
-    public void eat(int energy){
-        info.addEnergy(energy);
+    public void eat(Grass grass) {
+        info.addEnergy(grass.getEnergyToGive());
         info.increaseGrassEaten();
     }
 
