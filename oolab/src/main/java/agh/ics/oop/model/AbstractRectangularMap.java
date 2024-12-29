@@ -122,6 +122,16 @@ public abstract class AbstractRectangularMap implements WorldMap{
         return height;
     }
 
+    public WorldElement objectAt(Vector2d position){
+        if(animals.containsKey(position)){
+            return animals.get(position).peek();
+        }
+        if(grass.containsKey(position)){
+            return grass.get(position);
+        }
+        return null;
+    }
+
     @Override
     public boolean isOccupied(Vector2d position) {
         return animals.containsKey(position) || grass.containsKey(position);
