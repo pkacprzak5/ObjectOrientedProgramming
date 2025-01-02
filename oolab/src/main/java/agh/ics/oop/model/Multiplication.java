@@ -59,7 +59,7 @@ public class Multiplication {
         Random rand = new Random();
         int x = rand.nextInt(maximumGenomeMutation - minimumGenomeMutation + 1) + minimumGenomeMutation;
         List<Integer> range = new ArrayList<>();
-        for (int i = 0; i <= a.getInfo().getGenotype().size(); i++) {
+        for (int i = 0; i < a.getInfo().getGenotype().size(); i++) {
             range.add(i);
         }
         Collections.shuffle(range);

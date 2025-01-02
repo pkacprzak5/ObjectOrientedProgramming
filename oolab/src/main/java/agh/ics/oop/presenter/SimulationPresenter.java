@@ -106,8 +106,7 @@ public class SimulationPresenter implements MapChangeListener{
                 Vector2d pos = new Vector2d(i,j);
                 if(worldMap.isOccupied(pos)){
                     mapGrid.add(new Label(worldMap.objectAt(pos).toString()),i-xMin+1,yMax-j+1);
-                }
-                else {
+                } else {
                     mapGrid.add(new Label(" "),i-xMin+1,yMax-j+1);
                 }
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
@@ -125,7 +124,6 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     private void clearGrid() {
-        System.out.println(mapGrid);
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0)); // hack to retain visible grid lines
         mapGrid.getColumnConstraints().clear();
         mapGrid.getRowConstraints().clear();
@@ -153,7 +151,6 @@ public class SimulationPresenter implements MapChangeListener{
         Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue());
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
         this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
-        System.out.println(this.worldMap.getWidth());
     }
 
     public void runNewSimulation(Simulation simulation) {
