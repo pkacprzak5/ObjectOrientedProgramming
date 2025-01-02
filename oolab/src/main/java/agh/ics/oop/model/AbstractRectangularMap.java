@@ -12,6 +12,21 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected AnimalComparator animalComparator = new AnimalComparator();
     protected Multiplication multiplication;
     protected GrassGenerator grassGenerator;
+    protected List<MapChangeListener> observers = new ArrayList<>();
+
+    public void addObserver(MapChangeListener observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(MapChangeListener observer) {
+        observers.remove(observer);
+    }
+
+    public void mapChanged() {
+        for (MapChangeListener observer : observers) {
+            observer.mapChanged(this);
+        }
+    }
 
     public AbstractRectangularMap(int width, int height, int energyToMove, Multiplication multiplication, GrassGenerator grassGenerator) {
         this.width = width;

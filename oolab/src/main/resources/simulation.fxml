@@ -8,7 +8,4 @@
     <center>
         <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
     </center>
-    <bottom>
-
-    </bottom>
 </BorderPane>
