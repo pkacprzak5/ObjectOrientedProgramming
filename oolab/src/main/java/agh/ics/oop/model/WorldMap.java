@@ -23,16 +23,20 @@ public interface WorldMap {
      */
     boolean isOccupied(Vector2d position);
 
+
     /**
      * Return an animal at a given position.
      *
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
-    
-    
-//    WorldElement objectAt(Vector2d position);
+
+    WorldElement objectAt(Vector2d position);
 //
 //    List<WorldElement> getElements();
+
+    int getHeight();
+
+    int getWidth();
 
 }

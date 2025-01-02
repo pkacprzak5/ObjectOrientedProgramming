@@ -21,11 +21,11 @@ public class GrassGenerator {
         this.energyGiven = energyGiven;
     }
 
-    public Map<Vector2d, Grass> StartGenerate(){
+    public Map<Vector2d, Grass> startGenerate(){
         return generate(startAmount);
     }
 
-    public Map<Vector2d, Grass> DaylyGenerate(){
+    public Map<Vector2d, Grass> dailyGenerate(){
         return generate(dailyAmount);
     }
 

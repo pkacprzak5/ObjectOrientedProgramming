@@ -1,14 +1,19 @@
 package agh.ics.oop.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class Multiplication {
-    private int childEnergy;
+    private final int childEnergy;
+    private final int minimumGenomeMutation;
+    private final int maximumGenomeMutation;
 
-    public Multiplication(int childEnergy) {
+    public Multiplication(int childEnergy, int minimumGenomeMutation, int maximumGenomeMutation) {
         this.childEnergy = childEnergy;
+        this.minimumGenomeMutation = minimumGenomeMutation;
+        this.maximumGenomeMutation = maximumGenomeMutation;
     }
 
     public int getChildEnergy() {
@@ -45,6 +50,25 @@ public class Multiplication {
         a.getInfo().addChild(child);
         b.getInfo().addChild(child);
 
+        mutate(child);
+
         return child;
     }
+
+    public void mutate(Animal a) {
+        Random rand = new Random();
+        int x = rand.nextInt(maximumGenomeMutation - minimumGenomeMutation + 1) + minimumGenomeMutation;
+        List<Integer> range = new ArrayList<>();
+        for (int i = 0; i <= a.getInfo().getGenotype().size(); i++) {
+            range.add(i);
+        }
+        Collections.shuffle(range);
+        range = range.subList(0, x);
+        List<Integer> genotype = a.getInfo().getGenotype();
+        for(Integer i : range) {
+            genotype.set(i, rand.nextInt(8));
+        }
+        a.getInfo().setGenotype(genotype);
+    }
+
 }
