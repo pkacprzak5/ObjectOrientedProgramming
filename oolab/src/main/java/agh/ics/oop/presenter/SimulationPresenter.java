@@ -1,8 +1,6 @@
 package agh.ics.oop.presenter;
 
-import agh.ics.oop.Simulation;
-//import agh.ics.oop.SimulationApp;
-//import agh.ics.oop.SimulationEngine;
+import agh.ics.oop.SimulationApp;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,7 +11,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import java.util.List;
+
+import java.io.IOException;
 
 
 public class SimulationPresenter{
@@ -110,6 +109,16 @@ public class SimulationPresenter{
             drawMap();
             moveDescriptionLabel.setText(message);
         });
+    }
+
+    @FXML
+    private void newWindow() {
+        SimulationApp simulationApp = new SimulationApp();
+        try {
+            simulationApp.createNewSimulation(new Stage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
