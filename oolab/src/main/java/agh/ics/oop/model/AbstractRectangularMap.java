@@ -149,6 +149,9 @@ public abstract class AbstractRectangularMap implements WorldMap{
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        return animals.containsKey(position) || grass.containsKey(position);
+        if(animals.containsKey(position)){
+            return animals.get(position).size() > 0 || grass.containsKey(position);
+        }
+        return grass.containsKey(position);
     }
 }
