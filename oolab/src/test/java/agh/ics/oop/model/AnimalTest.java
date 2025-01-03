@@ -9,15 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
 
-    // A minimal mock of AbstractRectangularMap for testing purposes
+    // Mock TestMap class extending AbstractRectangularMap
     private static class TestMap extends AbstractRectangularMap {
         public TestMap(int width, int height) {
-            super(width, height, 10); // energy for multiplication is 10 (just a placeholder)
-        }
-
-        @Override
-        public boolean isOccupied(Vector2d position) {
-            return false; // For testing, assume the map is empty for simplicity
+            super(width, height, 1,
+                    new Multiplication(5, 0, 1),
+                    new GrassGenerator(0, 0, 0, 0, 0));
         }
     }
 
