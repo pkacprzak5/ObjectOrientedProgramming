@@ -32,7 +32,8 @@ public class Simulation {
         }
     }
 
-    public void run(){
+    public void run(MapChangeListener mapChangeListener) {
+        worldMap.addObserver(mapChangeListener);
         while(true){
             worldMap.increaseCurrentTime();
             worldMap.cleanDeadAnimals();
@@ -40,6 +41,7 @@ public class Simulation {
             worldMap.feedAnimals();
             worldMap.multiplyAnimals();
             worldMap.growGrass();
+            worldMap.mapChanged();
             try{
                 Thread.sleep(refreshTime);
             }catch (InterruptedException e){

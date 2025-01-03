@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,10 +21,13 @@ public class SimulationApp extends Application {
         primaryStage.show();
     }
 
-    public void createNewSimulation(Stage stage) throws IOException {
+    public void createNewSimulation(Stage stage, Simulation simulation) throws IOException {
         FXMLLoader newLoader = new FXMLLoader();
         newLoader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = newLoader.load();
+        SimulationPresenter presenter = newLoader.getController();
+        presenter.runNewSimulation(simulation);
+
         configureStage(stage, viewRoot);
         stage.show();
     }
@@ -37,4 +39,5 @@ public class SimulationApp extends Application {
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
+
 }

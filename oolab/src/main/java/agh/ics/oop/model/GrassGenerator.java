@@ -7,18 +7,16 @@ import java.util.Random;
 public class GrassGenerator {
     protected int width;
     protected int height;
-    private final float equatorSize = 0.2F;
-    private final float equatorAmount = 0.2f;
     protected int dailyAmount;
     protected int startAmount;
-    protected int energyGiven;
+    protected int energyToGive;
 
-    public GrassGenerator(int width, int height, int startAmount, int dailyAmount, int energyGiven) {
+    public GrassGenerator(int width, int height, int startAmount, int dailyAmount, int energyToGive) {
         this.width = width;
         this.height = height;
         this.startAmount = startAmount;
         this.dailyAmount = dailyAmount;
-        this.energyGiven = energyGiven;
+        this.energyToGive = energyToGive;
     }
 
     public Map<Vector2d, Grass> startGenerate(){
@@ -32,36 +30,27 @@ public class GrassGenerator {
     private Map<Vector2d, Grass> generate(int amount) {
         Map<Vector2d, Grass> generatedGrass = new HashMap<>();
         Random random = new Random();
+        int equatorStart = (int) (((double) height / 5) * 2);
+        int equatorEnd = (int) (((double) height / 5) * 3);
 
-        int equatorHeightStart = (int) (height / 2 - (height * equatorSize) / 2);
-        int equatorHeightEnd = (int) (height / 2 + (height * equatorSize) / 2);
-
-        int otherGrassAmount = (int) (amount * equatorAmount);
-        int equatorGrassAmount = amount - otherGrassAmount;
-
-        // in equator
-        for (int i = 0; i < equatorGrassAmount; i++) {
-            Vector2d position;
-            do {
-                int x = random.nextInt(width);
-                int y = random.nextInt(equatorHeightEnd - equatorHeightStart) + equatorHeightStart;
-                position = new Vector2d(x, y);
-            } while (generatedGrass.containsKey(position));
-            generatedGrass.put(position, new Grass(position, energyGiven));
-        }
-
-        // out equator
-        for (int i = 0; i < otherGrassAmount; i++) {
-            Vector2d position;
-            do {
-                int x = random.nextInt(width);
-                int y;
-                do {
-                    y = random.nextInt(height);
-                } while (y >= equatorHeightStart && y < equatorHeightEnd);
-                position = new Vector2d(x, y);
-            } while (generatedGrass.containsKey(position));
-            generatedGrass.put(position, new Grass(position, energyGiven));
+        int counter = 0;
+        while (counter < amount) {
+            int x = random.nextInt(width);
+            int y;
+            if(random.nextDouble() < 0.8){
+                y = random.nextInt(equatorStart, equatorEnd+1);
+            }else{
+                if (random.nextDouble() < 0.5) {
+                    y = random.nextInt(0, equatorStart + 1);
+                }else{
+                    y = random.nextInt(equatorEnd+1, height);
+                }
+            }
+            Vector2d pos = new Vector2d(x, y);
+            if (!generatedGrass.containsKey(pos)) {
+                counter++;
+                generatedGrass.put(pos, new Grass(pos, energyToGive));
+            }
         }
 
         return generatedGrass;

@@ -1,41 +1,77 @@
 package agh.ics.oop.presenter;
 
+import agh.ics.oop.Simulation;
 import agh.ics.oop.SimulationApp;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 
-public class SimulationPresenter{
-    private WorldMap worldMap;
+public class SimulationPresenter implements MapChangeListener{
+    private AbstractRectangularMap worldMap;
     private final int width = 50;
     private final int height = 50;
     private final int xMin = 0;
     private final int yMin = 0;
     private int xMax;
     private int yMax;
-    private  int mapWidth;
-    private  int mapHeight;
-
-    @FXML
-    private TextField moveListTextField;
+    private int mapWidth;
+    private int mapHeight;
 
     @FXML
     private GridPane mapGrid;
 
     @FXML
-    private Label moveDescriptionLabel;
+    private Spinner<Integer> mwidth;
 
-    public void setWorldMap(WorldMap worldMap) {
+    @FXML
+    private Spinner<Integer> mheight;
+
+    @FXML
+    private Spinner<Integer> initialPlants;
+
+    @FXML
+    private Spinner<Integer> energyPerPlant;
+
+    @FXML
+    private Spinner<Integer> plantsPerDay;
+
+    @FXML
+    private Spinner<Integer> initialAnimals;
+
+    @FXML
+    private Spinner<Integer> energyToMultiply;
+
+    @FXML
+    private Spinner<Integer> initialEnergy;
+
+    @FXML
+    private Spinner<Integer> energyToBreed;
+
+    @FXML
+    private Spinner<Integer> minMutations;
+
+    @FXML
+    private Spinner<Integer> maxMutations;
+
+    @FXML
+    private Spinner<Integer> genomeLength;
+
+    @FXML
+    private Spinner<Integer> energyToMove;
+
+    @FXML
+    private Spinner<Integer> refreshTime;
+
+    public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
     }
 
@@ -70,8 +106,7 @@ public class SimulationPresenter{
                 Vector2d pos = new Vector2d(i,j);
                 if(worldMap.isOccupied(pos)){
                     mapGrid.add(new Label(worldMap.objectAt(pos).toString()),i-xMin+1,yMax-j+1);
-                }
-                else {
+                } else {
                     mapGrid.add(new Label(" "),i-xMin+1,yMax-j+1);
                 }
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
@@ -102,34 +137,37 @@ public class SimulationPresenter{
         GridPane.setHalignment(label, HPos.CENTER);
     }
 
-    public void mapChanged(WorldMap worldMap, String message) {
-        setWorldMap(worldMap);
+    public void mapChanged(WorldMap worldMap) {
+        setWorldMap((AbstractRectangularMap) worldMap);
         Platform.runLater(() -> {
             clearGrid();
             drawMap();
-            moveDescriptionLabel.setText(message);
         });
     }
 
+    private void createWorldMap(){
+        mapWidth = mwidth.getValue();
+        mapHeight = mheight.getValue();
+        Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue());
+        GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
+        this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
+    }
+
+    public void runNewSimulation(Simulation simulation) {
+        new Thread(() -> simulation.run(this)).start();
+    }
+
     @FXML
-    private void newWindow() {
+    public void onSimulationStartClicked(){
         SimulationApp simulationApp = new SimulationApp();
         try {
-            simulationApp.createNewSimulation(new Stage());
+            createWorldMap();
+            GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
+            Simulation simulation = new Simulation(initialAnimals.getValue(), initialEnergy.getValue(), genomeLength.getValue(), refreshTime.getValue(), grassGenerator, this.worldMap);
+            simulationApp.createNewSimulation(new Stage(), simulation);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    //tu trzeba dodać wszystkie dane do wprowadzania
-    public void onSimulationStartClicked(){
-//        String moveList = moveListTextField.getText();
-
-//        this.worldMap = worldMap;
-//        Simulation simulation = new Simulation(positions, directions, worldMap);
-//        new Thread(() -> {
-//            simulation.run();
-//        }).start();
-    }
 }

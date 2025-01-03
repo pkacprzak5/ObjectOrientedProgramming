@@ -17,9 +17,9 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="heightLabel" text="wysokość mapy" textAlignment="CENTER"/>
-                <Spinner fx:id="height" editable="true" max="100" initialValue="50"/>
+                <Spinner fx:id="mheight" editable="true" max="100" initialValue="8"/>
                 <Label fx:id="widthLabel" text="szerokość mapy" textAlignment="CENTER"/>
-                <Spinner fx:id="width" editable="true" max="100" initialValue="50"/>
+                <Spinner fx:id="mwidth" editable="true" max="100" initialValue="8"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -50,13 +50,23 @@
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
-                <Label fx:id="energyToFeedLabel" text="energia konieczna, by uznać zwierzaka za najedzonego" textAlignment="CENTER"/>
-                <Spinner fx:id="energyToFeed" editable="true" max="100" initialValue="30"/>
+                <Label fx:id="energyToMultiplyLabel" text="energia konieczna, by uznać zwierzaka za najedzonego" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToMultiply" editable="true" max="100" initialValue="50"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
-                <Label fx:id="energyToBreedLabel" text="energia rodziców zużywana by stworzyć potomka" textAlignment="CENTER"/>
-                <Spinner fx:id="energyToBreed" editable="true" max="100" initialValue="50"/>
+                <Label fx:id="energyToBreedLabel" text="energia startowa potomka" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToBreed" editable="true" max="100" initialValue="20"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="energyToMoveLabel" text="energia zwierzaka zużywana podczas ruchu" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToMove" editable="true" max="30" initialValue="5"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="refreshTimeLabel" text="Czas odświeżania" textAlignment="CENTER"/>
+                <Spinner fx:id="refreshTime" editable="true" max="1000" initialValue="200"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -88,7 +98,7 @@
     </center>
     <bottom>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
-            <Button text="Start symulacji" onAction="#newWindow"/>
+            <Button text="Start symulacji" onAction="#onSimulationStartClicked"/>
         </VBox>
     </bottom>
 </BorderPane>
