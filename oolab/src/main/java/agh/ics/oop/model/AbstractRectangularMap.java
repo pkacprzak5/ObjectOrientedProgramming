@@ -46,6 +46,10 @@ public abstract class AbstractRectangularMap implements WorldMap{
         animals.get(animal.getPosition()).add(animal);
     }
 
+    public Map<Vector2d, PriorityQueue<Animal>> getAnimals() {
+        return animals;
+    }
+
     public void moveAnimals(){
         Map<Vector2d, PriorityQueue<Animal>> oldAnimals = animals;
         animals = new HashMap<>();
@@ -98,6 +102,10 @@ public abstract class AbstractRectangularMap implements WorldMap{
                 grass.put(entry.getKey(), entry.getValue());
             }
         }
+    }
+
+    public HashMap<Vector2d, Grass> getGrass() {
+        return (HashMap<Vector2d, Grass>) grass;
     }
 
     public void initializeGrass(Map<Vector2d, Grass> grass){
