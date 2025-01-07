@@ -5,13 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.max;
+
 public class Multiplication {
     private final int childEnergy;
+    private final int minParentEnergy;
     private final int minimumGenomeMutation;
     private final int maximumGenomeMutation;
 
-    public Multiplication(int childEnergy, int minimumGenomeMutation, int maximumGenomeMutation) {
+    public Multiplication(int childEnergy, int minimumGenomeMutation, int maximumGenomeMutation, int minParentEnergy) {
         this.childEnergy = childEnergy;
+        this.minParentEnergy = max(minParentEnergy, childEnergy/2 + 1);
         this.minimumGenomeMutation = minimumGenomeMutation;
         this.maximumGenomeMutation = maximumGenomeMutation;
     }
@@ -21,7 +25,7 @@ public class Multiplication {
     }
 
     public Animal multiply(Animal a, Animal b) {
-        if(this.childEnergy > a.getInfo().getEnergy() || this.childEnergy > b.getInfo().getEnergy()) {
+        if(this.minParentEnergy > a.getInfo().getEnergy() || this.minParentEnergy > b.getInfo().getEnergy()) {
 //            throw new IllegalArgumentException("One of animals has not enough energy");
             return null;
         }

@@ -81,12 +81,12 @@ public abstract class AbstractRectangularMap implements WorldMap{
                 Animal parentA = oldAnimals.poll();
                 Animal parentB = oldAnimals.poll();
                 Animal newAnimal = multiplication.multiply(parentA, parentB);
+                oldAnimals.add(parentA);
+                oldAnimals.add(parentB);
                 if (newAnimal == null) {
                     break;
                 }
                 newAnimals.add(newAnimal);
-                oldAnimals.add(parentA);
-                oldAnimals.add(parentB);
             }
 
             for(Animal animal : newAnimals){

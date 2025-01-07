@@ -22,7 +22,7 @@ class AbstractRectangularMapTest {
     @BeforeEach
     void setUp() {
         GrassGenerator grassGenerator = new GrassGenerator(10,10,10,10,10); // Mock grass generator
-        Multiplication multiplication = new Multiplication(30,2,2); // Mock multiplication logic
+        Multiplication multiplication = new Multiplication(30,2,2, 10); // Mock multiplication logic
         map = new RectangularMap(10, 10, 5, multiplication, grassGenerator); // Test implementation
     }
 
@@ -86,7 +86,6 @@ class AbstractRectangularMapTest {
 
     @Test
     void multiplyAnimals() {
-        // Ustawienie pozycji startowej
         map.place(testAnimal);
         map.place(testAnimal2);
         map.place(testAnimal3);
