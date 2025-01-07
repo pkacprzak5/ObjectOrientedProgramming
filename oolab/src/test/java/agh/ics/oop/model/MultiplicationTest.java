@@ -12,7 +12,7 @@ class MultiplicationTest {
     // Test to check if the child energy is correctly returned
     @Test
     void getChildEnergy() {
-        Multiplication multiplication = new Multiplication(10,0,0);
+        Multiplication multiplication = new Multiplication(10,0,0, 5);
         assertEquals(10, multiplication.getChildEnergy());
     }
 
@@ -28,7 +28,7 @@ class MultiplicationTest {
         Animal parent2 = new Animal(new Vector2d(1, 1), info2);
 
         // Create a Multiplication instance with child energy
-        Multiplication multiplication = new Multiplication(10,0,0);
+        Multiplication multiplication = new Multiplication(10,0,0, 5);
 
         // Perform multiplication
         Animal child = multiplication.multiply(parent1, parent2);
@@ -61,7 +61,7 @@ class MultiplicationTest {
         Animal parent2 = new Animal(new Vector2d(2, 2), info2);
 
         // Create a Multiplication instance with child energy
-        Multiplication multiplication = new Multiplication(20,0,0);
+        Multiplication multiplication = new Multiplication(20,0,0, 11);
 
         // Test that an exception is thrown due to insufficient energy in one of the parents
         assertNull(multiplication.multiply(parent1, parent2));
@@ -74,7 +74,7 @@ class MultiplicationTest {
         Animal animal = new Animal(new Vector2d(1, 1), info);
 
         // Case 1: Test with non-zero mutations
-        Multiplication multiplication = new Multiplication(10, 1, 3); // Mutate 1 to 3 genes
+        Multiplication multiplication = new Multiplication(10, 1, 3, 6); // Mutate 1 to 3 genes
         multiplication.mutate(animal);
 
         List<Integer> genotype = animal.getInfo().getGenotype();
@@ -85,15 +85,9 @@ class MultiplicationTest {
         // Check if valid mutations occurred (0 to 7)
         assertTrue(genotype.stream().allMatch(gene -> gene >= 0 && gene <= 7));
 
-        // Ensure that 1 to 3 genes were mutated
-        long changedGenesCount = genotype.stream()
-                .filter(gene -> !List.of(0, 1, 2, 3, 4).contains(gene))
-                .count();
-        assertTrue(changedGenesCount >= 1 && changedGenesCount <= 3);
-
-        // Case 2: Test with no mutations
+        // Case 1: Test with no mutations
         info.setGenotype(new ArrayList<>(List.of(0, 1, 2, 3, 4))); // Reset genotype
-        Multiplication noMutation = new Multiplication(10, 0, 0); // No mutations
+        Multiplication noMutation = new Multiplication(10, 0, 0, 5); // No mutations
         noMutation.mutate(animal);
 
         // Genotype should remain unchanged

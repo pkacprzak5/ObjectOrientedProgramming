@@ -13,7 +13,7 @@ class AnimalTest {
     private static class TestMap extends AbstractRectangularMap {
         public TestMap(int width, int height) {
             super(width, height, 1,
-                    new Multiplication(5, 0, 1),
+                    new Multiplication(5, 0, 1, 10),
                     new GrassGenerator(0, 0, 0, 0, 0));
         }
     }
