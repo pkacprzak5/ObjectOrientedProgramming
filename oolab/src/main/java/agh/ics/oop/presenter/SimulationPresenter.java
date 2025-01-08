@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Optional;
 
 
 public class SimulationPresenter implements MapChangeListener{
@@ -104,11 +105,11 @@ public class SimulationPresenter implements MapChangeListener{
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
                 Vector2d pos = new Vector2d(i,j);
-                if(worldMap.isOccupied(pos)){
-                    mapGrid.add(new Label(worldMap.objectAt(pos).toString()),i-xMin+1,yMax-j+1);
-                } else {
-                    mapGrid.add(new Label(" "),i-xMin+1,yMax-j+1);
-                }
+                Optional<WorldElement> element = worldMap.objectAt(pos);
+
+                String labelText = element.map(Object::toString).orElse(" ");
+
+                mapGrid.add(new Label(labelText), i - xMin + 1, yMax - j + 1);
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
             }
         }
@@ -137,7 +138,7 @@ public class SimulationPresenter implements MapChangeListener{
         GridPane.setHalignment(label, HPos.CENTER);
     }
 
-    public void mapChanged(WorldMap worldMap) {
+    public void mapChanged(WorldMap worldMap, String mess) {
         setWorldMap((AbstractRectangularMap) worldMap);
         Platform.runLater(() -> {
             clearGrid();
