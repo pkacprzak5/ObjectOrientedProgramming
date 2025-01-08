@@ -13,6 +13,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected Multiplication multiplication;
     protected GrassGenerator grassGenerator;
     protected List<MapChangeListener> observers = new ArrayList<>();
+    protected UUID id;
 
     public void addObserver(MapChangeListener observer) {
         observers.add(observer);
@@ -36,6 +37,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
         this.grassGenerator = grassGenerator;
         grass = grassGenerator.startGenerate();
         currentTime = 0;
+        id = UUID.randomUUID();
     }
 
     @Override
@@ -161,5 +163,9 @@ public abstract class AbstractRectangularMap implements WorldMap{
             return animals.get(position).size() > 0 || grass.containsKey(position);
         }
         return grass.containsKey(position);
+    }
+
+    public UUID getId(){
+        return id;
     }
 }

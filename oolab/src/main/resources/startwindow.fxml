@@ -29,7 +29,7 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="energyPerPlantLabel" text="energia zapewniana przez zjedzenie jednej rośliny" textAlignment="CENTER"/>
-                <Spinner fx:id="energyPerPlant" editable="true" max="20" initialValue="5"/>
+                <Spinner fx:id="energyPerPlant" editable="true" min="1" max="20" initialValue="5"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -41,7 +41,7 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="initialAnimalsLabel" text="startowa liczba zwierzaków" textAlignment="CENTER"/>
-                <Spinner fx:id="initialAnimals" editable="true" max="20" initialValue="5"/>
+                <Spinner fx:id="initialAnimals" editable="true" min="2" max="20" initialValue="5"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -61,12 +61,12 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="energyToMoveLabel" text="energia zwierzaka zużywana podczas ruchu" textAlignment="CENTER"/>
-                <Spinner fx:id="energyToMove" editable="true" max="30" initialValue="5"/>
+                <Spinner fx:id="energyToMove" editable="true" min="1" max="30" initialValue="5"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="refreshTimeLabel" text="Czas odświeżania" textAlignment="CENTER"/>
-                <Spinner fx:id="refreshTime" editable="true" max="1000" initialValue="200"/>
+                <Spinner fx:id="refreshTime" editable="true" min="30" max="1000" initialValue="200"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">

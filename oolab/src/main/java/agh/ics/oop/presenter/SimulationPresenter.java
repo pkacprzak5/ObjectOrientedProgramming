@@ -151,6 +151,10 @@ public class SimulationPresenter implements MapChangeListener{
         Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
         this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
+
+        // Dodanie obserwatora logów do pliku
+        FileMapDisplay fileMapDisplay = new FileMapDisplay();
+        this.worldMap.addObserver(fileMapDisplay);
     }
 
     public void runNewSimulation(Simulation simulation) {
