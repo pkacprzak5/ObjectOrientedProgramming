@@ -19,7 +19,7 @@ public class WorldElementBox {
 
         if (element.isPresent()) {
             WorldElement worldElement = element.get();
-            String positionInfo = worldElement.getPosition().toString();
+            String positionInfo = worldElement + worldElement.getPosition().toString();
             Image image = new Image(String.valueOf(getClass().getClassLoader().getResource(worldElement.getResourceName())));
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(20);
