@@ -2,6 +2,8 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Simulation {
@@ -34,6 +36,10 @@ public class Simulation {
 
     public void run(MapChangeListener mapChangeListener) {
         worldMap.addObserver(mapChangeListener);
+        worldMap.addObserver((worldMap, message) -> {
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            System.out.println(timestamp + " " + message);
+        });
         while(true){
             worldMap.increaseCurrentTime();
             worldMap.cleanDeadAnimals();
@@ -41,7 +47,6 @@ public class Simulation {
             worldMap.feedAnimals();
             worldMap.multiplyAnimals();
             worldMap.growGrass();
-            worldMap.mapChanged();
             try{
                 Thread.sleep(refreshTime);
             }catch (InterruptedException e){

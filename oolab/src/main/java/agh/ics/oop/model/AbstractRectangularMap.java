@@ -1,6 +1,8 @@
 package agh.ics.oop.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractRectangularMap implements WorldMap{
     protected final int width;
@@ -23,9 +25,9 @@ public abstract class AbstractRectangularMap implements WorldMap{
         observers.remove(observer);
     }
 
-    public void mapChanged() {
+    public void mapChanged(String message) {
         for (MapChangeListener observer : observers) {
-            observer.mapChanged(this);
+            observer.mapChanged(this, message);
         }
     }
 
@@ -55,24 +57,31 @@ public abstract class AbstractRectangularMap implements WorldMap{
     public void moveAnimals(){
         Map<Vector2d, PriorityQueue<Animal>> oldAnimals = animals;
         animals = new HashMap<>();
-        for(Map.Entry<Vector2d, PriorityQueue<Animal>> entry : oldAnimals.entrySet()){
-            for(Animal animal : entry.getValue()){
-                animal.move(this);
-                this.place(animal);
-            }
-        }
+
+        oldAnimals.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream()
+                        .peek(animal -> animal.move(this))
+                        .peek(animal -> {
+                            if (!animal.getPosition().equals(entry.getKey())) {
+                                mapChanged("Animal was moved from " + entry.getKey() + " to " + animal.getPosition());
+                            } else {
+                                mapChanged("Animal changed direction from " + animal.getDirection().next(4) + " to " + animal.getDirection());
+                            }
+                        }))
+                .forEach(this::place);
     }
 
     public void feedAnimals(){
-        for(Map.Entry<Vector2d, PriorityQueue<Animal>> entry : animals.entrySet()){
-            if(grass.containsKey(entry.getKey())){
-                Animal current = entry.getValue().poll();
-                assert current != null;
-                current.eat(grass.get(entry.getKey()));
-                grass.remove(entry.getKey());
-                this.place(current);
-            }
-        }
+        animals.entrySet().stream()
+                .filter(entry -> grass.containsKey(entry.getKey()))
+                .forEach(entry -> {
+                    Animal current = entry.getValue().poll();
+                    if (current != null) {
+                        current.eat(grass.get(entry.getKey()));
+                        grass.remove(entry.getKey());
+                        this.place(current);
+                    }
+                });
     }
 
     public void multiplyAnimals(){
@@ -98,12 +107,12 @@ public abstract class AbstractRectangularMap implements WorldMap{
     }
 
     public void growGrass(){
-        Map<Vector2d, Grass> newGrass = grassGenerator.dailyGenerate();
-        for(Map.Entry<Vector2d, Grass> entry : newGrass.entrySet()){
-            if (!grass.containsKey(entry.getKey())) {
-                grass.put(entry.getKey(), entry.getValue());
-            }
-        }
+        grassGenerator.dailyGenerate().entrySet().stream()
+                .filter(entry -> !grass.containsKey(entry.getKey()))
+                .forEach(entry -> {
+                    grass.put(entry.getKey(), entry.getValue());
+                    mapChanged("Grass was added to " + entry.getKey());
+                });
     }
 
     public HashMap<Vector2d, Grass> getGrass() {
@@ -115,16 +124,9 @@ public abstract class AbstractRectangularMap implements WorldMap{
     }
 
     public void cleanDeadAnimals(){
-        for(Map.Entry<Vector2d, PriorityQueue<Animal>> entry : animals.entrySet()){
-            PriorityQueue<Animal> newAnimals = new PriorityQueue<>(animalComparator);
-            while (!entry.getValue().isEmpty()) {
-                Animal animal = entry.getValue().poll();
-                if(!animal.isDead(this)){
-                    newAnimals.add(animal);
-                }
-            }
-            entry.setValue(newAnimals);
-        }
+        animals.replaceAll((key, oldQueue) -> oldQueue.stream()
+                .filter(animal -> !animal.isDead(this))
+                .collect(Collectors.toCollection(() -> new PriorityQueue<>(animalComparator))));
     }
 
     public int getCurrentTime() {
@@ -147,22 +149,41 @@ public abstract class AbstractRectangularMap implements WorldMap{
         return height;
     }
 
-    public WorldElement objectAt(Vector2d position){
-        if(animals.containsKey(position)){
-            return animals.get(position).peek();
+    public Optional<WorldElement> objectAt(Vector2d position) {
+        if (animals.containsKey(position) && !animals.get(position).isEmpty()) {
+            return Optional.ofNullable(animals.get(position).peek());
         }
-        if(grass.containsKey(position)){
-            return grass.get(position);
+        if (grass.containsKey(position)) {
+            return Optional.ofNullable(grass.get(position));
         }
-        return null;
+        return Optional.empty();
     }
+
 
     @Override
     public boolean isOccupied(Vector2d position) {
         if(animals.containsKey(position)){
-            return animals.get(position).size() > 0 || grass.containsKey(position);
+            return !animals.get(position).isEmpty() || grass.containsKey(position);
         }
         return grass.containsKey(position);
+    }
+
+    @Override
+    public List<Animal> getOrderedAnimals() {
+        return animals.keySet().stream()
+                .sorted(Comparator.comparing(Vector2d::getX)
+                        .thenComparing(Vector2d::getY))
+                .flatMap(key -> animals.get(key).stream())
+                .toList();
+    }
+
+    public List<WorldElement> getElements() {
+        return Stream.concat(
+                        animals.values().stream()
+                                .flatMap(PriorityQueue::stream),
+                        grass.values().stream()
+                )
+                .toList();
     }
 
     public UUID getId(){

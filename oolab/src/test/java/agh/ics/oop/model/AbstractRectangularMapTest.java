@@ -21,7 +21,7 @@ class AbstractRectangularMapTest {
 
     @BeforeEach
     void setUp() {
-        GrassGenerator grassGenerator = new GrassGenerator(10,10,10,10,10); // Mock grass generator
+        GrassGenerator grassGenerator = new GrassGenerator(10,10,0,10,10); // Mock grass generator
         Multiplication multiplication = new Multiplication(30,2,2, 10); // Mock multiplication logic
         map = new RectangularMap(10, 10, 5, multiplication, grassGenerator); // Test implementation
     }
@@ -170,10 +170,10 @@ class AbstractRectangularMapTest {
         map.place(testAnimal3);
         map.place(testAnimal2);
         map.place(testAnimal);
-        assertEquals(map.objectAt(testAnimal.getPosition()),testAnimal);
-        assertNull(map.objectAt(new Vector2d(1,1)));
+        assertEquals(testAnimal, map.objectAt(testAnimal.getPosition()).orElse(null));
+        assertNull(map.objectAt(new Vector2d(1,1)).orElse(null));
         map.moveAnimals();
-        assertEquals(map.objectAt(testAnimal.getPosition()),testAnimal);
+        assertEquals(testAnimal, map.objectAt(testAnimal.getPosition()).orElse(null));
     }
 
     @Test
@@ -183,5 +183,49 @@ class AbstractRectangularMapTest {
         map.moveAnimals();
         assertFalse(map.isOccupied(new Vector2d(5, 5)));
         assertTrue(map.isOccupied(testAnimal3.getPosition()));
+    }
+
+    @Test
+    void getOrderedAnimals() {
+        Animal testAnimal1 = new Animal(new Vector2d(1, 2), testInfo);
+        Animal testAnimal2 = new Animal(new Vector2d(1, 3), testInfo);
+        Animal testAnimal3 = new Animal(new Vector2d(2, 2), testInfo);
+        Animal testAnimal4 = new Animal(new Vector2d(3, 2), testInfo);
+
+        map.place(testAnimal1);
+        map.place(testAnimal2);
+        map.place(testAnimal3);
+        map.place(testAnimal4);
+
+        List<Animal> animals = List.of(testAnimal1, testAnimal2, testAnimal3, testAnimal4);
+
+        assertEquals(animals, map.getOrderedAnimals());
+    }
+
+    @Test
+    void getElements(){
+        map.place(testAnimal3);
+        map.place(testAnimal2);
+        map.place(testAnimal);
+        Map<Vector2d, Grass> initialGrassMap = new HashMap<>();
+        Grass grass1 = new Grass(new Vector2d(1, 1), 10);
+        Grass grass2 = new Grass(new Vector2d(2, 3), 10);
+        Grass grass3 = new Grass(new Vector2d(4, 5), 10);
+
+
+        initialGrassMap.put(new Vector2d(1, 1), grass1);
+        initialGrassMap.put(new Vector2d(2, 3), grass2);
+        initialGrassMap.put(new Vector2d(4, 5), grass3);
+
+        map.initializeGrass(initialGrassMap);
+
+        List<WorldElement> elements = map.getElements();
+        assertEquals(6, elements.size());
+        assertTrue(elements.contains(testAnimal3));
+        assertTrue(elements.contains(testAnimal2));
+        assertTrue(elements.contains(testAnimal));
+        assertTrue(elements.contains(grass1));
+        assertTrue(elements.contains(grass2));
+        assertTrue(elements.contains(grass3));
     }
 }
