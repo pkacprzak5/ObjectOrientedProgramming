@@ -5,4 +5,6 @@ public interface WorldElement {
 
     @Override
     public String toString();
+
+    String getResourceName();
 }

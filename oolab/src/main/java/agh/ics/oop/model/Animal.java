@@ -68,4 +68,19 @@ public class Animal implements WorldElement {
     public AnimalInformation getInfo() {
         return info;
     }
+
+
+    @Override
+    public String getResourceName() {
+        return switch (direction) {
+            case EAST -> "Pig_E.png";
+            case NORTH -> "Pig_N.png";
+            case SOUTH -> "Pig_S.png";
+            case WEST -> "Pig_W.png";
+            case NORTHWEST -> "Pig_NW.png";
+            case NORTHEAST -> "Pig_NE.png";
+            case SOUTHEAST -> "Pig_SE.png";
+            case SOUTHWEST -> "Pig_SW.png";
+        };
+    }
 }
