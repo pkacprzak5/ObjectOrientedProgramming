@@ -8,10 +8,10 @@ import java.util.Random;
 import static java.lang.Math.max;
 
 public class Multiplication {
-    private final int childEnergy;
-    private final int minParentEnergy;
-    private final int minimumGenomeMutation;
-    private final int maximumGenomeMutation;
+    protected final int childEnergy;
+    protected final int minParentEnergy;
+    protected final int minimumGenomeMutation;
+    protected final int maximumGenomeMutation;
 
     public Multiplication(int childEnergy, int minimumGenomeMutation, int maximumGenomeMutation, int minParentEnergy) {
         this.childEnergy = childEnergy;
