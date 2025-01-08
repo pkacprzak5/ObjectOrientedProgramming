@@ -107,9 +107,9 @@ public class SimulationPresenter implements MapChangeListener{
                 Vector2d pos = new Vector2d(i,j);
                 Optional<WorldElement> element = worldMap.objectAt(pos);
 
-                String labelText = element.map(Object::toString).orElse(" ");
-
-                mapGrid.add(new Label(labelText), i - xMin + 1, yMax - j + 1);
+                //String labelText = element.map(Object::toString).orElse(" ");
+                WorldElementBox box = new WorldElementBox(element);
+                mapGrid.add(box.getContainer(), i - xMin + 1, yMax - j + 1); //or labelText insted box.getContainer()
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
             }
         }
@@ -125,7 +125,7 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     private void clearGrid() {
-        mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0)); // hack to retain visible grid lines
+        mapGrid.getChildren().retainAll(mapGrid.getChildren().getFirst()); // hack to retain visible grid lines
         mapGrid.getColumnConstraints().clear();
         mapGrid.getRowConstraints().clear();
     }
@@ -153,7 +153,6 @@ public class SimulationPresenter implements MapChangeListener{
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
         this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
 
-        // Dodanie obserwatora logów do pliku
         FileMapDisplay fileMapDisplay = new FileMapDisplay();
         this.worldMap.addObserver(fileMapDisplay);
     }
