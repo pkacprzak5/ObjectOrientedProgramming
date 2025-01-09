@@ -18,11 +18,11 @@ public class RectangularMapFire extends AbstractRectangularMap {
         this.fireSpread = fireSpread;
     }
 
-    public void fireSpread(int day) {
-        if (day % fireDayDelay == 0) {
-            fireMap.putAll(fireSpread.generate(this.getGrass()));
+    public void fireSpread() {
+        if (this.currentTime % fireDayDelay == 0) {
+            fireMap.putAll(fireSpread.generate((HashMap<Vector2d, Grass>) this.grass));
         }
-        fireSpread.Spread(this.getGrass(), fireMap);
+        fireSpread.Spread((HashMap<Vector2d, Grass>) this.grass, fireMap);
     }
 
     public void fireClear() {
@@ -31,7 +31,7 @@ public class RectangularMapFire extends AbstractRectangularMap {
             Map.Entry<Vector2d, Fire> entry = iterator.next();
             Fire fire = entry.getValue();
             if (fire.getCounter() <= 0) {
-                this.getGrass().remove(entry.getKey());
+                this.grass.remove(entry.getKey());
                 iterator.remove();
             }
         }
