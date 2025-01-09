@@ -50,6 +50,11 @@ public class Simulation {
             worldMap.feedAnimals();
             worldMap.multiplyAnimals();
             worldMap.growGrass();
+            if (worldMap instanceof RectangularMapFire) {
+                ((RectangularMapFire) worldMap).fireSpread();
+                ((RectangularMapFire) worldMap).fireClear();
+                ((RectangularMapFire) worldMap).killByFire();
+            }
             worldMap.mapChanged("");
             try{
                 Thread.sleep(refreshTime);

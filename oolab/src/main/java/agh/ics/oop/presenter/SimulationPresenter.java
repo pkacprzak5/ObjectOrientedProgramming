@@ -6,6 +6,7 @@ import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 
 public class SimulationPresenter implements MapChangeListener{
+
     private AbstractRectangularMap worldMap;
     private final int width = 50;
     private final int height = 50;
@@ -72,6 +74,9 @@ public class SimulationPresenter implements MapChangeListener{
 
     @FXML
     private Spinner<Integer> refreshTime;
+
+    @FXML
+    private CheckBox fireCheckBox;
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -154,8 +159,10 @@ public class SimulationPresenter implements MapChangeListener{
         mapHeight = mheight.getValue();
         Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-        this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
-
+        if (fireCheckBox.isSelected()){
+            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,2,30,new FireSpread(mapWidth,mapHeight,2));}
+        else{
+            this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);}
         FileMapDisplay fileMapDisplay = new FileMapDisplay();
         this.worldMap.addObserver(fileMapDisplay);
     }
