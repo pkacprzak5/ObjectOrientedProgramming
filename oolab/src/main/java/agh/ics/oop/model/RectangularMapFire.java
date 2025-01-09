@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
 public class RectangularMapFire extends AbstractRectangularMap {
 
@@ -36,4 +37,27 @@ public class RectangularMapFire extends AbstractRectangularMap {
             }
         }
     }
+
+    @Override
+    public Optional<WorldElement> objectAt(Vector2d position) {
+        if (fireMap.containsKey(position)) {
+            return Optional.of(fireMap.get(position));
+        }
+        if (animals.containsKey(position) && !animals.get(position).isEmpty()) {
+            return Optional.ofNullable(animals.get(position).peek());
+        }
+        if (grass.containsKey(position)) {
+            return Optional.ofNullable(grass.get(position));
+        }
+        return Optional.empty();
+    }
+
+    public void killByFire() {
+        for (Vector2d firePosition : fireMap.keySet()) {
+            if (animals.containsKey(firePosition)) {
+                animals.get(firePosition).clear();
+            }
+        }
+    }
+
 }
