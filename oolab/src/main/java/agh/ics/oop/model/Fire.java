@@ -21,7 +21,7 @@ public class Fire implements WorldElement{
     }
 
     public String getResourceName() {
-        return "Fire.png";
+        return "Fire_N.png";
     }
 
     public int getCounter() {
