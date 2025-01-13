@@ -1,8 +1,7 @@
 package agh.ics.oop.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class GrassGenerator {
     protected int width;
@@ -20,40 +19,50 @@ public class GrassGenerator {
     }
 
     public Map<Vector2d, Grass> startGenerate(){
-        return generate(startAmount);
+        Map<Vector2d, Grass> startGrass = new HashMap<>();
+        return generate(startAmount, startGrass);
     }
 
-    public Map<Vector2d, Grass> dailyGenerate(){
-        return generate(dailyAmount);
+    public Map<Vector2d, Grass> dailyGenerate(Map<Vector2d, Grass> currGrass){
+        return generate(dailyAmount, currGrass);
     }
 
-    private Map<Vector2d, Grass> generate(int amount) {
-        Map<Vector2d, Grass> generatedGrass = new HashMap<>();
+    private Map<Vector2d, Grass> generate(int amount, Map<Vector2d, Grass> grassMap) {
         Random random = new Random();
         int equatorStart = (int) (((double) height / 5) * 2);
         int equatorEnd = (int) (((double) height / 5) * 3);
+        List<Vector2d> equatorCoordinates = new ArrayList<>();
+        List<Vector2d> nonEquatorCoordinates = new ArrayList<>();
 
-        int counter = 0;
-        while (counter < amount) {
-            int x = random.nextInt(width);
-            int y;
-            if(random.nextDouble() < 0.8){
-                y = random.nextInt(equatorStart, equatorEnd+1);
-            }else{
-                if (random.nextDouble() < 0.5) {
-                    y = random.nextInt(0, equatorStart + 1);
-                }else{
-                    y = random.nextInt(equatorEnd+1, height);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Vector2d position = new Vector2d(x, y);
+                if (!grassMap.containsKey(position)) {
+                    if (y >= equatorStart && y <= equatorEnd) {
+                        equatorCoordinates.add(position);
+                    } else {
+                        nonEquatorCoordinates.add(position);
+                    }
                 }
-            }
-            Vector2d pos = new Vector2d(x, y);
-            if (!generatedGrass.containsKey(pos)) {
-                counter++;
-                generatedGrass.put(pos, new Grass(pos, energyToGive));
             }
         }
 
-        return generatedGrass;
+        int counter = 0;
+        while (counter < amount && (!equatorCoordinates.isEmpty() || !nonEquatorCoordinates.isEmpty())) {
+            counter++;
+            if(random.nextDouble() < 0.8 && !equatorCoordinates.isEmpty()) {
+                int idx = random.nextInt(equatorCoordinates.size());
+                Vector2d position = equatorCoordinates.get(idx);
+                equatorCoordinates.remove(idx);
+                grassMap.put(position, new Grass(position, energyToGive));
+            }else if(!nonEquatorCoordinates.isEmpty()) {
+                int idx = random.nextInt(nonEquatorCoordinates.size());
+                Vector2d position = nonEquatorCoordinates.get(idx);
+                nonEquatorCoordinates.remove(idx);
+                grassMap.put(position, new Grass(position, energyToGive));
+            }
+        }
+        return grassMap;
     }
 
 }

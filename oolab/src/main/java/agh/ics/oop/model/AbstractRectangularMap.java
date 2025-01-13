@@ -107,12 +107,8 @@ public abstract class AbstractRectangularMap implements WorldMap{
     }
 
     public void growGrass(){
-        grassGenerator.dailyGenerate().entrySet().stream()
-                .filter(entry -> !grass.containsKey(entry.getKey()))
-                .forEach(entry -> {
-                    grass.put(entry.getKey(), entry.getValue());
-                    mapChanged("Grass was added to " + entry.getKey());
-                });
+        this.grass = grassGenerator.dailyGenerate(grass);
+        mapChanged("Grass grown");
     }
 
     public HashMap<Vector2d, Grass> getGrass() {
@@ -127,6 +123,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
         animals.replaceAll((key, oldQueue) -> oldQueue.stream()
                 .filter(animal -> !animal.isDead(this))
                 .collect(Collectors.toCollection(() -> new PriorityQueue<>(animalComparator))));
+        mapChanged("Dead animals cleared");
     }
 
     public int getCurrentTime() {

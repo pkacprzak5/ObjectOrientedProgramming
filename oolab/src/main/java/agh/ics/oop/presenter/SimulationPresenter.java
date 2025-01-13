@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -144,11 +145,13 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     public void mapChanged(WorldMap worldMap, String mess) {
-        setWorldMap((AbstractRectangularMap) worldMap);
-        Platform.runLater(() -> {
-            clearGrid();
-            drawMap();
-        });
+        if(Objects.equals(mess, "")){
+            setWorldMap((AbstractRectangularMap) worldMap);
+            Platform.runLater(() -> {
+                clearGrid();
+                drawMap();
+            });
+        }
     }
 
     private void createWorldMap(){
