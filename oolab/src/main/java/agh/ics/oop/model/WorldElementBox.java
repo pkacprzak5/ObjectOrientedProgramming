@@ -22,12 +22,12 @@ public class WorldElementBox {
             String positionInfo = worldElement + worldElement.getPosition().toString();
             Image image = new Image(String.valueOf(getClass().getClassLoader().getResource(worldElement.getResourceName())));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(20);
-            imageView.setFitHeight(20);
+            imageView.setFitWidth(30);
+            imageView.setFitHeight(30);
 
-            Label positionLabel = new Label(positionInfo);
+            //Label positionLabel = new Label(positionInfo);
 
-            container.getChildren().addAll(imageView, positionLabel);
+            container.getChildren().addAll(imageView);//, positionLabel);
         } else {
             Label emptyLabel = new Label(" ");
             container.getChildren().add(emptyLabel);

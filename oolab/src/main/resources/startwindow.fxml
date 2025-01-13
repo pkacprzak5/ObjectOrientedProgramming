@@ -29,7 +29,7 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="energyPerPlantLabel" text="energia zapewniana przez zjedzenie jednej rośliny" textAlignment="CENTER"/>
-                <Spinner fx:id="energyPerPlant" editable="true" min="1" max="20" initialValue="5"/>
+                <Spinner fx:id="energyPerPlant" editable="true" min="1" max="20" initialValue="10"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -61,7 +61,7 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="energyToMoveLabel" text="energia zwierzaka zużywana podczas ruchu" textAlignment="CENTER"/>
-                <Spinner fx:id="energyToMove" editable="true" min="1" max="30" initialValue="5"/>
+                <Spinner fx:id="energyToMove" editable="true" min="1" max="30" initialValue="2"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
