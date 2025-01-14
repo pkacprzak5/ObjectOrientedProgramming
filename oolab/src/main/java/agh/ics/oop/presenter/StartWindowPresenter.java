@@ -6,6 +6,7 @@ import agh.ics.oop.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -64,6 +65,15 @@ public class StartWindowPresenter{
     @FXML
     private CheckBox mutationCheckBox;
 
+    @FXML
+    private Spinner<Integer> daydelay;
+
+    @FXML
+    private Spinner<Integer> dayamount;
+
+    @FXML
+    private HBox fireinfo;
+
 
     private void createWorldMap(){
         mapWidth = mwidth.getValue();
@@ -76,12 +86,23 @@ public class StartWindowPresenter{
         }
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
         if (fireCheckBox.isSelected()){
-            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,2,30,new FireSpread(mapWidth,mapHeight,2));
+            Integer delay = daydelay.getValue();
+            Integer amount = dayamount.getValue();
+
+            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,delay,amount,new FireSpread(mapWidth,mapHeight,2));
         } else{
             this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
         }
         FileMapDisplay fileMapDisplay = new FileMapDisplay();
         this.worldMap.addObserver(fileMapDisplay);
+    }
+
+    @FXML
+    public void fireon() {
+        if (!fireinfo.visibleProperty().getValue()){
+            fireinfo.visibleProperty().setValue(true);
+        }else fireinfo.visibleProperty().setValue(false);
+
     }
 
     @FXML
