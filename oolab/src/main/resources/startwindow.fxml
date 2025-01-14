@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="750.0" minWidth="1050.0"
-            fx:controller="agh.ics.oop.presenter.SimulationPresenter">
+            fx:controller="agh.ics.oop.presenter.StartWindowPresenter">
     <center>
         <VBox spacing="10" alignment="CENTER">
             <Label fx:id="worldLabel" text="mapa opcje:" textAlignment="CENTER" style="-fx-font-weight: bold;"/>

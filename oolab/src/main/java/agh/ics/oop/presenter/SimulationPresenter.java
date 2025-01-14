@@ -1,21 +1,17 @@
 package agh.ics.oop.presenter;
 
 import agh.ics.oop.Simulation;
-import agh.ics.oop.SimulationApp;
 import agh.ics.oop.model.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.scene.control.CheckBox;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,6 +20,7 @@ import static java.lang.Math.min;
 
 
 public class SimulationPresenter implements MapChangeListener{
+
 
     private AbstractRectangularMap worldMap;
     private final int width = 500;
@@ -34,67 +31,63 @@ public class SimulationPresenter implements MapChangeListener{
     private int yMax;
     private int mapWidth;
     private int mapHeight;
-    private Thread simulationThread;
     private Simulation simulation;
-
+    private XYChart.Series<Number, Number> seriesAnimals;
+    private XYChart.Series<Number, Number> seriesGrass;
+    private int xValue = 0;
+    private int yValueAnimals = 0;
+    private int yValueGrass = 0;
 
     @FXML
     private GridPane mapGrid;
 
     @FXML
-    private Spinner<Integer> mwidth;
+    private Label dayLabel;
 
     @FXML
-    private Spinner<Integer> mheight;
+    private Label populationLabel;
 
     @FXML
-    private Spinner<Integer> initialPlants;
+    private Label childrenLabel;
 
     @FXML
-    private Spinner<Integer> energyPerPlant;
+    private Label animalsCountLabel;
 
     @FXML
-    private Spinner<Integer> plantsPerDay;
+    private Label plantsCountLabel;
 
     @FXML
-    private Spinner<Integer> initialAnimals;
+    private Label freeFieldsLabel;
 
     @FXML
-    private Spinner<Integer> energyToMultiply;
+    private Label popularGenotypeLabel;
 
     @FXML
-    private Spinner<Integer> initialEnergy;
+    private Label avgLivingEnergyLabel;
 
     @FXML
-    private Spinner<Integer> energyToBreed;
+    private Label avgDeadLifeSpanLabel;
 
     @FXML
-    private Spinner<Integer> minMutations;
+    private Label avgLivingChildrenLabel;
 
     @FXML
-    private Spinner<Integer> maxMutations;
+    private LineChart<Number, Number> animalNumberChart;
 
     @FXML
-    private Spinner<Integer> genomeLength;
+    private LineChart<Number, Number> grassNumberChart;
 
     @FXML
-    private Spinner<Integer> energyToMove;
+    private NumberAxis xAxisAnimal;
 
     @FXML
-    private Spinner<Integer> refreshTime;
+    private NumberAxis yAxisAnimal;
 
     @FXML
-    private CheckBox fireCheckBox;
-    
-    @FXML
-    private Spinner<Integer> daydelay;
-    
-    @FXML
-    private Spinner<Integer> dayamount;
+    private NumberAxis xAxisGrass;
 
     @FXML
-    private HBox fireinfo;
-
+    private NumberAxis yAxisGrass;
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -162,63 +155,96 @@ public class SimulationPresenter implements MapChangeListener{
         GridPane.setHalignment(label, HPos.CENTER);
     }
 
+    private void updateStatistics(){
+        dayLabel.setText(String.valueOf(worldMap.getCurrentTime()));
+        populationLabel.setText(String.valueOf(worldMap.getAnimalsNumber()));
+        childrenLabel.setText(String.valueOf(worldMap.getAvgChildrenNumber()));
+        animalsCountLabel.setText(String.valueOf(worldMap.getAnimalsNumber()));
+        plantsCountLabel.setText(String.valueOf(worldMap.getGrassNumber()));
+        freeFieldsLabel.setText(String.valueOf(worldMap.getFreeFieldsNumber()));
+        popularGenotypeLabel.setText(worldMap.getMostPopularGenotype());
+        avgLivingEnergyLabel.setText(String.valueOf(worldMap.getAvgEnergy()));
+        avgDeadLifeSpanLabel.setText(String.valueOf(worldMap.getAvgTimeAlive()));
+        avgLivingChildrenLabel.setText(String.valueOf(worldMap.getAvgChildrenNumber()));
+    }
+
     public void mapChanged(WorldMap worldMap, String mess) {
         if(Objects.equals(mess, "")){
             setWorldMap((AbstractRectangularMap) worldMap);
             Platform.runLater(() -> {
+                updateStatistics();
+                updateChart();
                 clearGrid();
                 drawMap();
             });
         }
     }
 
-    private void createWorldMap(){
-        mapWidth = mwidth.getValue();
-        mapHeight = mheight.getValue();
-        
-        Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
-        GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-        if (fireCheckBox.isSelected()){
-            Integer delay = daydelay.getValue();
-            Integer amount = dayamount.getValue();
-            
-            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,delay,amount,new FireSpread(mapWidth,mapHeight,2));
-        } else{
-            this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
-        }
-        FileMapDisplay fileMapDisplay = new FileMapDisplay();
-        this.worldMap.addObserver(fileMapDisplay);
-    }
-
     public void runNewSimulation(Simulation simulation) {
-        new Thread(() -> simulation.run(this)).start();
-    }
-
-    @FXML
-    public void onSimulationStartClicked(){
-        SimulationApp simulationApp = new SimulationApp();
-        try {
-            createWorldMap();
-            GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-            simulation = new Simulation(initialAnimals.getValue(), initialEnergy.getValue(), genomeLength.getValue(), refreshTime.getValue(), grassGenerator, this.worldMap);
-            simulationApp.createNewSimulation(new Stage(), simulation);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.simulation = simulation;
+        simulation.setupBeforeStart(this);
+        new Thread(simulation::run).start();
+        initializeCharts();
     }
 
     @FXML
     public void startClicked() {
+        if(!simulation.isRunning()){
+            simulation.resume();
+            new Thread(simulation::run).start();
+        }
     }
 
     @FXML
     public void stopClicked() {
+        simulation.stop();
     }
 
-    public void fireon(ActionEvent actionEvent) {
-        if (!fireinfo.visibleProperty().getValue()){
-            fireinfo.visibleProperty().setValue(true);
-        }else fireinfo.visibleProperty().setValue(false);
+    public void initializeCharts() {
+        seriesAnimals = new XYChart.Series<>();
+        seriesGrass = new XYChart.Series<>();
+
+        animalNumberChart.getData().add(seriesAnimals);
+        grassNumberChart.getData().add(seriesGrass);
+        xAxisAnimal.setLowerBound(0);
+        xAxisAnimal.setUpperBound(100);
+        xAxisGrass.setLowerBound(0);
+        xAxisGrass.setUpperBound(100);
+
+        yAxisGrass.setAutoRanging(true);
+        yAxisAnimal.setAutoRanging(true);
 
     }
+
+    public void updateChart() {
+        yValueAnimals = worldMap.getAnimalsNumber();
+        yValueGrass = worldMap.getGrassNumber();
+
+        seriesAnimals.getData().add(new XYChart.Data<>(xValue, yValueAnimals));
+        for (XYChart.Data<Number, Number> data : seriesAnimals.getData()) {
+            data.setNode(null);
+        }
+        seriesGrass.getData().add(new XYChart.Data<>(xValue, yValueGrass));
+        for (XYChart.Data<Number, Number> data : seriesGrass.getData()) {
+            data.setNode(null);
+        }
+
+        if (seriesAnimals.getData().size() > 100) {
+            seriesAnimals.getData().remove(0);
+        }
+
+        if (seriesGrass.getData().size() > 100) {
+            seriesGrass.getData().remove(0);
+        }
+
+        if (xValue > 50) {
+            xAxisAnimal.setLowerBound(xValue - 50);
+            xAxisAnimal.setUpperBound(xValue + 50);
+            xAxisGrass.setLowerBound(xValue - 50);
+            xAxisGrass.setUpperBound(xValue + 50);
+        }
+
+        xValue++;
+    }
+
 }

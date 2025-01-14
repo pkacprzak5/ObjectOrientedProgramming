@@ -16,6 +16,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
     protected GrassGenerator grassGenerator;
     protected List<MapChangeListener> observers = new ArrayList<>();
     protected UUID id;
+    protected List<Animal> deadAnimals = new ArrayList<>();
 
     public void addObserver(MapChangeListener observer) {
         observers.add(observer);
@@ -120,9 +121,19 @@ public abstract class AbstractRectangularMap implements WorldMap{
     }
 
     public void cleanDeadAnimals(){
-        animals.replaceAll((key, oldQueue) -> oldQueue.stream()
-                .filter(animal -> !animal.isDead(this))
-                .collect(Collectors.toCollection(() -> new PriorityQueue<>(animalComparator))));
+        animals.replaceAll((key, oldQueue) -> {
+            PriorityQueue<Animal> aliveAnimals = oldQueue.stream()
+                    .filter(animal -> !animal.isDead(this))
+                    .collect(Collectors.toCollection(() -> new PriorityQueue<>(animalComparator)));
+
+            // Adding dead animals to list
+            oldQueue.stream()
+                    .filter(animal -> animal.isDead(this))
+                    .forEach(deadAnimals::add);
+
+            return aliveAnimals;
+        });
+
         mapChanged("Dead animals cleared");
     }
 
@@ -186,4 +197,62 @@ public abstract class AbstractRectangularMap implements WorldMap{
     public UUID getId(){
         return id;
     }
+
+    public int getAnimalsNumber() {
+        return animals.values().stream()
+                .mapToInt(PriorityQueue::size)
+                .sum();
+    }
+
+    public int getGrassNumber() {
+        return grass.size();
+    }
+
+    public int getFreeFieldsNumber() {
+        int counter = 0;
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(!grass.containsKey(new Vector2d(j, i)) && !animals.containsKey(new Vector2d(j, i))) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public double getAvgEnergy() {
+        return Math.round(animals.values().stream()
+                .flatMap(Collection::stream)
+                .mapToDouble(animal -> animal.getInfo().getEnergy())
+                .average()
+                .orElse(0.0) * 100.0) / 100.0;
+    }
+
+    public double getAvgChildrenNumber() {
+        return Math.round(animals.values().stream()
+                .flatMap(Collection::stream)
+                .mapToDouble(animal -> animal.getInfo().getChildrenNumber())
+                .average()
+                .orElse(0.0) * 100.0) / 100.0;
+    }
+
+    public double getAvgTimeAlive() {
+        return Math.round(deadAnimals.stream()
+                .mapToDouble(animal -> animal.getInfo().getTimeAlive())
+                .average()
+                .orElse(0.0) * 100.0) / 100.0;
+    }
+
+
+    public String getMostPopularGenotype(){
+        return Objects.requireNonNull(animals.values().stream()
+                .flatMap(Collection::stream)
+                .map(animal -> animal.getInfo().getGenotype())
+                .collect(Collectors.groupingBy(genotype -> genotype, Collectors.counting()))
+                .entrySet().stream()
+                .max(Comparator.comparingLong(Map.Entry::getValue))
+                .map(Map.Entry::getKey)
+                .orElse(null)).toString();
+    }
+
 }

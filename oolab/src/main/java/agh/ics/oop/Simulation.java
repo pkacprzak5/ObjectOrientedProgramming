@@ -16,7 +16,9 @@ public class Simulation {
     private final AbstractRectangularMap worldMap;
     private volatile boolean running = true;
 
-
+    public boolean isRunning() {
+        return running;
+    }
 
     public Simulation(int animalsNumber, int animalStartEnergy, int genomeLength, int refreshTime, GrassGenerator grassGenerator, AbstractRectangularMap worldMap) {
         this.animalsNumber = animalsNumber;
@@ -38,11 +40,14 @@ public class Simulation {
     }
 
     public void stop() {
-        running = false; // Ustawienie flagi na false zatrzymuje symulację
+        running = false;
     }
 
+    public void resume(){
+        running = true;
+    }
 
-    public void run(MapChangeListener mapChangeListener) {
+    public void setupBeforeStart(MapChangeListener mapChangeListener) {
         worldMap.addObserver(mapChangeListener);
         worldMap.addObserver((worldMap, message) -> {
             if(!Objects.equals(message, "")){
@@ -50,9 +55,10 @@ public class Simulation {
                 System.out.println(timestamp + " " + message);
             }
         });
+    }
 
-        running = true;
 
+    public void run() {
         while(running){
             worldMap.increaseCurrentTime();
             worldMap.cleanDeadAnimals();
