@@ -9,7 +9,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="550.0" minWidth="850.0"
+            minHeight="750.0" minWidth="1050.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter">
     <center>
         <VBox spacing="10" alignment="CENTER">
@@ -89,10 +89,15 @@
                 <Label fx:id="mutationVariantLabel" text="lekka korekta" textAlignment="CENTER"/>
                 <CheckBox fx:id="mutationCheckBox"/>
                 <Label fx:id="onOffLabel" text="ogień" textAlignment="CENTER"/>
-                <CheckBox fx:id="fireCheckBox"/>
-
+                <CheckBox fx:id="fireCheckBox" onAction="#fireon"/>
             </HBox>
 
+            <HBox fx:id="fireinfo" spacing="10" alignment="CENTER" visible="false">
+                <Label fx:id="daydelayLabel" text="co ile pożar" textAlignment="CENTER"/>
+                <Spinner fx:id="daydelay" editable="true" max="50" min="1" initialValue="20"/>
+                <Label fx:id="dayamountLabel" text="czas palenia się trawy:" textAlignment="CENTER"/>
+                <Spinner fx:id="dayamount" editable="true" max="20" min="1" initialValue="2"/>
+            </HBox>
 
         </VBox>
     </center>

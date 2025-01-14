@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -84,6 +85,16 @@ public class SimulationPresenter implements MapChangeListener{
 
     @FXML
     private CheckBox fireCheckBox;
+    
+    @FXML
+    private Spinner<Integer> daydelay;
+    
+    @FXML
+    private Spinner<Integer> dayamount;
+
+    @FXML
+    private HBox fireinfo;
+
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -164,10 +175,14 @@ public class SimulationPresenter implements MapChangeListener{
     private void createWorldMap(){
         mapWidth = mwidth.getValue();
         mapHeight = mheight.getValue();
+        
         Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
         GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
         if (fireCheckBox.isSelected()){
-            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,2,30,new FireSpread(mapWidth,mapHeight,2));
+            Integer delay = daydelay.getValue();
+            Integer amount = dayamount.getValue();
+            
+            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,delay,amount,new FireSpread(mapWidth,mapHeight,2));
         } else{
             this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
         }
@@ -200,4 +215,10 @@ public class SimulationPresenter implements MapChangeListener{
     public void stopClicked() {
     }
 
+    public void fireon(ActionEvent actionEvent) {
+        if (!fireinfo.visibleProperty().getValue()){
+            fireinfo.visibleProperty().setValue(true);
+        }else fireinfo.visibleProperty().setValue(false);
+
+    }
 }
