@@ -14,7 +14,7 @@ public class WorldElementBox {
     private static final Map<String, Image> imageCache = new HashMap<>();
     private VBox container;
 
-    public WorldElementBox(Optional<WorldElement> element) {
+    public WorldElementBox(Optional<WorldElement> element,int size) {
         container = new VBox();
 
         if (element.isPresent()) {
@@ -22,8 +22,8 @@ public class WorldElementBox {
             String positionInfo = worldElement + worldElement.getPosition().toString();
             Image image = new Image(String.valueOf(getClass().getClassLoader().getResource(worldElement.getResourceName())));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(30);
-            imageView.setFitHeight(30);
+            imageView.setFitWidth(size);
+            imageView.setFitHeight(size);
 
             //Label positionLabel = new Label(positionInfo);
 

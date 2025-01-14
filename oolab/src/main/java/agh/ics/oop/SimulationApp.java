@@ -2,6 +2,7 @@ package agh.ics.oop;
 
 import agh.ics.oop.presenter.SimulationPresenter;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +19,11 @@ public class SimulationApp extends Application {
         SimulationPresenter presenter = loader.getController();
 
         configureStage(primaryStage, viewRoot);
+
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         primaryStage.show();
     }
 
@@ -27,6 +33,8 @@ public class SimulationApp extends Application {
         BorderPane viewRoot = newLoader.load();
         SimulationPresenter presenter = newLoader.getController();
         presenter.runNewSimulation(simulation);
+
+        stage.setOnCloseRequest(event -> simulation.stop());
 
         configureStage(stage, viewRoot);
         stage.show();
@@ -39,5 +47,6 @@ public class SimulationApp extends Application {
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
+
 
 }

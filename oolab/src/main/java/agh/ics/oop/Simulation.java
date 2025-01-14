@@ -14,6 +14,8 @@ public class Simulation {
     private final int refreshTime;
     private final GrassGenerator grassGenerator;
     private final AbstractRectangularMap worldMap;
+    private volatile boolean running = true;
+
 
 
     public Simulation(int animalsNumber, int animalStartEnergy, int genomeLength, int refreshTime, GrassGenerator grassGenerator, AbstractRectangularMap worldMap) {
@@ -35,6 +37,11 @@ public class Simulation {
         }
     }
 
+    public void stop() {
+        running = false; // Ustawienie flagi na false zatrzymuje symulację
+    }
+
+
     public void run(MapChangeListener mapChangeListener) {
         worldMap.addObserver(mapChangeListener);
         worldMap.addObserver((worldMap, message) -> {
@@ -43,7 +50,10 @@ public class Simulation {
                 System.out.println(timestamp + " " + message);
             }
         });
-        while(true){
+
+        running = true;
+
+        while(running){
             worldMap.increaseCurrentTime();
             worldMap.cleanDeadAnimals();
             worldMap.moveAnimals();
