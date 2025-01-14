@@ -3,17 +3,25 @@ package agh.ics.oop.presenter;
 import agh.ics.oop.Simulation;
 import agh.ics.oop.SimulationApp;
 import agh.ics.oop.model.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
@@ -37,6 +45,11 @@ public class SimulationPresenter implements MapChangeListener{
     private int mapWidth;
     private int mapHeight;
     private Simulation simulation;
+    private XYChart.Series<Number, Number> seriesAnimals;
+    private XYChart.Series<Number, Number> seriesGrass;
+    private int xValue = 0;
+    private int yValueAnimals = 0;
+    private int yValueGrass = 0;
 
     @FXML
     private GridPane mapGrid;
@@ -70,6 +83,24 @@ public class SimulationPresenter implements MapChangeListener{
 
     @FXML
     private Label avgLivingChildrenLabel;
+
+    @FXML
+    private LineChart<Number, Number> animalNumberChart;
+
+    @FXML
+    private LineChart<Number, Number> grassNumberChart;
+
+    @FXML
+    private NumberAxis xAxisAnimal;
+
+    @FXML
+    private NumberAxis yAxisAnimal;
+
+    @FXML
+    private NumberAxis xAxisGrass;
+
+    @FXML
+    private NumberAxis yAxisGrass;
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -155,6 +186,7 @@ public class SimulationPresenter implements MapChangeListener{
             setWorldMap((AbstractRectangularMap) worldMap);
             Platform.runLater(() -> {
                 updateStatistics();
+                updateChart();
                 clearGrid();
                 drawMap();
             });
@@ -165,6 +197,7 @@ public class SimulationPresenter implements MapChangeListener{
         this.simulation = simulation;
         simulation.setupBeforeStart(this);
         new Thread(simulation::run).start();
+        initializeCharts();
     }
 
     @FXML
@@ -178,6 +211,53 @@ public class SimulationPresenter implements MapChangeListener{
     @FXML
     public void stopClicked() {
         simulation.stop();
+    }
+
+    public void initializeCharts() {
+        seriesAnimals = new XYChart.Series<>();
+        seriesGrass = new XYChart.Series<>();
+
+        animalNumberChart.getData().add(seriesAnimals);
+        grassNumberChart.getData().add(seriesGrass);
+        xAxisAnimal.setLowerBound(0);
+        xAxisAnimal.setUpperBound(100);
+        xAxisGrass.setLowerBound(0);
+        xAxisGrass.setUpperBound(100);
+
+        yAxisGrass.setAutoRanging(true);
+        yAxisAnimal.setAutoRanging(true);
+
+    }
+
+    public void updateChart() {
+        yValueAnimals = worldMap.getAnimalsNumber();
+        yValueGrass = worldMap.getGrassNumber();
+
+        seriesAnimals.getData().add(new XYChart.Data<>(xValue, yValueAnimals));
+        for (XYChart.Data<Number, Number> data : seriesAnimals.getData()) {
+            data.setNode(null);
+        }
+        seriesGrass.getData().add(new XYChart.Data<>(xValue, yValueGrass));
+        for (XYChart.Data<Number, Number> data : seriesGrass.getData()) {
+            data.setNode(null);
+        }
+
+        if (seriesAnimals.getData().size() > 100) {
+            seriesAnimals.getData().remove(0);
+        }
+
+        if (seriesGrass.getData().size() > 100) {
+            seriesGrass.getData().remove(0);
+        }
+
+        if (xValue > 50) {
+            xAxisAnimal.setLowerBound(xValue - 50);
+            xAxisAnimal.setUpperBound(xValue + 50);
+            xAxisGrass.setLowerBound(xValue - 50);
+            xAxisGrass.setUpperBound(xValue + 50);
+        }
+
+        xValue++;
     }
 
 }

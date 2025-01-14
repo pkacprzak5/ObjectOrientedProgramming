@@ -221,27 +221,28 @@ public abstract class AbstractRectangularMap implements WorldMap{
     }
 
     public double getAvgEnergy() {
-        return animals.values().stream()
+        return Math.round(animals.values().stream()
                 .flatMap(Collection::stream)
                 .mapToDouble(animal -> animal.getInfo().getEnergy())
                 .average()
-                .orElse(0.0);
+                .orElse(0.0) * 100.0) / 100.0;
     }
 
     public double getAvgChildrenNumber() {
-        return animals.values().stream()
+        return Math.round(animals.values().stream()
                 .flatMap(Collection::stream)
                 .mapToDouble(animal -> animal.getInfo().getChildrenNumber())
                 .average()
-                .orElse(0.0);
+                .orElse(0.0) * 100.0) / 100.0;
     }
 
     public double getAvgTimeAlive() {
-        return deadAnimals.stream()
+        return Math.round(deadAnimals.stream()
                 .mapToDouble(animal -> animal.getInfo().getTimeAlive())
                 .average()
-                .orElse(0.0);
+                .orElse(0.0) * 100.0) / 100.0;
     }
+
 
     public String getMostPopularGenotype(){
         return Objects.requireNonNull(animals.values().stream()
