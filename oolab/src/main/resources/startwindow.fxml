@@ -17,9 +17,9 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="heightLabel" text="wysokość mapy" textAlignment="CENTER"/>
-                <Spinner fx:id="mheight" editable="true" max="100" initialValue="8"/>
+                <Spinner fx:id="mheight" editable="true" max="50" min="4" initialValue="8"/>
                 <Label fx:id="widthLabel" text="szerokość mapy" textAlignment="CENTER"/>
-                <Spinner fx:id="mwidth" editable="true" max="100" initialValue="8"/>
+                <Spinner fx:id="mwidth" editable="true" max="50" min="4" initialValue="8"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">

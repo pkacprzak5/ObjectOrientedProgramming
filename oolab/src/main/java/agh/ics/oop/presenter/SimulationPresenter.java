@@ -100,7 +100,7 @@ public class SimulationPresenter implements MapChangeListener{
         for (int i = 0; i < mapWidth; i++){
             Label label = new Label(Integer.toString(xMin+i));
             GridPane.setHalignment(label, HPos.CENTER);
-            mapGrid.getColumnConstraints().add(new ColumnConstraints(width/mapWidth));
+            mapGrid.getColumnConstraints().add(new ColumnConstraints(width/(mapWidth+1)));
             mapGrid.add(label, i+1, 0);
         }
     }
@@ -109,7 +109,7 @@ public class SimulationPresenter implements MapChangeListener{
         for (int i = 0; i < mapHeight; i++){
             Label label = new Label(Integer.toString(yMax-i));
             GridPane.setHalignment(label, HPos.CENTER);
-            mapGrid.getRowConstraints().add(new RowConstraints(height/mapHeight));
+            mapGrid.getRowConstraints().add(new RowConstraints(height/(mapHeight+1)));
             mapGrid.add(label, 0, i+1);
         }
     }
@@ -121,7 +121,7 @@ public class SimulationPresenter implements MapChangeListener{
                 Optional<WorldElement> element = worldMap.objectAt(pos);
 
                 //String labelText = element.map(Object::toString).orElse(" ");
-                WorldElementBox box = new WorldElementBox(element,min(width,height)/max(mapWidth,mapHeight));
+                WorldElementBox box = new WorldElementBox(element,min(width,height)/max(mapWidth+1,mapHeight+1));
                 mapGrid.add(box.getContainer(), i - xMin + 1, yMax - j + 1); //or labelText insted box.getContainer()
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
             }
@@ -144,8 +144,8 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     public void Labels(){
-        mapGrid.getColumnConstraints().add(new ColumnConstraints(width/mapWidth));
-        mapGrid.getRowConstraints().add(new RowConstraints(height/mapHeight));
+        mapGrid.getColumnConstraints().add(new ColumnConstraints(min(width,height)/max(mapWidth+1,mapHeight+1)));
+        mapGrid.getRowConstraints().add(new RowConstraints(min(width,height)/max(mapWidth+1,mapHeight+1)));
         Label label = new Label("y/x");
         mapGrid.add(label, 0, 0);
         GridPane.setHalignment(label, HPos.CENTER);

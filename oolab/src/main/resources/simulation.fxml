@@ -9,7 +9,11 @@
             minHeight="750.0" minWidth="1050.0"
             fx:controller="agh.ics.oop.presenter.SimulationPresenter">
     <center>
-        <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" style="-fx-background-color: lightblue;"/>
+        <HBox spacing="10" alignment="CENTER">
+            <VBox spacing="10" alignment="CENTER">
+                <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" style="-fx-background-color: lightblue;"/>
+            </VBox>
+        </HBox>
     </center>
 
     <bottom>
