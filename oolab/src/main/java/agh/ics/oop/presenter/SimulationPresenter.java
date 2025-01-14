@@ -26,6 +26,7 @@ import static java.lang.Math.min;
 
 public class SimulationPresenter implements MapChangeListener{
 
+
     private AbstractRectangularMap worldMap;
     private final int width = 500;
     private final int height = 500;
@@ -39,6 +40,36 @@ public class SimulationPresenter implements MapChangeListener{
 
     @FXML
     private GridPane mapGrid;
+
+    @FXML
+    private Label dayLabel;
+
+    @FXML
+    private Label populationLabel;
+
+    @FXML
+    private Label childrenLabel;
+
+    @FXML
+    private Label animalsCountLabel;
+
+    @FXML
+    private Label plantsCountLabel;
+
+    @FXML
+    private Label freeFieldsLabel;
+
+    @FXML
+    private Label popularGenotypeLabel;
+
+    @FXML
+    private Label avgLivingEnergyLabel;
+
+    @FXML
+    private Label avgDeadLifeSpanLabel;
+
+    @FXML
+    private Label avgLivingChildrenLabel;
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -106,10 +137,24 @@ public class SimulationPresenter implements MapChangeListener{
         GridPane.setHalignment(label, HPos.CENTER);
     }
 
+    private void updateStatistics(){
+        dayLabel.setText(String.valueOf(worldMap.getCurrentTime()));
+        populationLabel.setText(String.valueOf(worldMap.getAnimalsNumber()));
+        childrenLabel.setText(String.valueOf(worldMap.getAvgChildrenNumber()));
+        animalsCountLabel.setText(String.valueOf(worldMap.getAnimalsNumber()));
+        plantsCountLabel.setText(String.valueOf(worldMap.getGrassNumber()));
+        freeFieldsLabel.setText(String.valueOf(worldMap.getFreeFieldsNumber()));
+        popularGenotypeLabel.setText(worldMap.getMostPopularGenotype());
+        avgLivingEnergyLabel.setText(String.valueOf(worldMap.getAvgEnergy()));
+        avgDeadLifeSpanLabel.setText(String.valueOf(worldMap.getAvgTimeAlive()));
+        avgLivingChildrenLabel.setText(String.valueOf(worldMap.getAvgChildrenNumber()));
+    }
+
     public void mapChanged(WorldMap worldMap, String mess) {
         if(Objects.equals(mess, "")){
             setWorldMap((AbstractRectangularMap) worldMap);
             Platform.runLater(() -> {
+                updateStatistics();
                 clearGrid();
                 drawMap();
             });

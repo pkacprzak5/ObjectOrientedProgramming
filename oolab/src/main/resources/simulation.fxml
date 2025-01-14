@@ -37,22 +37,18 @@
 
     <right>
         <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20 10 10 20;">
-            <Label text="Statystyki:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
-
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="age" text="średni wiek:" textAlignment="CENTER"/>
-                <Label fx:id="agelabel" text="123" textAlignment="CENTER"/>
+                <Label fx:id="day" text="Dzień:" textAlignment="CENTER"/>
+                <Label fx:id="dayLabel" text="0" textAlignment="CENTER"/>
             </HBox>
+
+            <Label text="Statystyki:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label fx:id="population" text="populacja:" textAlignment="CENTER"/>
                 <Label fx:id="populationLabel" text="456" textAlignment="CENTER"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="energy" text="średnia energia:" textAlignment="CENTER"/>
-                <Label fx:id="energyLabel" text="789" textAlignment="CENTER"/>
-            </HBox>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label fx:id="children" text="średnia liczba dzieci:" textAlignment="CENTER"/>
@@ -75,7 +71,7 @@
             </HBox>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="popularGenotype" text="najpopularniejsze genotypy:" textAlignment="CENTER"/>
+                <Label fx:id="popularGenotype" text="najpopularniejszy genotyp:" textAlignment="CENTER"/>
                 <Label fx:id="popularGenotypeLabel" text="N/A" textAlignment="CENTER"/>
             </HBox>
 
