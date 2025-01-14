@@ -15,8 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -33,57 +35,10 @@ public class SimulationPresenter implements MapChangeListener{
     private int yMax;
     private int mapWidth;
     private int mapHeight;
-    private Thread simulationThread;
     private Simulation simulation;
-
 
     @FXML
     private GridPane mapGrid;
-
-    @FXML
-    private Spinner<Integer> mwidth;
-
-    @FXML
-    private Spinner<Integer> mheight;
-
-    @FXML
-    private Spinner<Integer> initialPlants;
-
-    @FXML
-    private Spinner<Integer> energyPerPlant;
-
-    @FXML
-    private Spinner<Integer> plantsPerDay;
-
-    @FXML
-    private Spinner<Integer> initialAnimals;
-
-    @FXML
-    private Spinner<Integer> energyToMultiply;
-
-    @FXML
-    private Spinner<Integer> initialEnergy;
-
-    @FXML
-    private Spinner<Integer> energyToBreed;
-
-    @FXML
-    private Spinner<Integer> minMutations;
-
-    @FXML
-    private Spinner<Integer> maxMutations;
-
-    @FXML
-    private Spinner<Integer> genomeLength;
-
-    @FXML
-    private Spinner<Integer> energyToMove;
-
-    @FXML
-    private Spinner<Integer> refreshTime;
-
-    @FXML
-    private CheckBox fireCheckBox;
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
@@ -161,43 +116,23 @@ public class SimulationPresenter implements MapChangeListener{
         }
     }
 
-    private void createWorldMap(){
-        mapWidth = mwidth.getValue();
-        mapHeight = mheight.getValue();
-        Multiplication multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
-        GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-        if (fireCheckBox.isSelected()){
-            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,2,30,new FireSpread(mapWidth,mapHeight,2));
-        } else{
-            this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
-        }
-        FileMapDisplay fileMapDisplay = new FileMapDisplay();
-        this.worldMap.addObserver(fileMapDisplay);
-    }
-
     public void runNewSimulation(Simulation simulation) {
-        new Thread(() -> simulation.run(this)).start();
-    }
-
-    @FXML
-    public void onSimulationStartClicked(){
-        SimulationApp simulationApp = new SimulationApp();
-        try {
-            createWorldMap();
-            GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-            simulation = new Simulation(initialAnimals.getValue(), initialEnergy.getValue(), genomeLength.getValue(), refreshTime.getValue(), grassGenerator, this.worldMap);
-            simulationApp.createNewSimulation(new Stage(), simulation);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.simulation = simulation;
+        simulation.setupBeforeStart(this);
+        new Thread(simulation::run).start();
     }
 
     @FXML
     public void startClicked() {
+        if(!simulation.isRunning()){
+            simulation.resume();
+            new Thread(simulation::run).start();
+        }
     }
 
     @FXML
     public void stopClicked() {
+        simulation.stop();
     }
 
 }

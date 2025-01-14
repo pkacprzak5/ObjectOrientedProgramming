@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.presenter.SimulationPresenter;
+import agh.ics.oop.presenter.StartWindowPresenter;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,7 @@ public class SimulationApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("startwindow.fxml"));
         BorderPane viewRoot = loader.load();
-        SimulationPresenter presenter = loader.getController();
+        StartWindowPresenter presenter = loader.getController();
 
         configureStage(primaryStage, viewRoot);
 
@@ -32,6 +33,7 @@ public class SimulationApp extends Application {
         newLoader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = newLoader.load();
         SimulationPresenter presenter = newLoader.getController();
+
         presenter.runNewSimulation(simulation);
 
         stage.setOnCloseRequest(event -> simulation.stop());
