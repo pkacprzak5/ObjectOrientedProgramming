@@ -25,6 +25,6 @@ public class Grass implements WorldElement{
 
     @Override
     public String getResourceName() {
-        return "Carrot.png";
+        return "Grass.png";
     }
 }
