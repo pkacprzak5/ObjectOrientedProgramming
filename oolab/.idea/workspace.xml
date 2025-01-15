@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b89aa9d-a240-4a4b-a2ef-adfb7e48a068" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/FireSpreadTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/RectangularMapFireTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/AbstractRectangularMapTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/AbstractRectangularMapTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/FireSpread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/FireSpread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMapFire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMapFire.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +50,8 @@
         <option value="Record" />
         <option value="Interface" />
         <option value="FxmlFile" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -122,13 +125,15 @@
     "Gradle.oolab [:agh.ics.oop.SimulationApp.main()].executor": "Run",
     "Gradle.oolab [:agh.ics.oop.World.main()].executor": "Run",
     "Gradle.oolab [:agh.ics.oop.WorldGUI.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "develop-pk",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/kac/programow/pobiektowe/PO2024_PN1500_KACPRZAK/oolab",
+    "last_opened_file_path": "C:/programowanie/pobiektowe/PO2024_PN1500_KACPRZAK/oolab",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -156,8 +161,8 @@
       <recent name="agh.ics.oop" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="AbstractRectangularMapTest.getAnimalsNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.FireSpreadTest.generate">
+    <configuration name="AbstractRectangularMapTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -170,7 +175,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.AbstractRectangularMapTest.getAnimalsNumber&quot;" />
+            <option value="&quot;agh.ics.oop.model.AbstractRectangularMapTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -229,7 +234,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AbstractRectangularMapTest.getOrderedAnimals" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="FireSpreadTest.generate" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -242,7 +247,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.AbstractRectangularMapTest.getOrderedAnimals&quot;" />
+            <option value="&quot;agh.ics.oop.model.FireSpreadTest.generate&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -253,7 +258,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="GrassGeneratorTest.grassDistribution" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="FireSpreadTest.generateEmpty" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -266,7 +271,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;agh.ics.oop.model.GrassGeneratorTest.grassDistribution&quot;" />
+            <option value="&quot;agh.ics.oop.model.FireSpreadTest.generateEmpty&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -321,19 +326,19 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.oolab [:agh.ics.oop.World.main()]" />
-      <item itemvalue="Gradle.AbstractRectangularMapTest.getAnimalsNumber" />
+      <item itemvalue="Gradle.AbstractRectangularMapTest" />
+      <item itemvalue="Gradle.FireSpreadTest.generate" />
+      <item itemvalue="Gradle.FireSpreadTest.generateEmpty" />
       <item itemvalue="Gradle.AbstractRectangularMapTest.getAvgTimeAlive" />
       <item itemvalue="Gradle.AbstractRectangularMapTest.getMostPopularGenotype" />
-      <item itemvalue="Gradle.AbstractRectangularMapTest.getOrderedAnimals" />
-      <item itemvalue="Gradle.GrassGeneratorTest.grassDistribution" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.FireSpreadTest.generate" />
+        <item itemvalue="Gradle.FireSpreadTest.generateEmpty" />
+        <item itemvalue="Gradle.AbstractRectangularMapTest" />
         <item itemvalue="Gradle.AbstractRectangularMapTest.getAvgTimeAlive" />
         <item itemvalue="Gradle.AbstractRectangularMapTest.getMostPopularGenotype" />
-        <item itemvalue="Gradle.AbstractRectangularMapTest.getAnimalsNumber" />
-        <item itemvalue="Gradle.AbstractRectangularMapTest.getOrderedAnimals" />
-        <item itemvalue="Gradle.GrassGeneratorTest.grassDistribution" />
       </list>
     </recent_temporary>
   </component>
@@ -419,6 +424,7 @@
       <workItem from="1736776966154" duration="4310000" />
       <workItem from="1736879323211" duration="11775000" />
       <workItem from="1736891764351" duration="1963000" />
+      <workItem from="1736949467350" duration="3532000" />
     </task>
     <servers />
   </component>
