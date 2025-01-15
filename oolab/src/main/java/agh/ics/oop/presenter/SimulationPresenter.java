@@ -11,7 +11,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.Node;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -38,6 +43,10 @@ public class SimulationPresenter implements MapChangeListener{
     private int yValueAnimals = 0;
     private int yValueGrass = 0;
     private double size = 0.9;
+    private Animal selectedAnimal;
+    private Pane selectedAnimalPane;
+
+
 
     @FXML
     private GridPane mapGrid;
@@ -90,6 +99,20 @@ public class SimulationPresenter implements MapChangeListener{
     @FXML
     private NumberAxis yAxisGrass;
 
+    @FXML
+    private Label selectedAnimalLabel;
+
+    @FXML
+    private Label selectedAnimalEnergy;
+
+    @FXML
+    private Label selectedAnimalChildren;
+
+    @FXML
+    private Label selectedAnimalGenotype;
+
+
+
     public void setWorldMap(AbstractRectangularMap worldMap) {
         this.worldMap = worldMap;
     }
@@ -119,19 +142,20 @@ public class SimulationPresenter implements MapChangeListener{
         }
     }
 
-    public void addElements() {
-        for (int i = xMin; i <= xMax; i++) {
-            for (int j = yMax; j >= yMin; j--) {
-                Vector2d pos = new Vector2d(i,j);
-                Optional<WorldElement> element = worldMap.objectAt(pos);
-
-                //String labelText = element.map(Object::toString).orElse(" ");
-                WorldElementBox box = new WorldElementBox(element, (int) (min(width,height)/max(mapWidth+1,mapHeight+1) * size));
-                mapGrid.add(box.getContainer(), i - xMin + 1, yMax - j + 1); //or labelText insted box.getContainer()
-                mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
-            }
-        }
-    }
+//    public void addElements() {
+//        for (int i = xMin; i <= xMax; i++) {
+//            for (int j = yMax; j >= yMin; j--) {
+//                Vector2d pos = new Vector2d(i,j);
+//                Optional<WorldElement> element = worldMap.objectAt(pos);
+//
+//                //String labelText = element.map(Object::toString).orElse(" ");
+//                WorldElementBox box = new WorldElementBox(element, (int) (min(width,height)/max(mapWidth+1,mapHeight+1) * size));
+//                mapGrid.add(box.getContainer(), i - xMin + 1, yMax - j + 1); //or labelText insted box.getContainer()
+//                mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
+//            }
+//        }
+//        initializeAnimalClickHandlers();
+//    }
 
     public void drawMap(){
         updateBounds();
@@ -140,6 +164,7 @@ public class SimulationPresenter implements MapChangeListener{
         rowsFunction();
         addElements();
         mapGrid.setGridLinesVisible(true);
+        updateSelectedAnimalStats(selectedAnimal);
     }
 
     private void clearGrid() {
@@ -247,5 +272,59 @@ public class SimulationPresenter implements MapChangeListener{
 
         xValue++;
     }
+
+    public void selectAnimal(Animal animal, Pane animalPane) {
+        if (selectedAnimal != null && selectedAnimalPane != null) {
+            selectedAnimalPane.setStyle("-fx-background-color: lightblue;"); // Assuming lightblue is the default color
+        }
+
+        if (animal.equals(selectedAnimal)) {
+            selectedAnimal = null;
+            selectedAnimalPane = null;
+            clearSelectedAnimalStats();
+        } else {
+            selectedAnimal = animal;
+            selectedAnimalPane = animalPane;
+            animalPane.setStyle("-fx-background-color: deepskyblue;");
+            updateSelectedAnimalStats(animal);
+        }
+    }
+
+    private void updateSelectedAnimalStats(Animal animal){
+    if (animal != null) {
+        AnimalInformation info = animal.getInfo();
+        selectedAnimalLabel.setText(animal.getInfo().getID().toString());
+        selectedAnimalEnergy.setText("Energy: " + info.getEnergy());
+        selectedAnimalChildren.setText("Children: " + info.getChildren().size());
+        selectedAnimalGenotype.setText("Genotype: " + info.getGenotype());
+    }
+    }
+
+    private void clearSelectedAnimalStats() {
+        selectedAnimalLabel.setText("None");
+        selectedAnimalEnergy.setText("Energy: N/A");
+        selectedAnimalChildren.setText("Children: N/A");
+        selectedAnimalGenotype.setText("Genotype: N/A");
+    }
+
+    public void addElements() {
+        for (int i = xMin; i <= xMax; i++) {
+            for (int j = yMax; j >= yMin; j--) {
+                Vector2d pos = new Vector2d(i, j);
+                Optional<WorldElement> element = worldMap.objectAt(pos);
+
+                WorldElementBox box = new WorldElementBox(element, (int) (min(width, height) / max(mapWidth + 1, mapHeight + 1) * size));
+                Pane container = box.getContainer();
+                mapGrid.add(container, i - xMin + 1, yMax - j + 1);
+                mapGrid.setHalignment(container, HPos.CENTER);
+
+                if (element.isPresent() && element.get() instanceof Animal) {
+                    container.setUserData(element.get());
+                    container.setOnMouseClicked(event -> selectAnimal((Animal) element.get(), container));
+                }
+            }
+        }
+    }
+
 
 }

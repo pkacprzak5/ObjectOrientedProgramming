@@ -110,6 +110,22 @@
                 <Label fx:id="avgLivingChildrenLabel" text="0" textAlignment="CENTER"/>
             </HBox>
 
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Wybrany zwierzak:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalLabel" text="None" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalEnergy" text="Energy: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalChildren" text="Children: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalGenotype" text="Genotype: N/A" textAlignment="CENTER"/>
+            </HBox>
+
         </VBox>
     </right>
 
