@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b89aa9d-a240-4a4b-a2ef-adfb7e48a068" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/PO2024_PN1500_KACPRZAK.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    <list default="true" id="5b89aa9d-a240-4a4b-a2ef-adfb7e48a068" name="Changes" comment="fire on check set val works">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldElementBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/WorldElementBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/startwindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/startwindow.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +123,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "Merging develop-pk",
+    "git-widget-placeholder": "develop-kf",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/kac/programow/pobiektowe/PO2024_PN1500_KACPRZAK/oolab",
     "node.js.detected.package.eslint": "true",
@@ -437,5 +432,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fire on check set val works" />
+    <option name="LAST_COMMIT_MESSAGE" value="fire on check set val works" />
   </component>
 </project>

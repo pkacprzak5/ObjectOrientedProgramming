@@ -37,6 +37,7 @@ public class SimulationPresenter implements MapChangeListener{
     private int xValue = 0;
     private int yValueAnimals = 0;
     private int yValueGrass = 0;
+    private double size = 0.9;
 
     @FXML
     private GridPane mapGrid;
@@ -125,7 +126,7 @@ public class SimulationPresenter implements MapChangeListener{
                 Optional<WorldElement> element = worldMap.objectAt(pos);
 
                 //String labelText = element.map(Object::toString).orElse(" ");
-                WorldElementBox box = new WorldElementBox(element,min(width,height)/max(mapWidth+1,mapHeight+1));
+                WorldElementBox box = new WorldElementBox(element, (int) (min(width,height)/max(mapWidth+1,mapHeight+1) * size));
                 mapGrid.add(box.getContainer(), i - xMin + 1, yMax - j + 1); //or labelText insted box.getContainer()
                 mapGrid.setHalignment(mapGrid.getChildren().get(mapGrid.getChildren().size()-1), HPos.CENTER);
             }
