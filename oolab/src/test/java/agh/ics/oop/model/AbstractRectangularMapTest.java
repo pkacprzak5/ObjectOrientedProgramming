@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -227,5 +228,99 @@ class AbstractRectangularMapTest {
         assertTrue(elements.contains(grass1));
         assertTrue(elements.contains(grass2));
         assertTrue(elements.contains(grass3));
+    }
+
+    @Test
+    void getAnimalsNumber() {
+        map.place(testAnimal3);
+        map.place(testAnimal2);
+        map.place(testAnimal);
+
+        assertEquals(3, map.getAnimalsNumber());
+    }
+
+    @Test
+    void getGrassNumber() {
+        Map<Vector2d, Grass> initialGrassMap = new HashMap<>();
+        Grass grass1 = new Grass(new Vector2d(1, 1), 10);
+        Grass grass2 = new Grass(new Vector2d(2, 3), 10);
+        Grass grass3 = new Grass(new Vector2d(4, 5), 10);
+
+
+        initialGrassMap.put(new Vector2d(1, 1), grass1);
+        initialGrassMap.put(new Vector2d(2, 3), grass2);
+        initialGrassMap.put(new Vector2d(4, 5), grass3);
+
+        map.initializeGrass(initialGrassMap);
+
+
+        assertEquals(3, map.getGrassNumber());
+    }
+
+    @Test
+    void getFreeFieldsNumber() {
+        map.place(testAnimal3);
+        map.place(testAnimal2); //all animals position is (5,5)
+        map.place(testAnimal);
+        Map<Vector2d, Grass> initialGrassMap = new HashMap<>();
+        Grass grass1 = new Grass(new Vector2d(1, 1), 10);
+        Grass grass2 = new Grass(new Vector2d(2, 3), 10);
+        Grass grass3 = new Grass(new Vector2d(4, 5), 10);
+
+
+        initialGrassMap.put(new Vector2d(1, 1), grass1);
+        initialGrassMap.put(new Vector2d(2, 3), grass2);
+        initialGrassMap.put(new Vector2d(4, 5), grass3);
+
+        map.initializeGrass(initialGrassMap);
+
+        assertEquals((map.getWidth() * map.getHeight()) - 4, map.getFreeFieldsNumber());
+    }
+
+    @Test
+    void getAvgEnergy() {
+        map.place(testAnimal3);
+        map.place(testAnimal2); //all animals position is (5,5)
+        map.place(testAnimal);
+
+        assertEquals(20, map.getAvgEnergy(), 0.1);
+    }
+
+    @Test
+    void getAvgChildrenNumber() {
+        map.place(testAnimal3);
+        map.place(testAnimal2);
+        map.place(testAnimal);
+
+        testAnimal.getInfo().addChild(testAnimal2);
+        testAnimal.getInfo().addChild(testAnimal3);
+        testAnimal.getInfo().addChild(new Animal(new Vector2d(1, 2), testInfo));
+
+        assertEquals(1, map.getAvgChildrenNumber());
+    }
+
+    @Test
+    void getAvgTimeAlive() {
+        map.place(testAnimal3);
+
+        map.moveAnimals();
+
+        map.moveAnimals();
+        map.cleanDeadAnimals();
+
+        assertEquals(2, map.getAvgTimeAlive(), 0.01);
+    }
+
+    @Test
+    void getMostPopularGenotype() {
+        testAnimal.getInfo().setGenotype(List.of(1, 2, 3, 4));
+        testAnimal2.getInfo().setGenotype(List.of(1, 2, 3, 4));
+        testAnimal3.getInfo().setGenotype(List.of(1, 2, 3, 4));
+
+        map.place(testAnimal3);
+        map.place(testAnimal2);
+        map.place(testAnimal);
+
+        assertEquals("[1, 2, 3, 4]", map.getMostPopularGenotype());
     }
 }

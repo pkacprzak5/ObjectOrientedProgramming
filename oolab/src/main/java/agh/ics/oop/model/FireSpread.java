@@ -16,7 +16,7 @@ public class FireSpread {
         this.dayDelay = dayDelay;
     }
 
-    public Map<Vector2d, Fire> generate(HashMap<Vector2d, Grass> grassMap) {
+    public Map<Vector2d, Fire> generate(Map<Vector2d, Grass> grassMap) {
         Map<Vector2d, Fire> fireMap = new HashMap<>();
         if (grassMap.isEmpty()) {
             return fireMap;
@@ -29,7 +29,7 @@ public class FireSpread {
         return fireMap;
     }
 
-    public Map<Vector2d, Fire> Spread(HashMap<Vector2d, Grass> grassMap, Map<Vector2d, Fire> fireMap) {
+    public Map<Vector2d, Fire> Spread(Map<Vector2d, Grass> grassMap, Map<Vector2d, Fire> fireMap) {
         Map<Vector2d, Fire> newFires = new HashMap<>();
 
         for (Vector2d firePosition : fireMap.keySet()) {
