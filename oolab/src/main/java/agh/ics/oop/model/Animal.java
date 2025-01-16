@@ -44,6 +44,8 @@ public class Animal implements WorldElement {
     }
 
     public void move(AbstractRectangularMap map) {
+        info.increaseTimeAlive();
+
         int gene = info.getGenotype().get(currentGeneIndex);
         direction = direction.next(gene);
         position = position.add(direction.toUnitVector()).modulo(map.getWidth());

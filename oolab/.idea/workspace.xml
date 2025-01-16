@@ -4,6 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="5b89aa9d-a240-4a4b-a2ef-adfb7e48a068" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/FireSpreadTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/model/RectangularMapFireTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     <list default="true" id="5b89aa9d-a240-4a4b-a2ef-adfb7e48a068" name="Changes" comment="statistic for animal click created">
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -11,6 +15,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AnimalInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/AnimalInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/presenter/SimulationPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/simulation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/simulation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/FireSpread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/FireSpread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMapFire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/model/RectangularMapFire.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,18 +64,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Kacperon&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/pkacprzak5/PO2024_PN1500_KACPRZAK.git&quot;,
-    &quot;accountId&quot;: &quot;51ad64b9-62d4-45a3-848d-f9e4ee070bcb&quot;
-  }
-}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -78,81 +72,81 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.AbstractRectangularMapTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.getElements.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.getOrderedAnimals.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.isOccupied.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.multiplyAnimals.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.objectAt.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AbstractRectangularMapTest.place.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AnimalInformationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.AnimalTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassFieldTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassFieldTest.isObjectAt.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassFieldTest.placement.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassFieldTest.validation.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassFieldTest.wrongPlacement.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassGeneratorTest.daylyGenerate.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassGeneratorTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.GrassGeneratorTest.grassDistribution.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MapDirectionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MultiplicationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MultiplicationTest.multiply.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MultiplicationTest.multiplyNotEnoughEnergy.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.MultiplicationTest.mutateTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.handleAllValues.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.handleInvalidValue.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.handleInvalidValues.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OptionsParserTest.parseForward.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTest.movement.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTest.placement.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RectangularMapTest.wrongPlacement.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.directions.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.forwardAndBack.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.leftBound.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.leftOrient.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.lowerBound.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.moveDown.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.moveLeft.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.moveRight.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.moveUp.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.orient.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.rightBound.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SimulationTest.upperBound.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.areVectorsEqual.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.correctToString.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.getUpperRight.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.testEquals.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.testPrecedes.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Vector2dTest.testToString.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.oolab [:agh.ics.oop.SimulationApp.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.oolab [:agh.ics.oop.World.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.oolab [:agh.ics.oop.WorldGUI.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop-kf&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kac/programow/pobiektowe/PO2024_PN1500_KACPRZAK/oolab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.AbstractRectangularMapTest.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.getElements.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.getOrderedAnimals.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.isOccupied.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.multiplyAnimals.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.objectAt.executor": "Run",
+    "Gradle.AbstractRectangularMapTest.place.executor": "Run",
+    "Gradle.AnimalInformationTest.executor": "Run",
+    "Gradle.AnimalTest.executor": "Run",
+    "Gradle.GrassFieldTest.executor": "Run",
+    "Gradle.GrassFieldTest.isObjectAt.executor": "Run",
+    "Gradle.GrassFieldTest.placement.executor": "Run",
+    "Gradle.GrassFieldTest.validation.executor": "Run",
+    "Gradle.GrassFieldTest.wrongPlacement.executor": "Run",
+    "Gradle.GrassGeneratorTest.daylyGenerate.executor": "Run",
+    "Gradle.GrassGeneratorTest.executor": "Run",
+    "Gradle.GrassGeneratorTest.grassDistribution.executor": "Run",
+    "Gradle.MapDirectionTest.executor": "Run",
+    "Gradle.MultiplicationTest.executor": "Run",
+    "Gradle.MultiplicationTest.multiply.executor": "Run",
+    "Gradle.MultiplicationTest.multiplyNotEnoughEnergy.executor": "Run",
+    "Gradle.MultiplicationTest.mutateTest.executor": "Run",
+    "Gradle.OptionsParserTest.executor": "Run",
+    "Gradle.OptionsParserTest.handleAllValues.executor": "Run",
+    "Gradle.OptionsParserTest.handleInvalidValue.executor": "Run",
+    "Gradle.OptionsParserTest.handleInvalidValues.executor": "Run",
+    "Gradle.OptionsParserTest.parseForward.executor": "Run",
+    "Gradle.RectangularMapTest.executor": "Run",
+    "Gradle.RectangularMapTest.movement.executor": "Run",
+    "Gradle.RectangularMapTest.placement.executor": "Run",
+    "Gradle.RectangularMapTest.wrongPlacement.executor": "Run",
+    "Gradle.SimulationTest.directions.executor": "Run",
+    "Gradle.SimulationTest.executor": "Run",
+    "Gradle.SimulationTest.forwardAndBack.executor": "Run",
+    "Gradle.SimulationTest.leftBound.executor": "Run",
+    "Gradle.SimulationTest.leftOrient.executor": "Run",
+    "Gradle.SimulationTest.lowerBound.executor": "Run",
+    "Gradle.SimulationTest.moveDown.executor": "Run",
+    "Gradle.SimulationTest.moveLeft.executor": "Run",
+    "Gradle.SimulationTest.moveRight.executor": "Run",
+    "Gradle.SimulationTest.moveUp.executor": "Run",
+    "Gradle.SimulationTest.orient.executor": "Run",
+    "Gradle.SimulationTest.rightBound.executor": "Run",
+    "Gradle.SimulationTest.upperBound.executor": "Run",
+    "Gradle.Vector2dTest.areVectorsEqual.executor": "Run",
+    "Gradle.Vector2dTest.correctToString.executor": "Run",
+    "Gradle.Vector2dTest.executor": "Run",
+    "Gradle.Vector2dTest.getUpperRight.executor": "Run",
+    "Gradle.Vector2dTest.testEquals.executor": "Run",
+    "Gradle.Vector2dTest.testPrecedes.executor": "Run",
+    "Gradle.Vector2dTest.testToString.executor": "Run",
+    "Gradle.oolab [:agh.ics.oop.SimulationApp.main()].executor": "Run",
+    "Gradle.oolab [:agh.ics.oop.World.main()].executor": "Run",
+    "Gradle.oolab [:agh.ics.oop.WorldGUI.main()].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "develop-kf",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/kac/programow/pobiektowe/PO2024_PN1500_KACPRZAK/oolab",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="agh.ics.oop.model" />
@@ -431,27 +425,7 @@
       <workItem from="1736776966154" duration="4310000" />
       <workItem from="1736879323211" duration="11775000" />
       <workItem from="1736891764351" duration="1109000" />
-      <workItem from="1736973328417" duration="4223000" />
-      <workItem from="1737037287063" duration="6000" />
-      <workItem from="1737049704915" duration="1075000" />
     </task>
-    <task id="LOCAL-00001" summary="health bar created">
-      <option name="closed" value="true" />
-      <created>1736902874400</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1736902874400</updated>
-    </task>
-    <task id="LOCAL-00002" summary="statistic for animal click created">
-      <option name="closed" value="true" />
-      <created>1736976958841</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1736976958841</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -470,8 +444,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fire on check set val works" />
-    <MESSAGE value="health bar created" />
-    <MESSAGE value="statistic for animal click created" />
-    <option name="LAST_COMMIT_MESSAGE" value="statistic for animal click created" />
+    <option name="LAST_COMMIT_MESSAGE" value="fire on check set val works" />
   </component>
 </project>

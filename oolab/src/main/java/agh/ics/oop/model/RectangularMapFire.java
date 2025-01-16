@@ -21,9 +21,9 @@ public class RectangularMapFire extends AbstractRectangularMap {
 
     public void fireSpread() {
         if (this.currentTime % fireDayDelay == 0) {
-            fireMap.putAll(fireSpread.generate((HashMap<Vector2d, Grass>) this.grass));
+            fireMap.putAll(fireSpread.generate(this.grass));
         }
-        fireSpread.Spread((HashMap<Vector2d, Grass>) this.grass, fireMap);
+        fireSpread.Spread(this.grass, fireMap);
     }
 
     public void fireClear() {
@@ -55,7 +55,7 @@ public class RectangularMapFire extends AbstractRectangularMap {
     public void killByFire() {
         for (Vector2d firePosition : fireMap.keySet()) {
             if (animals.containsKey(firePosition)) {
-                animals.get(firePosition).clear();
+                animals.remove(firePosition);
             }
         }
     }
