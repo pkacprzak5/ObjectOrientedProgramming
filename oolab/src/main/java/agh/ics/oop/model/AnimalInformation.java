@@ -8,7 +8,7 @@ public class AnimalInformation {
     private int energy;
     private int grassEaten;
     private int timeAlive;
-    private int timeOfDeath;
+    private int timeOfDeath = 0;
     private List<Animal> children = new ArrayList<>();
     private final UUID ID = UUID.randomUUID();
 

@@ -39,6 +39,10 @@ public class Animal implements WorldElement {
         return this.position.equals(position);
     }
 
+    public String getCurentGen(){
+        return this.info.getGenotype().get((currentGeneIndex + 1) % info.getGenotype().size()).toString();
+    }
+
     public void move(AbstractRectangularMap map) {
         int gene = info.getGenotype().get(currentGeneIndex);
         direction = direction.next(gene);

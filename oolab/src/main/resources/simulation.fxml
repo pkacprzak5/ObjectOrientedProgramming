@@ -117,15 +117,29 @@
                 <Label fx:id="selectedAnimalLabel" text="None" textAlignment="CENTER"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="selectedAnimalEnergy" text="Energy: N/A" textAlignment="CENTER"/>
+                <Label fx:id="selectedAnimalEnergy" text="Energia: N/A" textAlignment="CENTER"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="selectedAnimalChildren" text="Children: N/A" textAlignment="CENTER"/>
+                <Label fx:id="selectedAnimalChildren" text="Liczba dzieci: N/A" textAlignment="CENTER"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="selectedAnimalGenotype" text="Genotype: N/A" textAlignment="CENTER"/>
+                <Label fx:id="selectedAnimalGenotype" text="Genotyp: N/A" textAlignment="CENTER"/>
             </HBox>
-
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalActiveGene" text="Aktywny Gen: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalEatenPlants" text="Zjedzone Rośliny: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalDescendants" text="Potomkowie: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalLifeDays" text="Dni Życia: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalDeathDay" text="Dzień Śmierci: N/A" textAlignment="CENTER"/>
+            </HBox>
         </VBox>
     </right>
 

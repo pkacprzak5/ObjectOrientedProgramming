@@ -111,6 +111,20 @@ public class SimulationPresenter implements MapChangeListener{
     @FXML
     private Label selectedAnimalGenotype;
 
+    @FXML
+    private Label selectedAnimalActiveGene;
+
+    @FXML
+    private Label selectedAnimalEatenPlants;
+
+    @FXML
+    private Label selectedAnimalDescendants;
+
+    @FXML
+    private Label selectedAnimalLifeDays;
+
+    @FXML
+    private Label selectedAnimalDeathDay;
 
 
     public void setWorldMap(AbstractRectangularMap worldMap) {
@@ -290,21 +304,38 @@ public class SimulationPresenter implements MapChangeListener{
         }
     }
 
-    private void updateSelectedAnimalStats(Animal animal){
-    if (animal != null) {
-        AnimalInformation info = animal.getInfo();
-        selectedAnimalLabel.setText(animal.getInfo().getID().toString());
-        selectedAnimalEnergy.setText("Energy: " + info.getEnergy());
-        selectedAnimalChildren.setText("Children: " + info.getChildren().size());
-        selectedAnimalGenotype.setText("Genotype: " + info.getGenotype());
-    }
+    private void updateSelectedAnimalStats(Animal animal) {
+        if (animal != null) {
+            AnimalInformation info = animal.getInfo();
+
+            // Aktualizacja istniejących danych
+            selectedAnimalLabel.setText(animal.getInfo().getID().toString());
+            selectedAnimalEnergy.setText("Energia: " + info.getEnergy());
+            selectedAnimalChildren.setText("Liczba dzieci: " + info.getChildren().size());
+            selectedAnimalGenotype.setText("Genotyp: " + info.getGenotype());
+
+            // Nowe dane
+            selectedAnimalActiveGene.setText("Aktywny Gen: " + animal.getCurentGen()); // Dodaj metodę getActiveGene() w AnimalInformation
+            selectedAnimalEatenPlants.setText("Zjedzone Rośliny: " + info.getGrassEaten()); // Dodaj metodę getEatenPlants() w AnimalInformation
+            selectedAnimalDescendants.setText("Potomkowie: " + info.getDescendantsNumber()); // Dodaj metodę getDescendants() w AnimalInformation
+            selectedAnimalLifeDays.setText("Dni Życia: " + info.getTimeAlive()); // Dodaj metodę getLifeDays() w AnimalInformation
+            selectedAnimalDeathDay.setText("Dzień Śmierci: " + (info.getTimeOfDeath() != 0 ? info.getTimeOfDeath() : "N/A")); // Dodaj metodę getDeathDay() w AnimalInformation
+        }
     }
 
+    // Metoda czyszcząca dane zwierzaka
     private void clearSelectedAnimalStats() {
         selectedAnimalLabel.setText("None");
-        selectedAnimalEnergy.setText("Energy: N/A");
-        selectedAnimalChildren.setText("Children: N/A");
-        selectedAnimalGenotype.setText("Genotype: N/A");
+        selectedAnimalEnergy.setText("Energia: N/A");
+        selectedAnimalChildren.setText("Liczba dzieci: N/A");
+        selectedAnimalGenotype.setText("Genotyp: N/A");
+
+        // Nowe dane
+        selectedAnimalActiveGene.setText("Aktywny Gen: N/A");
+        selectedAnimalEatenPlants.setText("Zjedzone Rośliny: N/A");
+        selectedAnimalDescendants.setText("Potomkowie: N/A");
+        selectedAnimalLifeDays.setText("Dni Życia: N/A");
+        selectedAnimalDeathDay.setText("Dzień Śmierci: N/A");
     }
 
     public void addElements() {
