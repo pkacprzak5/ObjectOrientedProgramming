@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Node;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -336,23 +337,35 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     public void addElements() {
+        // Pobierz zwierzęta o najbardziej popularnym genotypie
+        List<Animal> animalsWithPopularGenotype = worldMap.getAnimalsWithMostPopularGenotype();
+
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
                 Vector2d pos = new Vector2d(i, j);
                 Optional<WorldElement> element = worldMap.objectAt(pos);
-
                 WorldElementBox box = new WorldElementBox(element, (int) (min(width, height) / max(mapWidth + 1, mapHeight + 1) * size));
                 Pane container = box.getContainer();
-                if (j > (mapHeight * 0.4)-1 && j< (mapHeight * 0.6)) {
-                    container.setStyle("-fx-background-color: deepskyblue;");
+                if (element.isPresent() && element.get() instanceof Animal) {
+                    Animal animal = (Animal) element.get();
+                    if (animalsWithPopularGenotype.contains(animal)) {
+                        container.setStyle("-fx-background-color: lightgreen;");
+                    } else if (j > (mapHeight * 0.4) - 1 && j < (mapHeight * 0.6)) {
+                        container.setStyle("-fx-background-color: deepskyblue;");
+                    } else {
+                        container.setStyle("-fx-background-color: lightblue;");
+                    }
+                    container.setUserData(animal);
+                    container.setOnMouseClicked(event -> selectAnimal(animal, container));
+                } else {
+                    if (j > (mapHeight * 0.4) - 1 && j < (mapHeight * 0.6)) {
+                        container.setStyle("-fx-background-color: deepskyblue;");
+                    } else {
+                        container.setStyle("-fx-background-color: lightblue;");
+                    }
                 }
                 mapGrid.add(container, i - xMin + 1, yMax - j + 1);
                 mapGrid.setHalignment(container, HPos.CENTER);
-
-                if (element.isPresent() && element.get() instanceof Animal) {
-                    container.setUserData(element.get());
-                    container.setOnMouseClicked(event -> selectAnimal((Animal) element.get(), container));
-                }
             }
         }
     }
