@@ -4,7 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -15,9 +14,7 @@ import java.util.Optional;
 public class WorldElementBox {
     private static final Map<String, Image> imageCache = new HashMap<>();
     private VBox container;
-    private Region healthBox;
     private int maxHealth = 50;
-    private double energy = 0;
     private double height;
 
     public WorldElementBox(Optional<WorldElement> element,int size) {

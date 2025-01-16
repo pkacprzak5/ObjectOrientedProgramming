@@ -245,7 +245,7 @@ public abstract class AbstractRectangularMap implements WorldMap{
 
 
     public String getMostPopularGenotype(){
-        return Objects.requireNonNull(animals.values().stream()
+        return Objects.requireNonNull(animals.values().parallelStream()
                 .flatMap(Collection::stream)
                 .map(animal -> animal.getInfo().getGenotype())
                 .collect(Collectors.groupingBy(genotype -> genotype, Collectors.counting()))
@@ -253,6 +253,29 @@ public abstract class AbstractRectangularMap implements WorldMap{
                 .max(Comparator.comparingLong(Map.Entry::getValue))
                 .map(Map.Entry::getKey)
                 .orElse(null)).toString();
+    }
+
+    public List<Animal> getAnimalsByGenotype(String genotype) {
+        return animals.values().parallelStream()
+                .flatMap(Collection::stream)
+                .filter(animal -> genotype.equals(animal.getInfo().getGenotype().toString()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Animal> getAnimalsWithMostPopularGenotype() {
+        String mostPopularGenotype = Objects.requireNonNull(animals.values().parallelStream()
+                        .flatMap(Collection::stream)
+                        .map(animal -> animal.getInfo().getGenotype())
+                        .collect(Collectors.groupingBy(genotype -> genotype, Collectors.counting()))
+                        .entrySet().stream()
+                        .max(Comparator.comparingLong(Map.Entry::getValue))
+                        .map(Map.Entry::getKey)
+                        .orElse(null))
+                .toString();
+        if (mostPopularGenotype != null) {
+            return getAnimalsByGenotype(mostPopularGenotype);
+        }
+        return new ArrayList<>();
     }
 
 }

@@ -289,7 +289,11 @@ public class SimulationPresenter implements MapChangeListener{
 
     public void selectAnimal(Animal animal, Pane animalPane) {
         if (selectedAnimal != null && selectedAnimalPane != null) {
-            selectedAnimalPane.setStyle("-fx-background-color: lightblue;"); // Assuming lightblue is the default color
+            if (selectedAnimal.getPosition().getY()>0.4*mapHeight-1 && selectedAnimal.getPosition().getY()<0.6*mapHeight){
+                selectedAnimalPane.setStyle("-fx-background-color: deepskyblue;");
+            } else {
+                selectedAnimalPane.setStyle("-fx-background-color: lightblue;"); // Assuming lightblue is the default color
+            }
         }
 
         if (animal.equals(selectedAnimal)) {
@@ -299,7 +303,7 @@ public class SimulationPresenter implements MapChangeListener{
         } else {
             selectedAnimal = animal;
             selectedAnimalPane = animalPane;
-            animalPane.setStyle("-fx-background-color: deepskyblue;");
+            animalPane.setStyle("-fx-background-color: blue;");
             updateSelectedAnimalStats(animal);
         }
     }
@@ -307,14 +311,10 @@ public class SimulationPresenter implements MapChangeListener{
     private void updateSelectedAnimalStats(Animal animal) {
         if (animal != null) {
             AnimalInformation info = animal.getInfo();
-
-            // Aktualizacja istniejących danych
             selectedAnimalLabel.setText(animal.getInfo().getID().toString());
             selectedAnimalEnergy.setText("Energia: " + info.getEnergy());
             selectedAnimalChildren.setText("Liczba dzieci: " + info.getChildren().size());
             selectedAnimalGenotype.setText("Genotyp: " + info.getGenotype());
-
-            // Nowe dane
             selectedAnimalActiveGene.setText("Aktywny Gen: " + animal.getCurentGen()); // Dodaj metodę getActiveGene() w AnimalInformation
             selectedAnimalEatenPlants.setText("Zjedzone Rośliny: " + info.getGrassEaten()); // Dodaj metodę getEatenPlants() w AnimalInformation
             selectedAnimalDescendants.setText("Potomkowie: " + info.getDescendantsNumber()); // Dodaj metodę getDescendants() w AnimalInformation
@@ -323,14 +323,11 @@ public class SimulationPresenter implements MapChangeListener{
         }
     }
 
-    // Metoda czyszcząca dane zwierzaka
     private void clearSelectedAnimalStats() {
         selectedAnimalLabel.setText("None");
         selectedAnimalEnergy.setText("Energia: N/A");
         selectedAnimalChildren.setText("Liczba dzieci: N/A");
         selectedAnimalGenotype.setText("Genotyp: N/A");
-
-        // Nowe dane
         selectedAnimalActiveGene.setText("Aktywny Gen: N/A");
         selectedAnimalEatenPlants.setText("Zjedzone Rośliny: N/A");
         selectedAnimalDescendants.setText("Potomkowie: N/A");
@@ -346,6 +343,9 @@ public class SimulationPresenter implements MapChangeListener{
 
                 WorldElementBox box = new WorldElementBox(element, (int) (min(width, height) / max(mapWidth + 1, mapHeight + 1) * size));
                 Pane container = box.getContainer();
+                if (j > (mapHeight * 0.4)-1 && j< (mapHeight * 0.6)) {
+                    container.setStyle("-fx-background-color: deepskyblue;");
+                }
                 mapGrid.add(container, i - xMin + 1, yMax - j + 1);
                 mapGrid.setHalignment(container, HPos.CENTER);
 
