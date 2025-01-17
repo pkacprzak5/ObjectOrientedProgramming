@@ -41,6 +41,7 @@ public class Simulation {
 
     public void stop() {
         running = false;
+        worldMap.mapChanged("");
     }
 
     public void resume(){
@@ -78,5 +79,6 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
+
     }
 }

@@ -13,9 +13,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.Node;
 
 import java.util.List;
 import java.util.Objects;
@@ -289,8 +286,11 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     public void selectAnimal(Animal animal, Pane animalPane) {
+        List<Animal> animalsWithPopularGenotype = worldMap.getAnimalsWithMostPopularGenotype();
         if (selectedAnimal != null && selectedAnimalPane != null) {
-            if (selectedAnimal.getPosition().getY()>0.4*mapHeight-1 && selectedAnimal.getPosition().getY()<0.6*mapHeight){
+            if (animalsWithPopularGenotype.contains(selectedAnimal) && !this.simulation.isRunning()) {
+                selectedAnimalPane.setStyle("-fx-background-color: lightgreen;");
+            } else if (selectedAnimal.getPosition().getY()>0.4*mapHeight-1 && selectedAnimal.getPosition().getY()<0.6*mapHeight){
                 selectedAnimalPane.setStyle("-fx-background-color: deepskyblue;");
             } else {
                 selectedAnimalPane.setStyle("-fx-background-color: lightblue;"); // Assuming lightblue is the default color
@@ -304,7 +304,7 @@ public class SimulationPresenter implements MapChangeListener{
         } else {
             selectedAnimal = animal;
             selectedAnimalPane = animalPane;
-            animalPane.setStyle("-fx-background-color: blue;");
+            animalPane.setStyle("-fx-background-color: pink;");
             updateSelectedAnimalStats(animal);
         }
     }
@@ -348,7 +348,7 @@ public class SimulationPresenter implements MapChangeListener{
                 Pane container = box.getContainer();
                 if (element.isPresent() && element.get() instanceof Animal) {
                     Animal animal = (Animal) element.get();
-                    if (animalsWithPopularGenotype.contains(animal)) {
+                    if (animalsWithPopularGenotype.contains(animal) && !this.simulation.isRunning()) {
                         container.setStyle("-fx-background-color: lightgreen;");
                     } else if (j > (mapHeight * 0.4) - 1 && j < (mapHeight * 0.6)) {
                         container.setStyle("-fx-background-color: deepskyblue;");
