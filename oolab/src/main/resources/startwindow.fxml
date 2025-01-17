@@ -103,7 +103,14 @@
     </center>
     <bottom>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
-            <Button text="Start symulacji" onAction="#onSimulationStartClicked"/>
+            <Button text="Start symulacji" onAction="#onSimulationStartClicked"
+                    style="-fx-background-color: #4CAF50;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+            </Button>
         </VBox>
     </bottom>
 </BorderPane>

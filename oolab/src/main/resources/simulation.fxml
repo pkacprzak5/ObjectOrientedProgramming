@@ -12,7 +12,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="750.0" minWidth="1200.0"
-            fx:controller="agh.ics.oop.presenter.SimulationPresenter">
+            fx:controller="agh.ics.oop.presenter.SimulationPresenter"
+            style="-fx-background-color: #e7f3ff;">
 
 
     <center>
@@ -57,9 +58,19 @@
 
     <right>
         <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20 10 10 20;">
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="day" text="Dzień:" textAlignment="CENTER"/>
-                <Label fx:id="dayLabel" text="0" textAlignment="CENTER"/>
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #f3ff5e;
+                -fx-text-fill: white;
+                -fx-font-size: 14px;
+                -fx-border-radius: 30;
+                -fx-background-radius: 10;
+                -fx-padding: 8 16;">
+                <Label fx:id="day" text="Dzień:" textAlignment="CENTER"
+                    style="-fx-font-size: 14px;
+                            -fx-font-weight: bold;"/>
+                <Label fx:id="dayLabel" text="0" textAlignment="CENTER"
+                       style="-fx-font-size: 14px;
+                              -fx-font-weight: bold;"/>
             </HBox>
 
             <Label text="Statystyki:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
@@ -147,10 +158,25 @@
     <bottom>
         <HBox spacing="10" alignment="CENTER">
             <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
-                <Button text="Start" onAction="#startClicked"/>
+                <Button text="Start" onAction="#startClicked"
+                        style="-fx-background-color: #4CAF50;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+
+                </Button>
             </VBox>
             <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
-            <Button text="Stop" onAction="#stopClicked"/>
+                <Button text="Stop" onAction="#stopClicked"
+                        style="-fx-background-color: #f44336;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+                </Button>
             </VBox>
         </HBox>
 
