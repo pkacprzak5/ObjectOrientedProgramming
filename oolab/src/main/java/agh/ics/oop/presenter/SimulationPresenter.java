@@ -312,7 +312,7 @@ public class SimulationPresenter implements MapChangeListener{
     private void updateSelectedAnimalStats(Animal animal) {
         if (animal != null) {
             AnimalInformation info = animal.getInfo();
-            selectedAnimalLabel.setText(animal.getInfo().getID().toString());
+            selectedAnimalLabel.setText("ID: " + animal.getInfo().getID().toString().substring(0, 8));//.replaceAll("\\D", ""));
             selectedAnimalEnergy.setText("Energia: " + info.getEnergy());
             selectedAnimalChildren.setText("Liczba dzieci: " + info.getChildren().size());
             selectedAnimalGenotype.setText("Genotyp: " + info.getGenotype());
@@ -325,7 +325,7 @@ public class SimulationPresenter implements MapChangeListener{
     }
 
     private void clearSelectedAnimalStats() {
-        selectedAnimalLabel.setText("None");
+        selectedAnimalLabel.setText("ID: None");
         selectedAnimalEnergy.setText("Energia: N/A");
         selectedAnimalChildren.setText("Liczba dzieci: N/A");
         selectedAnimalGenotype.setText("Genotyp: N/A");
