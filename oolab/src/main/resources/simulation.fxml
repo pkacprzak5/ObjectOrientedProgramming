@@ -116,10 +116,6 @@
                 <Label fx:id="avgDeadLifeSpanLabel" text="0" textAlignment="CENTER"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="avgLivingChildren" text="średnia liczba dzieci (żyjące):" textAlignment="CENTER"/>
-                <Label fx:id="avgLivingChildrenLabel" text="0" textAlignment="CENTER"/>
-            </HBox>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label text="Wybrany zwierzak:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>

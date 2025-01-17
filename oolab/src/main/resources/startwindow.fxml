@@ -11,7 +11,8 @@
             xmlns:fx="http://javafx.com/fxml"
             minHeight="750.0" minWidth="1050.0"
             fx:controller="agh.ics.oop.presenter.StartWindowPresenter">
-    <center>
+    <center >
+        <HBox spacing="10" alignment="CENTER" >
         <VBox spacing="10" alignment="CENTER">
             <Label fx:id="worldLabel" text="mapa opcje:" textAlignment="CENTER" style="-fx-font-weight: bold;"/>
 
@@ -66,7 +67,7 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <Label fx:id="refreshTimeLabel" text="Czas odświeżania" textAlignment="CENTER"/>
-                <Spinner fx:id="refreshTime" editable="true" min="30" max="1000" initialValue="200"/>
+                <Spinner fx:id="refreshTime" editable="true" min="5" max="1000" initialValue="200"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER">
@@ -98,8 +99,8 @@
                 <Label fx:id="dayamountLabel" text="czas palenia się trawy:" textAlignment="CENTER"/>
                 <Spinner fx:id="dayamount" editable="true" max="20" min="1" initialValue="2"/>
             </HBox>
-
         </VBox>
+        </HBox>
     </center>
     <bottom>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
@@ -111,6 +112,23 @@
                -fx-background-radius: 10;
                -fx-padding: 8 16;">
             </Button>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Save Configuration"
+                        style="-fx-background-color: #5477f1;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-border-radius: 10;
+                           -fx-background-radius: 10;
+                           -fx-padding: 8 16;"/>
+                <Button text="Load Configuration"
+                        style="-fx-background-color: #5477f1;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-border-radius: 10;
+                           -fx-background-radius: 10;
+                           -fx-padding: 8 16;"/>
+            </HBox>
         </VBox>
+
     </bottom>
 </BorderPane>

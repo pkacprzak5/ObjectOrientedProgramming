@@ -77,9 +77,6 @@ public class SimulationPresenter implements MapChangeListener{
     private Label avgDeadLifeSpanLabel;
 
     @FXML
-    private Label avgLivingChildrenLabel;
-
-    @FXML
     private LineChart<Number, Number> animalNumberChart;
 
     @FXML
@@ -203,7 +200,6 @@ public class SimulationPresenter implements MapChangeListener{
         popularGenotypeLabel.setText(worldMap.getMostPopularGenotype());
         avgLivingEnergyLabel.setText(String.valueOf(worldMap.getAvgEnergy()));
         avgDeadLifeSpanLabel.setText(String.valueOf(worldMap.getAvgTimeAlive()));
-        avgLivingChildrenLabel.setText(String.valueOf(worldMap.getAvgChildrenNumber()));
     }
 
     public void mapChanged(WorldMap worldMap, String mess) {
