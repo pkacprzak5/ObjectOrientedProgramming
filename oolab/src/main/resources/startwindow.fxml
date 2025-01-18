@@ -113,14 +113,14 @@
                -fx-padding: 8 16;">
             </Button>
             <HBox spacing="10" alignment="CENTER">
-                <Button text="Save Configuration"
+                <Button text="Save Configuration" onAction="#saveConfiguration"
                         style="-fx-background-color: #5477f1;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
                            -fx-border-radius: 10;
                            -fx-background-radius: 10;
                            -fx-padding: 8 16;"/>
-                <Button text="Load Configuration"
+                <Button text="Load Configuration" onAction="#loadConfiguration"
                         style="-fx-background-color: #5477f1;
                            -fx-text-fill: white;
                            -fx-font-size: 14px;
