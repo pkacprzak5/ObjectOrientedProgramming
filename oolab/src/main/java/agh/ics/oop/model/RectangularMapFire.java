@@ -54,9 +54,7 @@ public class RectangularMapFire extends AbstractRectangularMap {
 
     public void killByFire() {
         for (Vector2d firePosition : fireMap.keySet()) {
-            if (animals.containsKey(firePosition)) {
-                animals.remove(firePosition);
-            }
+            animals.remove(firePosition);
         }
     }
 
