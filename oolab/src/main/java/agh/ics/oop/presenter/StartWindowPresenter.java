@@ -84,25 +84,33 @@ public class StartWindowPresenter{
 
 
     private void createWorldMap(){
-        mapWidth = mwidth.getValue();
-        mapHeight = mheight.getValue();
-        Multiplication multiplication;
-        if(mutationCheckBox.isSelected()){
-            multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
-        }else{
-            multiplication = new MultiplicationSlightCorrection(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
-        }
-        GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
-        if (fireCheckBox.isSelected()){
-            Integer delay = daydelay.getValue();
-            Integer amount = dayamount.getValue();
+        try {
+            mapWidth = mwidth.getValue();
+            mapHeight = mheight.getValue();
+            Multiplication multiplication;
+            if (mutationCheckBox.isSelected()) {
+                multiplication = new Multiplication(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
+            } else {
+                multiplication = new MultiplicationSlightCorrection(energyToBreed.getValue(), minMutations.getValue(), maxMutations.getValue(), energyToMultiply.getValue());
+            }
+            GrassGenerator grassGenerator = new GrassGenerator(mapWidth, mapHeight, initialPlants.getValue(), plantsPerDay.getValue(), energyPerPlant.getValue());
+            if (fireCheckBox.isSelected()) {
+                Integer delay = daydelay.getValue();
+                Integer amount = dayamount.getValue();
 
-            this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator,delay,amount,new FireSpread(mapWidth,mapHeight,2));
-        } else{
-            this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
+                this.worldMap = new RectangularMapFire(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator, delay, amount, new FireSpread(mapWidth, mapHeight, 2));
+            } else {
+                this.worldMap = new RectangularMap(mapWidth, mapHeight, energyToMove.getValue(), multiplication, grassGenerator);
+            }
+            FileMapDisplay fileMapDisplay = new FileMapDisplay();
+            this.worldMap.addObserver(fileMapDisplay);
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Field can not be empty");
+            alert.showAndWait();
+            e.printStackTrace();
         }
-        FileMapDisplay fileMapDisplay = new FileMapDisplay();
-        this.worldMap.addObserver(fileMapDisplay);
     }
 
     @FXML
