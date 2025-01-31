@@ -1,16 +1,15 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.presenter.SimulationPresenter;
+import agh.ics.oop.presenter.StartWindowPresenter;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
-
 
 public class SimulationApp extends Application {
     @Override
@@ -18,18 +17,26 @@ public class SimulationApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("startwindow.fxml"));
         BorderPane viewRoot = loader.load();
-        SimulationPresenter presenter = loader.getController();
+        StartWindowPresenter presenter = loader.getController();
 
         configureStage(primaryStage, viewRoot);
+
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         primaryStage.show();
     }
 
-    public void createNewSimulation(Stage stage, List<MoveDirection> directions) throws IOException {
+    public void createNewSimulation(Stage stage, Simulation simulation) throws IOException {
         FXMLLoader newLoader = new FXMLLoader();
         newLoader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = newLoader.load();
         SimulationPresenter presenter = newLoader.getController();
-        presenter.runNewSimulation(directions);
+
+        presenter.runNewSimulation(simulation);
+
+        stage.setOnCloseRequest(event -> simulation.stop());
 
         configureStage(stage, viewRoot);
         stage.show();
@@ -42,4 +49,6 @@ public class SimulationApp extends Application {
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
+
+
 }

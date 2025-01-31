@@ -1,10 +1,16 @@
 package agh.ics.oop.model;
 
 public class Grass implements WorldElement{
-    private Vector2d position;
+    private final Vector2d position;
+    private final int energyToGive;
 
-    public Grass(Vector2d position) {
+    public Grass(Vector2d position, int energyToGive) {
         this.position = position;
+        this.energyToGive = energyToGive;
+    }
+
+    public int getEnergyToGive() {
+        return energyToGive;
     }
 
     @Override
@@ -13,7 +19,12 @@ public class Grass implements WorldElement{
     }
 
     @Override
-    public String toString() {
-        return "*";
+    public String toString(){
+        return "R";
+    }
+
+    @Override
+    public String getResourceName() {
+        return "Grass.png";
     }
 }

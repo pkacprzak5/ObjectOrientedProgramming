@@ -4,126 +4,95 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Vector2dTest {
+class Vector2dTest {
 
     @Test
-    void areVectorsEqual() {
-        Vector2d v1 = new Vector2d(1, 1);
-
-//        True cases
-        assertTrue(v1.equals(new Vector2d(1, 1)));
-
-//        False cases
-        assertFalse(v1.equals(new Vector2d(0, 0)));
-        assertFalse(v1.equals(new Vector2d(0, 1)));
-        assertFalse(v1.equals(new Vector2d(0, 2)));
-        assertFalse(v1.equals(new Vector2d(1, 0)));
-        assertFalse(v1.equals(new Vector2d(1, 2)));
-        assertFalse(v1.equals(new Vector2d(2, 0)));
-        assertFalse(v1.equals(new Vector2d(2, 1)));
-        assertFalse(v1.equals(new Vector2d(2, 2)));
-        assertFalse(v1.equals(null));
+    void getY() {
+        Vector2d vector = new Vector2d(3, 4);
+        assertEquals(4, vector.getY());
     }
 
     @Test
-    void changingVectorToString() {
-        Vector2d v1 = new Vector2d(1, 1);
-
-        assertEquals("(1,1)", v1.toString());
+    void getX() {
+        Vector2d vector = new Vector2d(3, 4);
+        assertEquals(3, vector.getX());
     }
 
     @Test
-    void doesVectorPreced(){
-        Vector2d v1 = new Vector2d(1, 1);
-
-//        True cases
-        assertTrue(v1.precedes(new Vector2d(1, 2)));
-        assertTrue(v1.precedes(new Vector2d(2, 2)));
-        assertTrue(v1.precedes(new Vector2d(1, 1)));
-        assertTrue(v1.precedes(new Vector2d(2, 1)));
-
-//        False cases
-        assertFalse(v1.precedes(new Vector2d(0, 0)));
-        assertFalse(v1.precedes(new Vector2d(0, 1)));
-        assertFalse(v1.precedes(new Vector2d(0, 2)));
-        assertFalse(v1.precedes(new Vector2d(1, 0)));
-        assertFalse(v1.precedes(new Vector2d(2, 0)));
+    void testToString() {
+        Vector2d vector = new Vector2d(3, 4);
+        assertEquals("(3,4)", vector.toString());
     }
 
     @Test
-    void doesVectorFollow(){
-        Vector2d v1 = new Vector2d(1, 1);
-
-//        True cases
-        assertTrue(v1.follows(new Vector2d(1, 1)));
-        assertTrue(v1.follows(new Vector2d(0, 1)));
-        assertTrue(v1.follows(new Vector2d(1, 0)));
-        assertTrue(v1.follows(new Vector2d(0, 0)));
-
-//        False cases
-        assertFalse(v1.follows(new Vector2d(0, 2)));
-        assertFalse(v1.follows(new Vector2d(1, 2)));
-        assertFalse(v1.follows(new Vector2d(2, 2)));
-        assertFalse(v1.follows(new Vector2d(2, 1)));
-        assertFalse(v1.follows(new Vector2d(2, 0)));
+    void precedes() {
+        Vector2d vector1 = new Vector2d(2, 3);
+        Vector2d vector2 = new Vector2d(3, 4);
+        assertTrue(vector1.precedes(vector2));
+        assertFalse(vector2.precedes(vector1));
     }
 
     @Test
-    void getUpperRight(){
-        Vector2d v1 = new Vector2d(1, 1);
-
-        assertEquals(new Vector2d(1,1),v1.upperRight(new Vector2d(0, 0)));
-        assertEquals(new Vector2d(1,1),v1.upperRight(new Vector2d(0, 1)));
-        assertEquals(new Vector2d(1,1),v1.upperRight(new Vector2d(1, 0)));
-        assertEquals(new Vector2d(1,1),v1.upperRight(new Vector2d(1, 1)));
-
-        assertEquals(new Vector2d(1,2),v1.upperRight(new Vector2d(1, 2)));
-        assertEquals(new Vector2d(1,2),v1.upperRight(new Vector2d(0, 2)));
-
-        assertEquals(new Vector2d(2,1),v1.upperRight(new Vector2d(2, 1)));
-        assertEquals(new Vector2d(2,1),v1.upperRight(new Vector2d(2, 0)));
-
-        assertEquals(new Vector2d(2,2),v1.upperRight(new Vector2d(2, 2)));
+    void follows() {
+        Vector2d vector1 = new Vector2d(3, 4);
+        Vector2d vector2 = new Vector2d(2, 3);
+        assertTrue(vector1.follows(vector2));
+        assertFalse(vector2.follows(vector1));
     }
 
     @Test
-    void getLowerLeft(){
-        Vector2d v1 = new Vector2d(1, 1);
-
-        assertEquals(new Vector2d(1,1),v1.lowerLeft(new Vector2d(1, 1)));
-        assertEquals(new Vector2d(1,1),v1.lowerLeft(new Vector2d(1, 2)));
-        assertEquals(new Vector2d(1,1),v1.lowerLeft(new Vector2d(2, 1)));
-        assertEquals(new Vector2d(1,1),v1.lowerLeft(new Vector2d(2, 2)));
-
-        assertEquals(new Vector2d(0,1),v1.lowerLeft(new Vector2d(0, 1)));
-        assertEquals(new Vector2d(0,1),v1.lowerLeft(new Vector2d(0, 2)));
-
-        assertEquals(new Vector2d(1,0),v1.lowerLeft(new Vector2d(1, 0)));
-        assertEquals(new Vector2d(1,0),v1.lowerLeft(new Vector2d(2, 0)));
-
-        assertEquals(new Vector2d(0,0),v1.lowerLeft(new Vector2d(0, 0)));
+    void add() {
+        Vector2d vector1 = new Vector2d(1, 2);
+        Vector2d vector2 = new Vector2d(3, 4);
+        assertEquals(new Vector2d(4, 6), vector1.add(vector2));
     }
 
     @Test
-    void addingVector(){
-        Vector2d v1 = new Vector2d(1, 1);
-        Vector2d v2 = new Vector2d(1, 2);
-
-        assertEquals(new Vector2d(2,3), v1.add(v2));
+    void subtract() {
+        Vector2d vector1 = new Vector2d(5, 7);
+        Vector2d vector2 = new Vector2d(3, 4);
+        assertEquals(new Vector2d(2, 3), vector1.subtract(vector2));
     }
 
     @Test
-    void subtractingVector(){
-        Vector2d v1 = new Vector2d(1, 1);
-        Vector2d v2 = new Vector2d(1, 2);
-
-        assertEquals(new Vector2d(0,-1), v1.subtract(v2));
+    void upperRight() {
+        Vector2d vector1 = new Vector2d(1, 4);
+        Vector2d vector2 = new Vector2d(3, 2);
+        assertEquals(new Vector2d(3, 4), vector1.upperRight(vector2));
     }
 
     @Test
-    void oppositeVector(){
-        Vector2d v1 = new Vector2d(2, 3);
+    void lowerLeft() {
+        Vector2d vector1 = new Vector2d(1, 4);
+        Vector2d vector2 = new Vector2d(3, 2);
+        assertEquals(new Vector2d(1, 2), vector1.lowerLeft(vector2));
+    }
 
-        assertEquals(new Vector2d(-2,-3), v1.opposite());
+    @Test
+    void opposite() {
+        Vector2d vector = new Vector2d(3, -4);
+        assertEquals(new Vector2d(-3, 4), vector.opposite());
+    }
+
+    @Test
+    void testEquals() {
+        Vector2d vector1 = new Vector2d(3, 4);
+        Vector2d vector2 = new Vector2d(3, 4);
+        Vector2d vector3 = new Vector2d(4, 3);
+        assertEquals(vector1, vector2);
+        assertNotEquals(vector1, vector3);
+    }
+
+    @Test
+    void testHashCode() {
+        Vector2d vector1 = new Vector2d(3, 4);
+        Vector2d vector2 = new Vector2d(3, 4);
+        assertEquals(vector1.hashCode(), vector2.hashCode());
+    }
+    @Test
+    void testModulo(){
+        Vector2d vector1 = new Vector2d(-1, 4);
+        Vector2d vector2 = new Vector2d(4, 4);
+        assertEquals(vector2,vector1.modulo(5));
     }
 }

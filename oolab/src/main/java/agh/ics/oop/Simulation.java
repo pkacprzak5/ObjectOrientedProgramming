@@ -2,51 +2,83 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
-public class Simulation implements Runnable {
-    private ArrayList<Animal> animals = new ArrayList<>(); //ze względu częsty dostęp do elementów lsity
-    private List<MoveDirection> moveDirections = new ArrayList<>(); //tutaj jedynie przechowujemy informacje
-    private WorldMap worldMap;
+public class Simulation {
+    private final int animalsNumber;
+    private final int animalStartEnergy;
+    private final int genomeLength;
+    private final int refreshTime;
+    private final GrassGenerator grassGenerator;
+    private final AbstractRectangularMap worldMap;
+    private volatile boolean running = true;
 
-    public ArrayList<Animal> getAnimals() {
-        return animals;
+    public boolean isRunning() {
+        return running;
     }
 
-    public List<MoveDirection> getMoveDirections() {
-        return moveDirections;
-    }
-
-    public Simulation(List<Vector2d> positions, List<MoveDirection> moves, WorldMap worldMap) {
+    public Simulation(int animalsNumber, int animalStartEnergy, int genomeLength, int refreshTime, GrassGenerator grassGenerator, AbstractRectangularMap worldMap) {
+        this.animalsNumber = animalsNumber;
+        this.animalStartEnergy = animalStartEnergy;
+        this.genomeLength = genomeLength;
+        this.refreshTime = refreshTime;
+        this.grassGenerator = grassGenerator;
         this.worldMap = worldMap;
-        for(Vector2d position : positions) {
+        setupWorldMap();
+    }
+
+    private void setupWorldMap() {
+        worldMap.initializeGrass(grassGenerator.startGenerate());
+        AnimalGenerator generator = new AnimalGenerator(animalsNumber);
+        List<Animal> animals = generator.generateAnimals(worldMap, animalStartEnergy, genomeLength);
+        for (Animal animal : animals) {
+            worldMap.place(animal);
+        }
+    }
+
+    public void stop() {
+        running = false;
+        worldMap.mapChanged("");
+    }
+
+    public void resume(){
+        running = true;
+    }
+
+    public void setupBeforeStart(MapChangeListener mapChangeListener) {
+        worldMap.addObserver(mapChangeListener);
+        worldMap.addObserver((worldMap, message) -> {
+            if(!Objects.equals(message, "")){
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println(timestamp + " " + message);
+            }
+        });
+    }
+
+
+    public void run() {
+        while(running){
+            worldMap.increaseCurrentTime();
+            worldMap.cleanDeadAnimals();
+            worldMap.moveAnimals();
+            worldMap.feedAnimals();
+            worldMap.multiplyAnimals();
+            worldMap.growGrass();
+            if (worldMap instanceof RectangularMapFire) {
+                ((RectangularMapFire) worldMap).fireSpread();
+                ((RectangularMapFire) worldMap).fireClear();
+                ((RectangularMapFire) worldMap).killByFire();
+            }
+            worldMap.mapChanged("");
             try{
-                worldMap.place(new Animal(position));
-                animals.add(new Animal(position));
-            } catch (IncorrectPositionException e) {
+                Thread.sleep(refreshTime);
+            }catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-        moveDirections = moves;
-    }
 
-    public void run(){
-        int idx = 0;
-        while(idx < moveDirections.size()) {
-            for(int i = 0; i < animals.size(); i++) {
-                worldMap.move(animals.get(i), moveDirections.get(idx));
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                idx++;
-                if(idx == moveDirections.size()) {
-                    break;
-                }
-            }
-        }
     }
 }

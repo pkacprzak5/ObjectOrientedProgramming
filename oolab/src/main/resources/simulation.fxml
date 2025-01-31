@@ -1,21 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="550.0" minWidth="850.0"
-            fx:controller="agh.ics.oop.presenter.SimulationPresenter">
+            minHeight="750.0" minWidth="1200.0"
+            fx:controller="agh.ics.oop.presenter.SimulationPresenter"
+            style="-fx-background-color: #e7f3ff;">
+
+
     <center>
-        <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER"/>
-    </center>
-    <bottom>
-        <VBox spacing="10" alignment="CENTER">
-            <Label fx:id="moveDescriptionLabel" text="Move description will be displayed here" textAlignment="CENTER"/>
+        <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20 0 0 20;">
+            <HBox spacing="10" alignment="CENTER">
+                <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+                    <Label text="Symulacja:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <VBox spacing="10" alignment="TOP_CENTER">
+                    <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" style="-fx-background-color: lightblue;"/>
+                </VBox>
+            </HBox>
         </VBox>
+    </center>
+
+    <left>
+        <VBox alignment="CENTER" style="-fx-padding: 20 10 10 20;">
+            <Label text="Liczba zwierząt" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <LineChart fx:id="animalNumberChart" prefWidth="300" prefHeight="300" maxHeight="300" maxWidth="300">
+                <xAxis>
+                    <NumberAxis fx:id="xAxisAnimal" autoRanging="false"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxisAnimal" autoRanging="true"/>
+                </yAxis>
+            </LineChart>
+            <Label text="Liczba roślin" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <LineChart fx:id="grassNumberChart" prefWidth="300" prefHeight="300" maxHeight="300" maxWidth="300">
+                <xAxis>
+                    <NumberAxis fx:id="xAxisGrass" autoRanging="false"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxisGrass" autoRanging="true"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+    </left>
+
+
+    <right>
+        <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20 10 10 20;">
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #f3ff5e;
+                -fx-text-fill: white;
+                -fx-font-size: 14px;
+                -fx-border-radius: 30;
+                -fx-background-radius: 10;
+                -fx-padding: 8 16;">
+                <Label fx:id="day" text="Dzień:" textAlignment="CENTER"
+                    style="-fx-font-size: 14px;
+                            -fx-font-weight: bold;"/>
+                <Label fx:id="dayLabel" text="0" textAlignment="CENTER"
+                       style="-fx-font-size: 14px;
+                              -fx-font-weight: bold;"/>
+            </HBox>
+
+            <Label text="Statystyki:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="population" text="populacja:" textAlignment="CENTER"/>
+                <Label fx:id="populationLabel" text="456" textAlignment="CENTER"/>
+            </HBox>
+
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="children" text="średnia liczba dzieci:" textAlignment="CENTER"/>
+                <Label fx:id="childrenLabel" text="12" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="animalsCount" text="liczba wszystkich zwierzaków:" textAlignment="CENTER"/>
+                <Label fx:id="animalsCountLabel" text="0" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="plantsCount" text="liczba wszystkich roślin:" textAlignment="CENTER"/>
+                <Label fx:id="plantsCountLabel" text="0" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="freeFields" text="liczba wolnych pól:" textAlignment="CENTER"/>
+                <Label fx:id="freeFieldsLabel" text="0" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="popularGenotype" text="najpopularniejszy genotyp:" textAlignment="CENTER"/>
+                <Label fx:id="popularGenotypeLabel" text="N/A" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="avgLivingEnergy" text="średni poziom energii (żyjące):" textAlignment="CENTER"/>
+                <Label fx:id="avgLivingEnergyLabel" text="0" textAlignment="CENTER"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="avgDeadLifeSpan" text="średnia długość życia (martwe):" textAlignment="CENTER"/>
+                <Label fx:id="avgDeadLifeSpanLabel" text="0" textAlignment="CENTER"/>
+            </HBox>
+
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Wybrany zwierzak:" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalLabel" text="ID: None" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalEnergy" text="Energia: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalChildren" text="Liczba dzieci: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalGenotype" text="Genotyp: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalActiveGene" text="Aktywny Gen: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalEatenPlants" text="Zjedzone Rośliny: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalDescendants" text="Potomkowie: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalLifeDays" text="Dni Życia: N/A" textAlignment="CENTER"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="selectedAnimalDeathDay" text="Dzień Śmierci: N/A" textAlignment="CENTER"/>
+            </HBox>
+        </VBox>
+    </right>
+
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+                <Button text="Start" onAction="#startClicked"
+                        style="-fx-background-color: #4CAF50;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+
+                </Button>
+            </VBox>
+            <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+                <Button text="Stop" onAction="#stopClicked"
+                        style="-fx-background-color: #f44336;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+                </Button>
+            </VBox>
+        </HBox>
+
     </bottom>
 </BorderPane>

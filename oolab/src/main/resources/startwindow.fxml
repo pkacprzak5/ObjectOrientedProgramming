@@ -1,21 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.CheckBox?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="550.0" minWidth="850.0"
-            fx:controller="agh.ics.oop.presenter.SimulationPresenter">
-    <center>
+            minHeight="750.0" minWidth="1050.0"
+            fx:controller="agh.ics.oop.presenter.StartWindowPresenter">
+    <center >
+        <HBox spacing="10" alignment="CENTER" >
         <VBox spacing="10" alignment="CENTER">
-            <TextField fx:id="moveListTextField" promptText="Enter move list"/>
-            <Label fx:id="moveDescriptionLabel" text="Move description will be displayed here" textAlignment="CENTER"/>
-            <!--            <Button text="Start" onAction="#onSimulationStartClicked"/>-->
-            <Button text="Start" onAction="#newWindow"/>
+            <Label fx:id="worldLabel" text="mapa opcje:" textAlignment="CENTER" style="-fx-font-weight: bold;"/>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="heightLabel" text="wysokość mapy" textAlignment="CENTER"/>
+                <Spinner fx:id="mheight" editable="true" max="50" min="4" initialValue="8"/>
+                <Label fx:id="widthLabel" text="szerokość mapy" textAlignment="CENTER"/>
+                <Spinner fx:id="mwidth" editable="true" max="50" min="4" initialValue="8"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="initialPlantsLabel" text="startowa liczba roślin" textAlignment="CENTER"/>
+                <Spinner fx:id="initialPlants" editable="true" max="100" initialValue="10"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="energyPerPlantLabel" text="energia zapewniana przez zjedzenie jednej rośliny" textAlignment="CENTER"/>
+                <Spinner fx:id="energyPerPlant" editable="true" min="1" max="20" initialValue="10"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="plantsPerDayLabel" text="liczba roślin wyrastająca każdego dnia" textAlignment="CENTER"/>
+                <Spinner fx:id="plantsPerDay" editable="true" max="10" initialValue="2"/>
+            </HBox>
+
+            <Label fx:id="animalLabel" text="zwierzaki opcje:" textAlignment="CENTER" style="-fx-font-weight: bold;"/>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="initialAnimalsLabel" text="startowa liczba zwierzaków" textAlignment="CENTER"/>
+                <Spinner fx:id="initialAnimals" editable="true" min="2" max="20" initialValue="5"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="initialEnergyLabel" text="startowa energia zwierzaków" textAlignment="CENTER"/>
+                <Spinner fx:id="initialEnergy" editable="true" max="100" initialValue="50"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="energyToMultiplyLabel" text="energia konieczna, by uznać zwierzaka za najedzonego" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToMultiply" editable="true" max="100" initialValue="50"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="energyToBreedLabel" text="energia startowa potomka" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToBreed" editable="true" max="100" initialValue="20"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="energyToMoveLabel" text="energia zwierzaka zużywana podczas ruchu" textAlignment="CENTER"/>
+                <Spinner fx:id="energyToMove" editable="true" min="1" max="30" initialValue="2"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="refreshTimeLabel" text="Czas odświeżania" textAlignment="CENTER"/>
+                <Spinner fx:id="refreshTime" editable="true" min="5" max="1000" initialValue="200"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="minMutationsLabel" text="minimalna liczba mutacji u potomków" textAlignment="CENTER"/>
+                <Spinner fx:id="minMutations" editable="true" max="5" initialValue="0"/>
+                <Label fx:id="maxMutationsLabel" text="maksymalna liczba mutacji u potomków" textAlignment="CENTER"/>
+                <Spinner fx:id="maxMutations" editable="true" max="10" initialValue="3"/>
+            </HBox>
+
+
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="genomeLengthLabel" text="długość genomu zwierzaków" textAlignment="CENTER"/>
+                <Spinner fx:id="genomeLength" editable="true" max="30" initialValue="8"/>
+            </HBox>
+
+            <Label fx:id="plusLabel" text="dodatki:" textAlignment="CENTER" style="-fx-font-weight: bold;"/>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="mutationVariantLabel" text="lekka korekta" textAlignment="CENTER"/>
+                <CheckBox fx:id="mutationCheckBox"/>
+                <Label fx:id="onOffLabel" text="ogień" textAlignment="CENTER"/>
+                <CheckBox fx:id="fireCheckBox" onAction="#fireon"/>
+            </HBox>
+
+            <HBox fx:id="fireinfo" spacing="10" alignment="CENTER" visible="false">
+                <Label fx:id="daydelayLabel" text="co ile pożar" textAlignment="CENTER"/>
+                <Spinner fx:id="daydelay" editable="true" max="50" min="1" initialValue="20"/>
+                <Label fx:id="dayamountLabel" text="czas palenia się trawy:" textAlignment="CENTER"/>
+                <Spinner fx:id="dayamount" editable="true" max="20" min="1" initialValue="2"/>
+            </HBox>
         </VBox>
+        </HBox>
     </center>
+    <bottom>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+            <Button text="Start symulacji" onAction="#onSimulationStartClicked"
+                    style="-fx-background-color: #4CAF50;
+               -fx-text-fill: white;
+               -fx-font-size: 14px;
+               -fx-border-radius: 10;
+               -fx-background-radius: 10;
+               -fx-padding: 8 16;">
+            </Button>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Save Configuration" onAction="#saveConfiguration"
+                        style="-fx-background-color: #5477f1;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-border-radius: 10;
+                           -fx-background-radius: 10;
+                           -fx-padding: 8 16;"/>
+                <Button text="Load Configuration" onAction="#loadConfiguration"
+                        style="-fx-background-color: #5477f1;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-border-radius: 10;
+                           -fx-background-radius: 10;
+                           -fx-padding: 8 16;"/>
+            </HBox>
+        </VBox>
+
+    </bottom>
 </BorderPane>

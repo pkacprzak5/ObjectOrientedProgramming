@@ -1,14 +1,14 @@
 plugins {
-   id 'application' 
-   id 'java'
-   id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'application'
+    id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
 application {
-   getMainClass().set('agh.ics.oop.World')
+    getMainClass().set('agh.ics.oop.World')
 }
 
 java{
@@ -29,6 +29,9 @@ javafx {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
 }
 
 test {

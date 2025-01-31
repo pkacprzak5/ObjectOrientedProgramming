@@ -1,9 +1,7 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.MapDirection;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +9,7 @@ class OptionsParserTest {
     @Test
     void parseForward() {
         String[] args = new String[]{"f"};
-        MoveDirection[] moveDirection = {MoveDirection.FORWARD};
+        MapDirection[] moveDirection = {MapDirection.NORTH};
 
         assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
@@ -19,7 +17,7 @@ class OptionsParserTest {
     @Test
     void parseBackward() {
         String[] args = new String[]{"b"};
-        MoveDirection[] moveDirection = {MoveDirection.BACKWARD};
+        MapDirection[] moveDirection = {MapDirection.SOUTH};
 
         assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
@@ -27,7 +25,7 @@ class OptionsParserTest {
     @Test
     void parseLeft() {
         String[] args = new String[]{"l"};
-        MoveDirection[] moveDirection = {MoveDirection.LEFT};
+        MapDirection[] moveDirection = {MapDirection.WEST};
 
         assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
@@ -35,7 +33,7 @@ class OptionsParserTest {
     @Test
     void parseRight() {
         String[] args = new String[]{"r"};
-        MoveDirection[] moveDirection = {MoveDirection.RIGHT};
+        MapDirection[] moveDirection = {MapDirection.EAST};
 
         assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
     }
@@ -43,13 +41,13 @@ class OptionsParserTest {
     @Test
     void parseMultipleDirections() {
         String[] args = new String[]{"f", "b", "l", "r", "f", "r"};
-        MoveDirection[] moveDirection = {
-                MoveDirection.FORWARD,
-                MoveDirection.BACKWARD,
-                MoveDirection.LEFT,
-                MoveDirection.RIGHT,
-                MoveDirection.FORWARD,
-                MoveDirection.RIGHT
+        MapDirection[] moveDirection = {
+                MapDirection.NORTH,
+                MapDirection.SOUTH,
+                MapDirection.WEST,
+                MapDirection.EAST,
+                MapDirection.NORTH,
+                MapDirection.EAST
         };
 
         assertArrayEquals(moveDirection, OptionsParser.DirectionParser(args).toArray());
@@ -72,11 +70,11 @@ class OptionsParserTest {
     @Test
     void handleAllValues(){
         String[] args = new String[]{"f", "b", "str", "w", "f", "r"};
-        MoveDirection[] moveDirection = {
-                MoveDirection.FORWARD,
-                MoveDirection.BACKWARD,
-                MoveDirection.FORWARD,
-                MoveDirection.RIGHT
+        MapDirection[] moveDirection = {
+                MapDirection.NORTH,
+                MapDirection.SOUTH,
+                MapDirection.NORTH,
+                MapDirection.EAST
         };
 
         assertThrows(IllegalArgumentException.class, () -> OptionsParser.DirectionParser(args).toArray());
